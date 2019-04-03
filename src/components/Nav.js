@@ -16,7 +16,7 @@ function Nav(props) {
         </NavLink>
         </li>
         <li>
-          <button onClick={props.auth.logout}>Logout</button>
+          <button className="logout-button" onClick={props.auth.logout}>Logout</button>
         </li>
         </>
       )}

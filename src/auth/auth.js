@@ -8,7 +8,7 @@ export default class Auth {
     clientID: 'mqQZli4ZkGR5eL3r8OT4x7AQBKaIuJtg',
     redirectUri: 'http://localhost:3000/callback',
     responseType: 'token id_token',
-    scope: 'openid'
+    scope: 'openid profile'
   });
 
   constructor() {
@@ -20,9 +20,6 @@ export default class Auth {
   }
 
   handleAuthentication() {
-    const LOGIN_SUCCESS_PAGE = "/conversations";
-    const LOGIN_FAILURE_PAGE = "/"; 
-
     this.auth0.parseHash((err, results) => {
       if (results && results.accessToken && results.idToken) {
         let expiresAt = JSON.stringify((results.expiresIn) * 1000 + new Date().getTime());

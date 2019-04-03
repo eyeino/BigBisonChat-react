@@ -1,11 +1,11 @@
 import React from 'react';
+import ConversationCell from './ConversationCell';
 
 export default function Conversations() {
   return (
     <div>
-      {conversations.map((conversation) => {
-        // TODO: this should be its own component
-        return (<div>{conversation.with}</div>)
+      {conversations.map(() => {
+        return <ConversationCell />
       })}
     </div>
   )
@@ -20,31 +20,24 @@ const conversations = [
     }
   },
   {
-    with: 'Suzanne',
+    with: 'Suzie',
     latestMessage: {
       timestamp: '4/2',
       body: "what's going on?"
     }
   },
   {
-    with: 'Suzanne',
+    with: 'Suz',
     latestMessage: {
       timestamp: '4/2',
       body: "what's going on?"
     }
   },
   {
-    with: 'Suzanne',
+    with: 'Sushi',
     latestMessage: {
       timestamp: '4/2',
       body: "what's going on?"
     }
-  },
-  {
-    with: 'Suzanne',
-    latestMessage: {
-      timestamp: '4/2',
-      body: "what's going on?"
-    }
-  },
+  }
 ]

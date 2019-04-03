@@ -8,7 +8,7 @@ function Nav(props) {
         <div className="logotype">BigBisonChat</div>
       </li>
 
-      {props.loggedIn && (
+      {props.auth.isAuthenticated() && (
         <>
         <li>
           <NavLink activeClassName="active" to="/conversations">
@@ -16,9 +16,7 @@ function Nav(props) {
         </NavLink>
         </li>
         <li>
-          <NavLink activeClassName="active" to="/logout">
-            Logout
-          </NavLink>
+          <button onClick={props.auth.logout}>Logout</button>
         </li>
         </>
       )}

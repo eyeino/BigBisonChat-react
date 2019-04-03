@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App';
+import './index.css';
 
 let state = {};
 window.setState = changes => {
@@ -10,7 +11,8 @@ window.setState = changes => {
 }
 
 let initialState = {
-  name: 'Ian'
+  name: 'Ian',
+  loggedIn: true
 }
 
 window.setState(initialState);

@@ -16,6 +16,14 @@ a {
   font-weight: 100;
 }
 
+input {
+  border: #0a0a0a;
+  padding: 10px 15px;
+  color: #0a0a0a;
+  outline: 1px solid;
+  outline-style: dashed;
+}
+
 .nav {
   display: flex;
 }
@@ -31,6 +39,7 @@ a {
   border: solid;
   border-width: 1px;
   font-size: 14px;
+  font-weight: 200;
   border-radius: 3px;
   height: 30px;
   width: 70px;
@@ -50,6 +59,8 @@ a {
 
 .active {
   font-weight: bold;
+  border-bottom: 4px solid #e80505;
+  
 }
 
 .logotype {
@@ -62,7 +73,7 @@ a {
   border: none;
   font-size: 16px;
   border-radius: 3px;
-  width: 200px;
+  width: 150px;
   text-align: center;
   display: block;
   padding: 7px 0;
@@ -80,17 +91,57 @@ a {
   transform: translateY(1px);
 }
 
-.home-container {
+.new-chat {
+  margin: 20px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
 }
 
-.conversation-cell {
-  display: flex;
-  margin: 10px;
+div .conversation-cell {
+  display: grid;
+  grid-template-columns: 18% repeat(8, 10%) auto;
+  grid-template-rows: repeat(6, 10px);
+  padding-top: 5px;
+  padding-bottom: 7px;
+  margin: 5px;
 }
 
-img {
+div .conversation-avatar {
+  grid-row: 1 / end;
+  grid-column: 1 / 2;
+  align-self: center;
+  display: block;
+  object-fit: cover;
   border-radius: 50%;
+  height: 60px;
+}
+
+div .conversation-body {
+  grid-column: 2 / end;
+  grid-row: 3 / end;
+  color: #797979;
+  font-weight: 200;
+  font-size: 16px;
+}
+
+div .conversation-name {
+  grid-column: 2 / end;
+  grid-row: 1 / end;
+  font-weight: 500;
+  font-size: 16px;
+  color: #000000;
+}
+
+.home-container {
+  display: flex;
+}
+
+hr {
+  display: block;
+  border: 0;
+  height: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }

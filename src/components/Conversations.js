@@ -5,39 +5,10 @@ export default function Conversations() {
   return (
     <div>
       {conversations.map(() => {
-        return <ConversationCell />
+        return <><ConversationCell /><hr/></>
       })}
     </div>
   )
 }
 
-const conversations = [
-  {
-    with: 'Suzanne',
-    latestMessage: {
-      timestamp: '4/2',
-      body: "what's going on?"
-    }
-  },
-  {
-    with: 'Suzie',
-    latestMessage: {
-      timestamp: '4/2',
-      body: "what's going on?"
-    }
-  },
-  {
-    with: 'Suz',
-    latestMessage: {
-      timestamp: '4/2',
-      body: "what's going on?"
-    }
-  },
-  {
-    with: 'Sushi',
-    latestMessage: {
-      timestamp: '4/2',
-      body: "what's going on?"
-    }
-  }
-]
+const conversations = [1, 2, 3, 4, 5, 6, 7]

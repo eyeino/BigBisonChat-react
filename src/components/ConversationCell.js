@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function ConversationCell() {
   const [user, setUser] = useState(null);
+  const body = `Hey, it was great catching up the other day!
+  I've been needing a friend these days! Yeah, I know I can
+  really talk your ear off sometimes... This is above 100
+  characters, isn't it?`
 
   useEffect(() => {
     fetch('https://randomuser.me/api/')
@@ -15,15 +20,15 @@ export default function ConversationCell() {
   }, []);
 
   return (
-    <div className='conversation-cell'>
+    <div>
       {user &&
-      <div>
-        <img src={user.picture.thumbnail} />
-        <div>{user.login.username}: </div>
-        <div>Hey, it was great catching up the other day!
-        I've been needing a friend these days!</div>
-        <hr/>
-      </div>
+        <Link to='/chat'>
+          <div className='conversation-cell'>
+            <img className='conversation-avatar' alt={user.login.username} src={user.picture.medium} />
+            <div className='conversation-name'>{user.login.username}</div>
+            <div className='conversation-body'>{body.length > 80 ? body.substring(0, 80) + '...' : body}</div>
+          </div>
+        </Link>
       }
     </div>
   )

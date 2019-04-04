@@ -7,12 +7,16 @@ function Nav(props) {
       <li>
         <div className="logotype">BigBisonChat</div>
       </li>
-
       {props.auth.isAuthenticated() && (
         <>
         <li>
+          <NavLink activeClassName="active" to="/new">
+            New
+          </NavLink>
+        </li>
+        <li>
           <NavLink activeClassName="active" to="/conversations">
-            Conversations
+            Convos
         </NavLink>
         </li>
         <li>

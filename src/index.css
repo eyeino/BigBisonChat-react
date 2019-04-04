@@ -26,6 +26,7 @@ input {
 
 .nav {
   display: flex;
+  flex-direction: row;
 }
 
 .nav li {
@@ -59,12 +60,23 @@ input {
 
 .active {
   font-weight: bold;
-  border-bottom: 4px solid #e80505;
-  
+  border-bottom: 3px solid #e80505;
+}
+
+.completeLogo {
+  display: inline;
+}
+
+.logo {
+  height: 30px;
+  width: 30px;
+  vertical-align: middle;
 }
 
 .logotype {
   font-weight: 700;
+  display: inline;
+  vertical-align: middle;
 }
 
 .button {
@@ -101,7 +113,7 @@ input {
 
 div .conversation-cell {
   display: grid;
-  grid-template-columns: 18% repeat(8, 10%) auto;
+  grid-template-columns: 19% repeat(8, 10%) auto;
   grid-template-rows: repeat(6, 10px);
   padding-top: 5px;
   padding-bottom: 7px;

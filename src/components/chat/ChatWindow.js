@@ -40,7 +40,7 @@ function ChatBubble(props) {
 
   return (
     <>
-      <li className='bubble-wrap'>
+      <li className={`bubble-wrap ${props.directionClass}`}>
         <div className='bubble-username'>{sender}</div>
         <div className='bubble-body'>{body}</div>
         <div className='bubble-timestamp'>{timestamp}</div>
@@ -54,17 +54,23 @@ ChatBubble.propTypes = {
     sender: PropTypes.string.isRequired,
     body: PropTypes.string.isRequired,
     timestamp: PropTypes.string.isRequired
-  })
+  }),
+  directionClass: PropTypes.string.isRequired
 }
 
 function MessageList(props) {
   const { messages } = props;
-  
+  let shouldBeLeft = true;
+
   return (
-    <ol>
+    <ol className='bubble-list'>
       { messages && 
         messages.map((message => {
-          return <ChatBubble key={message.id} message={message} />
+          const bubbleDirectionClass = shouldBeLeft ? 'bubble-left' : 'bubble-right';
+          console.log(bubbleDirectionClass);
+          const chatBubble = <ChatBubble key={message.id} message={message} directionClass={bubbleDirectionClass} />
+          shouldBeLeft = !shouldBeLeft;
+          return chatBubble
       }))}
     </ol>
   )

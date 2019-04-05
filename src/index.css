@@ -1,8 +1,13 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
 }
 
-ul {
+ul ol {
   padding: 0;
 }
 
@@ -21,7 +26,6 @@ input {
   margin: 0 auto;
   color: #0a0a0a;
   border-radius: 3px;
-  -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
   -webkit-appearance: none;
 }
@@ -33,6 +37,10 @@ input:focus {
 .nav {
   display: flex;
   flex-direction: row;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .nav li {
@@ -175,7 +183,7 @@ html, body {
 
 .footer {
   padding-top: 0;
-  background-image: linear-gradient(to bottom, #ffffff, #fefefe, #fcfdfc, #fbfbfb, #fafafa);
+  background: #fafafa;
 }
 
 .chat-form {
@@ -188,6 +196,7 @@ html, body {
 .chat-input {
   font-size: 16px;
   flex-grow: 1;
+  padding: 5px;
 }
 
 .chat-submit-button {
@@ -241,27 +250,65 @@ html, body {
 
 .bubble-wrap {
   width: 300px;
-  float: right;
   padding-right: 10px;
+  padding-left: 10px;
+  padding-top: 7px;
+  padding-bottom: 7px;
 }
 
 .bubble-username {
   font-weight: 700;
-  padding-bottom: 2px;
+  padding-bottom: 5px;
 }
 
 .bubble-body {
-  border-radius: 15px 15px 0 15px;
-  background: linear-gradient(#f47080, #FF4136);
+  background: linear-gradient(#FF4136, #e80505);
   min-height: 30px;
   min-width: 30px;
   max-width: 300px;
   padding: 12px;
-  color: white;
 }
 
 .bubble-timestamp {
   color: grey;
-  text-align: right;
   font-size: 13px;
+}
+
+.bubble-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.bubble-left {
+  align-self: flex-start;
+}
+
+.bubble-right {
+  align-self: flex-end;
+}
+
+.bubble-left > .bubble-body {
+  border-radius: 15px 15px 15px 0;
+  border: 1px solid rgb(213, 213, 213);
+  background-image: linear-gradient(to bottom, #ffffff, #fefefe, #fcfdfc, #fbfbfb, #fafafa);
+  color: black;
+}
+
+.bubble-left > .bubble-username {
+  text-align: left;
+  padding-left: 5px;
+}
+
+.bubble-right > .bubble-username {
+  text-align: right;
+  padding-right: 5px;
+}
+
+.bubble-right > .bubble-body {
+  border-radius: 15px 15px 0 15px;
+  color: white;
+}
+
+.bubble-right > .bubble-timestamp {
+  text-align: right;
 }

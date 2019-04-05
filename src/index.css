@@ -148,7 +148,7 @@ hr {
   border: 0;
   height: 0;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  margin: 0;
 }
 
 html, body {
@@ -170,13 +170,15 @@ html, body {
 }
 
 .footer {
-  padding: 5px;
+  padding-top: 0;
+  background: #FAFAFA;
 }
 
 .chat-form {
   display: inline-flex;
   flex-direction: row;
   width: 100%;
+  padding: 5px;
 }
 
 .chat-input {
@@ -195,7 +197,7 @@ html, body {
   border-radius: 50%;
   justify-content: center;
   margin-left: 5px;
-  margin-right: 2px;
+  margin-right: 10px;
   vertical-align: middle;
 }
 
@@ -217,6 +219,7 @@ html, body {
 .home-container {
   display: flex;
   flex-direction: column;
+  flex-wrap: nowrap;
 }
 
 .new-chat-input {
@@ -230,4 +233,31 @@ html, body {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.bubble-wrap {
+  width: 300px;
+  float: right;
+  padding-right: 10px;
+}
+
+.bubble-username {
+  font-weight: 700;
+  padding-bottom: 2px;
+}
+
+.bubble-body {
+  border-radius: 15px 15px 0 15px;
+  background: linear-gradient(#f47080, #FF4136);
+  min-height: 30px;
+  min-width: 30px;
+  max-width: 300px;
+  padding: 12px;
+  color: white;
+}
+
+.bubble-timestamp {
+  color: grey;
+  text-align: right;
+  font-size: 13px;
 }

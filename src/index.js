@@ -15,7 +15,6 @@ window.setState = changes => {
 }
 
 let initialState = {
-  name: 'Ian',
   auth: auth,
 }
 

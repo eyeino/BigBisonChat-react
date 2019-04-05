@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { sendMessageToServer } from '../utils/socket';
+// import { sendMessageToServer } from '../utils/socket';
 
 export default function ChatInput() {
   return (
@@ -24,12 +24,12 @@ function MessageInput(props) {
 
     setIsSending(true);
     // async, if message is successfully sent
-    const sent = sendMessageToServer(messageBody);
-    if (sent) {
-      setMessageBody("");
-      setIsSending(false);
-    } else {
-    }
+    // const sent = sendMessageToServer(messageBody);
+    // if (sent) {
+    //   setMessageBody("");
+    //   setIsSending(false);
+    // } else {
+    // }
   }
 
   return (

@@ -1,16 +1,16 @@
 import React from 'react';
 import {
-  BrowserRouter as
-    Router, Route, Switch, Redirect
+  BrowserRouter as Router,
+  Route, Switch, Redirect
 } from 'react-router-dom';
 
-import Nav from './Nav';
-import Home from './Home';
-import Conversations from './Conversations';
-import Chat from './Chat';
-import Callback from './Callback';
-import NewChat from './NewChat';
-import ChatInput from './ChatInput';
+import Nav from './Nav'; // navigation bar
+import Home from './Home'; // login page
+import Conversations from './Conversations'; // list of convos
+import Chat from './ChatWindow'; // list of messages in a convo
+import Callback from './Callback'; // callback url for Auth0
+import NewChat from './NewChat'; // create chat with a user
+import ChatInput from './ChatInput'; // input bar for chat window
 
 function App(props) {
   const { auth } = props;
@@ -18,7 +18,7 @@ function App(props) {
   
   return (
     <Router>
-      {/* Wrapper for header, content, footer vert flex layout */}
+      {/* Wrapper for header, content, footer */}
       <div className='wrapper'>
         
         <Nav className='header' auth={props.auth} />
@@ -43,13 +43,12 @@ function App(props) {
             <Route render={() => <p>Not found!</p>} />
           </Switch>
         </div>
-        {/* Footer: renders only if currently viewing a chat */}
-        <Switch>
-          <div className='footer'>
+        {/* Footer: renders only if viewing a chat */}
+        <div className='footer'>
+          <Switch>
             <Route path='/chat' component={ChatInput} />
-            <Route render={() => (<div></div>)}></Route>
-          </div>
-        </Switch>
+          </Switch>
+        </div>
       </div>
     </Router>
   );

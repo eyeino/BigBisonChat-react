@@ -1,35 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
-export default function ConversationCell() {
-  const [user, setUser] = useState(null);
-  const body = `Hey, it was great catching up the other day!
-  I've been needing a friend these days! Yeah, I know I can
-  really talk your ear off sometimes... This is above 100
-  characters, isn't it?`
-
-  useEffect(() => {
-    fetch('https://randomuser.me/api/')
-    .then((response) => {
-      return response.json()
-    })
-    .then((json) => {
-      console.log(json.results[0]);
-      setUser(json.results[0]);
-    });
-  }, []);
-
+export default function ConversationCell(props) {
+  const { username, avatarUrl, body } = props;
+  
   return (
     <div>
-      {user &&
+      {username &&
         <Link to='/chat'>
           <div className='conversation-cell'>
-            <img className='conversation-avatar' alt={user.login.username} src={user.picture.medium} />
-            <div className='conversation-name'>{user.login.username}</div>
+            <img className='conversation-avatar' alt={username} src={avatarUrl} />
+            <div className='conversation-name'>{username}</div>
             <div className='conversation-body'>{body.length > 80 ? body.substring(0, 80) + '...' : body}</div>
           </div>
         </Link>
       }
+      <hr/>
     </div>
   )
 }
+
+// TODO: add prop types and default icon for user if gravatar fails

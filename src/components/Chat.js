@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { getMessages } from '../utils/api';
-import { sendMessageToServer } from '../utils/socket';
 
 export default function Chat() {
   const [messages, setMessages] = useState([]);
@@ -16,7 +15,6 @@ export default function Chat() {
   return (
     <div>
       <MessageList messages={messages} />
-      <MessageInput />
     </div>
   )
 }
@@ -61,47 +59,5 @@ MessageList.propTypes = {
       body: PropTypes.string.isRequired,
       timestamp: PropTypes.string.isRequired
     })
-  )
-}
-
-function MessageInput(props) {
-  const [messageBody, setMessageBody] = useState('');
-  const [isSending, setIsSending] = useState(false);
-
-  function handleChange(event) {
-    let value = event.target.value;
-    setMessageBody(value);
-  }
-
-  function handleSubmit(event) {
-    event.preventDefault();
-
-    setIsSending(true);
-    // async, if message is successfully sent
-    const sent = sendMessageToServer(messageBody);
-    if (sent) {
-      setMessageBody('');
-      setIsSending(false);
-    } else {
-      
-    }
-  }
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <input
-        id='messageInput'
-        onChange={handleChange}
-        type='text'
-        autoComplete='off'
-        value={messageBody}
-      />
-      <button
-        className='button'
-        disabled={!messageBody || isSending}
-        type='submit'>
-        Send
-      </button>
-    </form>
   )
 }

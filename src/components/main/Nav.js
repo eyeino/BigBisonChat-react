@@ -1,13 +1,13 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { ReactComponent as Logo } from '../bison.svg';
+import React from "react";
+import { NavLink } from "react-router-dom";
+import { ReactComponent as Logo } from "../assets/bison.svg";
 
 function Nav(props) {
   return (
-    <div>
+    <>
       <ul className="nav">
         <li className="complete-logo">
-          <NavLink id="nav-logo" to='/'>
+          <NavLink id="nav-logo" to="/">
             <Logo className="logo" />
             <div className="logotype">BigBisonChat</div>
           </NavLink>
@@ -33,7 +33,7 @@ function Nav(props) {
         )}
       </ul>
       <hr />
-    </div>
+    </>
   );
 }
 

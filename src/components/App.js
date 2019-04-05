@@ -4,13 +4,13 @@ import {
   Route, Switch, Redirect
 } from 'react-router-dom';
 
-import Nav from './Nav'; // navigation bar
-import Home from './Home'; // login page
-import Conversations from './Conversations'; // list of convos
-import Chat from './ChatWindow'; // list of messages in a convo
-import Callback from './Callback'; // callback url for Auth0
-import NewChat from './NewChat'; // create chat with a user
-import ChatInput from './ChatInput'; // input bar for chat window
+import Nav from './main/Nav'; // navigation bar
+import Home from './main/Home'; // login page
+import Conversations from './conversations/Conversations'; // list of convos
+import Chat from './chat/ChatWindow'; // list of messages in a convo
+import Callback from './auth/Callback'; // callback url for Auth0
+import NewChat from './chat/NewChat'; // create chat with a user
+import ChatInput from './chat/ChatInput'; // input bar for chat window
 
 function App(props) {
   const { auth } = props;
@@ -21,7 +21,9 @@ function App(props) {
       {/* Wrapper for header, content, footer */}
       <div className='wrapper'>
         
-        <Nav className='header' auth={props.auth} />
+        <div className='header'>
+          <Nav auth={props.auth} />
+        </div>
         
         <div className='content'>
           <Switch>

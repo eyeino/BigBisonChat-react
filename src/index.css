@@ -169,9 +169,13 @@ html, body {
   flex-direction: column;
 }
 
+.header {
+  background-image: linear-gradient(to bottom, #ffffff, #fefefe, #fcfdfc, #fbfbfb, #fafafa);
+}
+
 .footer {
   padding-top: 0;
-  background: #FAFAFA;
+  background-image: linear-gradient(to bottom, #ffffff, #fefefe, #fcfdfc, #fbfbfb, #fafafa);
 }
 
 .chat-form {

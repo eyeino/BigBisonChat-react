@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App';
-import Auth from './auth/Auth';
+import Auth from './utils/Auth';
 import './index.css';
 
 const auth = new Auth();

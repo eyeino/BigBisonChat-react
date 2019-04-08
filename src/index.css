@@ -312,3 +312,7 @@ html, body {
 .bubble-right > .bubble-timestamp {
   text-align: right;
 }
+
+.header-shadow{
+  box-shadow: 0 10px 10px -6px rgb(232, 232, 232);
+}

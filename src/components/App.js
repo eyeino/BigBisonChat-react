@@ -21,7 +21,7 @@ function App(props) {
       {/* Wrapper for header, content, footer */}
       <div className='wrapper'>
         
-        <div className='header'>
+        <div className='header header-shadow'>
           <Nav auth={props.auth} />
         </div>
         

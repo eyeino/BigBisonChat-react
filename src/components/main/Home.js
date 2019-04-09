@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
 
 export default function Home(props) {
-  useEffect(() => (document.title = props.title))
+  useEffect(() => {
+    document.title = props.title
+  });
 
   return (
     <div className='home-container'>

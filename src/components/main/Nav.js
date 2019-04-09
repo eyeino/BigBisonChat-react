@@ -20,7 +20,7 @@ function Nav(props) {
               </NavLink>
             </li>
             <li>
-              <NavLink activeClassName="active" to="/conversations">
+              <NavLink exact activeClassName="active" to="/conversations">
                 Convos
               </NavLink>
             </li>

@@ -7,7 +7,7 @@ export default function ConversationCell(props) {
   return (
     <div>
       {username &&
-        <Link to='/chat'>
+        <Link to={`/conversations/${username}`}>
           <div className='conversation-cell'>
             <img className='conversation-avatar' alt={username} src={avatarUrl} />
             <div className='conversation-name'>{username}</div>

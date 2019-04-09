@@ -249,7 +249,7 @@ html, body {
 }
 
 .bubble-wrap {
-  width: 300px;
+  max-width: 300px;
   padding-right: 10px;
   padding-left: 10px;
   padding-top: 7px;
@@ -263,8 +263,7 @@ html, body {
 
 .bubble-body {
   background: linear-gradient(#FF4136, #e80505);
-  min-height: 30px;
-  min-width: 30px;
+  min-height: 10px;
   max-width: 300px;
   padding: 12px;
 }

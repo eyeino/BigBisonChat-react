@@ -1,47 +1,35 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import fecha from 'fecha';
 
-// import { getMessages } from '../utils/api';
+import { getMessages } from '../../utils/API';
 
-const dummyBody = `When you buy that first tube of paint, 
-it gives you an artist license. All you need is a 
-dream in your heart, and an almighty knife. We'll 
-throw some old gray clouds in here just sneaking around
- and having fun. God gave you this gift of imagination.  
-Use it.`;
-
-const dummySender = 'eyeino';
-const dummyTimestamp = '4/5/19 11:21 AM';
-
-const messageGen = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-const messages = messageGen.map((num) => (
-  {
-    id: num,
-    body: dummyBody,
-    sender: dummySender,
-    timestamp: dummyTimestamp,
-  }
-));
-
-export default function Chat() {
-  // const [messages, setMessages] = useState([]);
+export default function Chat(props) {
+  const [messages, setMessages] = useState([]);
+  const otherUsername = props.match.params.username;
 
   useEffect(() => {
-    // getMessages().then((messages) => {
-    //   setMessages(messages);
-    // })
+    getMessages(otherUsername).then((res, err) => {
+      setMessages(res.data);
+    })
   }, []);
   
-  return <MessageList messages={messages} />
+  return <MessageList messages={messages} otherUsername={otherUsername} />
 }
 
 function ChatBubble(props) {
-  const { sender, body, timestamp } = props.message;
+  const { sender_username, body } = props.message;
+  
+  const epochTime = Date.parse(props.message.created_at);
+  const timestamp = fecha.format(epochTime, 'MM/DD/YY hh:mmA');
+  
+  const { otherUsername } = props; 
+  const directionClass = sender_username === otherUsername ? 'bubble-left' : 'bubble-right';
 
   return (
     <>
-      <li className={`bubble-wrap ${props.directionClass}`}>
-        <div className='bubble-username'>{sender}</div>
+      <li className={`bubble-wrap ${directionClass}`}>
+        <div className='bubble-username'>{sender_username}</div>
         <div className='bubble-body'>{body}</div>
         <div className='bubble-timestamp'>{timestamp}</div>
       </li>
@@ -51,25 +39,20 @@ function ChatBubble(props) {
 
 ChatBubble.propTypes = {
   message: PropTypes.shape({
-    sender: PropTypes.string.isRequired,
+    sender_username: PropTypes.string.isRequired,
     body: PropTypes.string.isRequired,
-    timestamp: PropTypes.string.isRequired
-  }),
-  directionClass: PropTypes.string.isRequired
+    created_at: PropTypes.string.isRequired
+  })
 }
 
 function MessageList(props) {
-  const { messages } = props;
-  let shouldBeLeft = true;
+  const { messages, otherUsername } = props;
 
   return (
     <ol className='bubble-list'>
       { messages && 
         messages.map((message => {
-          const bubbleDirectionClass = shouldBeLeft ? 'bubble-left' : 'bubble-right';
-          console.log(bubbleDirectionClass);
-          const chatBubble = <ChatBubble key={message.id} message={message} directionClass={bubbleDirectionClass} />
-          shouldBeLeft = !shouldBeLeft;
+          const chatBubble = <ChatBubble key={message.message_id} message={message} otherUsername={otherUsername}/>
           return chatBubble
       }))}
     </ol>
@@ -79,9 +62,11 @@ function MessageList(props) {
 MessageList.propTypes = {
   messages: PropTypes.arrayOf(
     PropTypes.shape({
-      sender: PropTypes.string.isRequired,
+      sender: PropTypes.number.isRequired,
+      recipient: PropTypes.number.isRequired,
+      sender_username: PropTypes.string.isRequired,
       body: PropTypes.string.isRequired,
-      timestamp: PropTypes.string.isRequired
+      created_at: PropTypes.string.isRequired
     })
   )
 }

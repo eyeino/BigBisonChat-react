@@ -39,8 +39,8 @@ function App(props) {
             
             {/* Chat functions, only accessible if logged in */}
             <Route path="/new" component={NewChat} />
+            <Route path="/conversations/:username" component={Chat} />
             <Route path="/conversations" component={Conversations} />
-            <Route path="/chat" component={Chat} />
 
             <Route render={() => <p>Not found!</p>} />
           </Switch>
@@ -48,7 +48,7 @@ function App(props) {
         {/* Footer: renders only if viewing a chat */}
         <div className='footer'>
           <Switch>
-            <Route path='/chat' component={ChatInput} />
+            <Route path='/converations/:username' component={ChatInput} />
           </Switch>
         </div>
       </div>

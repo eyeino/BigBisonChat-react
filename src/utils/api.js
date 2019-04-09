@@ -24,6 +24,13 @@ export async function getConversations(user) {
   }
 }
 
-export async function postMessage(user, otherUser, messageBody) {
-
+export async function postMessage(otherUsername, messageBody) {
+  console.log(otherUsername, messageBody);
+  
+  try {
+    await axios.post(baseUrl + '/conversations/' + otherUsername,
+      { messageBody: messageBody });
+  } catch(err) {
+    console.log(err);
+  }
 }

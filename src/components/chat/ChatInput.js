@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
+import { postMessage } from '../../utils/API';
 // import { sendMessageToServer } from '../utils/socket';
 
-export default function ChatInput() {
+export default function ChatInput(props) {
+  const otherUsername = props.match.params.username;
+  
   return (
     <div>
       <hr/>
-      <MessageInput />
+      <MessageInput otherUsername={otherUsername}/>
     </div>
   )
 }
@@ -30,6 +33,11 @@ function MessageInput(props) {
     //   setIsSending(false);
     // } else {
     // }
+
+    postMessage(props.otherUsername, messageBody).then(() => {
+      setIsSending(false);
+      setMessageBody('');
+    })
   }
 
   return (

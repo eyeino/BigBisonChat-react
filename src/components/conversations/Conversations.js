@@ -3,8 +3,6 @@ import ConversationCell from './ConversationCell';
 import { getConversations } from '../../utils/API';
 
 export default function Conversations() {
-  let avatarUrl = 'https://randomuser.me/api/portraits/men/61.jpg';
-
   const [conversations, setConversations] = useState([]);
   
   useEffect(() => {
@@ -19,7 +17,7 @@ export default function Conversations() {
         conversations.map((convo) => {
         return <ConversationCell key={convo.other_username} username={convo.other_username}
           body={convo.body}
-          avatarUrl={avatarUrl}
+          avatarUrl={convo.avatarUrl}
         />
       })}
     </div>

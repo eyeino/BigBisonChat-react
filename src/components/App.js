@@ -48,7 +48,7 @@ function App(props) {
         {/* Footer: renders only if viewing a chat */}
         <div className='footer'>
           <Switch>
-            <Route path='/converations/:username' component={ChatInput} />
+            <Route path='/conversations/:username' component={ChatInput} />
           </Switch>
         </div>
       </div>

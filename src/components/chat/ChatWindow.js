@@ -9,6 +9,8 @@ export default function Chat(props) {
   const otherUsername = props.match.params.username;
 
   useEffect(() => {
+    document.title = 'BigBisonChat - ' + otherUsername;
+
     getMessages(otherUsername).then((res, err) => {
       setMessages(res.data);
     })

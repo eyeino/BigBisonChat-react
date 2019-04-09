@@ -38,10 +38,9 @@ function App(props) {
             {!loggedIn && <Redirect from="*" to="/" />}
             
             {/* Chat functions, only accessible if logged in */}
-            <Route path="/new" component={NewChat} />
+            <Route path="/new" render={(props) => (<NewChat {...props} title="BigBisonChat - Create Chat" />)} />
             <Route path="/conversations/:username" component={Chat} />
-            <Route path="/conversations" component={Conversations} />
-
+            <Route path="/conversations" render={(props) => (<Conversations {...props} title="BigBisonChat - Convos" />)} />
             <Route render={() => <p>Not found!</p>} />
           </Switch>
         </div>

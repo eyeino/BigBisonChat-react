@@ -7,7 +7,7 @@ export default function NewChat(props) {
 
   return (
     <div className="new-chat">
-      <form>
+      <form className="new-chat-form">
         <input
           className="new-chat-input"
           placeholder="Username"

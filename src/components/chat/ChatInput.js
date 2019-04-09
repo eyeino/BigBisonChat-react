@@ -26,13 +26,6 @@ function MessageInput(props) {
     event.preventDefault();
 
     setIsSending(true);
-    // async, if message is successfully sent
-    // const sent = sendMessageToServer(messageBody);
-    // if (sent) {
-    //   setMessageBody("");
-    //   setIsSending(false);
-    // } else {
-    // }
 
     postMessage(props.otherUsername, messageBody).then(() => {
       setIsSending(false);

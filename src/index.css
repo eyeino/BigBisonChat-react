@@ -274,7 +274,7 @@ html, body {
   background: linear-gradient(#FF4136, #e80505);
   max-width: 300px;
   padding: 12px;
-  word-break: break-all;
+  word-break: keep-all;
 }
 
 .bubble-timestamp {

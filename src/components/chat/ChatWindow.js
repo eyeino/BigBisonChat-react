@@ -1,22 +1,81 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import fecha from 'fecha';
 
 import { getMessages } from '../../utils/API';
 
-export default function Chat(props) {
-  const [messages, setMessages] = useState([]);
-  const otherUsername = props.match.params.username;
+export default class Chat extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      messages: [],
+      otherUsername: this.props.match.params.username
+    };
+  }
 
-  useEffect(() => {
-    document.title = 'BigBisonChat - ' + otherUsername;
+  componentDidMount() {
+    document.title = "BigBisonChat - " + this.state.otherUsername;
 
-    getMessages(otherUsername).then((res, err) => {
-      setMessages(res.data);
+    getMessages(this.state.otherUsername).then((res, err) => {
+      this.setState({
+        messages: res.data
+      });
+    });
+  }
+
+  componentDidUpdate() {
+    this.scrollToBottom();
+  }
+
+  scrollToBottom() {
+    this.messagesEnd.scrollIntoView({behavior: "smooth"});
+  }
+
+  render() {
+    return (
+      <div>
+        <MessageList
+          messages={this.state.messages}
+          otherUsername={this.state.otherUsername}
+        />
+        <div
+          style={{ float: "left", clear: "both"}}
+          ref={(el) => { this.messagesEnd = el; }}/>
+      </div>
+    );
+  }
+}
+
+function MessageList(props) {
+  const { messages, otherUsername } = props;
+
+  return (
+    <ol className="bubble-list">
+      {messages &&
+        messages.map(message => {
+          const chatBubble = (
+            <ChatBubble
+              key={message.message_id}
+              message={message}
+              otherUsername={otherUsername}
+            />
+          );
+          return chatBubble;
+        })}
+    </ol>
+  );
+}
+
+MessageList.propTypes = {
+  messages: PropTypes.arrayOf(
+    PropTypes.shape({
+      sender: PropTypes.number.isRequired,
+      recipient: PropTypes.number.isRequired,
+      sender_username: PropTypes.string.isRequired,
+      body: PropTypes.string.isRequired,
+      created_at: PropTypes.string.isRequired
     })
-  }, []);
-  
-  return <MessageList messages={messages} otherUsername={otherUsername} />
+  )
 }
 
 function ChatBubble(props) {
@@ -45,30 +104,4 @@ ChatBubble.propTypes = {
     body: PropTypes.string.isRequired,
     created_at: PropTypes.string.isRequired
   })
-}
-
-function MessageList(props) {
-  const { messages, otherUsername } = props;
-
-  return (
-    <ol className='bubble-list'>
-      { messages && 
-        messages.map((message => {
-          const chatBubble = <ChatBubble key={message.message_id} message={message} otherUsername={otherUsername}/>
-          return chatBubble
-      }))}
-    </ol>
-  )
-}
-
-MessageList.propTypes = {
-  messages: PropTypes.arrayOf(
-    PropTypes.shape({
-      sender: PropTypes.number.isRequired,
-      recipient: PropTypes.number.isRequired,
-      sender_username: PropTypes.string.isRequired,
-      body: PropTypes.string.isRequired,
-      created_at: PropTypes.string.isRequired
-    })
-  )
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ReactComponent as Avatar } from "../assets/avatar.svg";
+import { ReactComponent as Arrow } from "../assets/right-arrow.svg";
 
 const messageBodyLimit = 60;
 
@@ -20,6 +21,7 @@ export default function ConversationCell(props) {
             }
             <div className='conversation-name'>{username}</div>
             <div className='conversation-body'>{body.length > messageBodyLimit ? body.substring(0, messageBodyLimit) + '...' : body}</div>
+            <Arrow className='conversation-arrow' />
           </div>
         </Link>
       }

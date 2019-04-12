@@ -152,6 +152,13 @@ div .conversation-name {
   color: #000000;
 }
 
+.conversation-arrow {
+  height: 20px;
+  grid-row: 3 / end;
+  grid-column: 10 / end;
+  fill: #cecdcd;
+}
+
 hr {
   border: 0;
   height: 0;

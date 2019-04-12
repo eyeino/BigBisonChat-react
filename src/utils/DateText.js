@@ -21,6 +21,6 @@ export function dbTimeToHHMMOrDayNameOrDateString(dbTime) {
     return dbDate.toLocaleString('en-us', { weekday: 'long' });
   // show date and time
   } else {
-    return fecha.format(epochTime, 'MM/DD/YY hh:mmA');
+    return fecha.format(epochTime, 'MM/DD/YY');
   }
 }

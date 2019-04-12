@@ -32,6 +32,9 @@ export default function Home(props) {
       <button onClick={props.auth.login} className="button">
         Login / Register
       </button>
+      <div style={{ textAlign: 'center', color: 'lightgray', paddingTop: '20px' }}>
+        A project by <a style={{ color: 'lightgray'}} href='https://github.com/eyeino'>@eyeino</a>
+      </div>
     </div>
   );
 }

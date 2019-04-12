@@ -34,32 +34,7 @@ export default function NewChat(props) {
   }
 
   return (
-    <div className="new-chat" onSubmit={handleSubmit}>
-      <form className="new-chat-form">
-        <input
-          className="new-chat-input"
-          placeholder="Username"
-          onChange={handleRecipientChange}
-          autoComplete="false"
-          type="text"
-        />
-        <input
-          className="new-chat-input"
-          placeholder="Message"
-          onChange={handleMessageBodyChange}
-          autoComplete="false"
-          type="text"
-        />
-        <LinkButton {...props}
-          to={"/conversations/" + recipient}
-          onClick={handleSubmit}
-          disabled={isSending}
-          type="button"
-        >
-          Create Chat!
-        </LinkButton>
-      </form>
-      <p>Tip: Give 'eyeino' a buzz.</p>
+    <div>
     </div>
   );
 }

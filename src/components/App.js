@@ -10,7 +10,8 @@ import Conversations from './conversations/Conversations'; // list of convos
 import Chat from './chat/ChatWindow'; // list of messages in a convo
 import Callback from './auth/Callback'; // callback url for Auth0
 import NewChat from './chat/NewChat'; // create chat with a user
-import ChatInput from './chat/ChatInput'; // input bar for chat window
+import ChatInput from './chat/ChatInput'; // input bar for messages in chat window
+import { RecipientBar } from './chat/RecipientBar'; // input bar for recipient in new message
 
 function App(props) {
   const { auth } = props;
@@ -20,9 +21,11 @@ function App(props) {
     <Router>
       {/* Wrapper for header, content, footer */}
       <div className='wrapper'>
-        
         <div className='header header-shadow'>
           <Nav auth={props.auth} />
+          <Switch>
+            <Route path='/new' component={RecipientBar}></Route>
+          </Switch>
         </div>
         
         <div className='content'>
@@ -47,6 +50,7 @@ function App(props) {
         {/* Footer: renders only if viewing a chat */}
         <div className='footer'>
           <Switch>
+            <Route path='/new' component={ChatInput} />
             <Route path='/conversations/:username' component={ChatInput} />
           </Switch>
         </div>

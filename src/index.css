@@ -354,3 +354,21 @@ html, body {
 .header-shadow{
   box-shadow: 0 10px 10px -6px rgb(232, 232, 232);
 }
+
+.recipient-wrapper {
+  padding: 5px;
+  display: flex;
+  flex-direction: row;
+}
+
+.recipient-to {
+  padding: 5px;
+  color: #797979;
+}
+
+.recipient-editable {
+  padding: 5px;
+  border-radius: 5px;
+  color: white;
+  background: linear-gradient(#FF4136, #e80505);
+}

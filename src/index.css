@@ -275,6 +275,7 @@ html, body {
   max-width: 300px;
   padding: 12px;
   word-break: keep-all;
+  display: inline-block;
 }
 
 .bubble-timestamp {

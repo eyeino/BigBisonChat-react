@@ -123,7 +123,7 @@ input:focus {
 
 div .conversation-cell {
   display: grid;
-  grid-template-columns: 75px repeat(8, 10%) auto;
+  grid-template-columns: 75px repeat(12, 10%) auto;
   grid-template-rows: repeat(6, 10px);
   padding: 7px;
   margin: 5px;
@@ -157,6 +157,13 @@ div .conversation-name {
   grid-row: 3 / end;
   grid-column: 10 / end;
   fill: #cecdcd;
+}
+
+.conversation-timestamp {
+  font-size: 14px;
+  grid-row: 3 / end;
+  grid-column: 9 / end;
+  color: #b6b6b6;
 }
 
 hr {

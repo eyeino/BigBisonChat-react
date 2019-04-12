@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+
 import ConversationCell from './ConversationCell';
 import { getConversations } from '../../utils/API.js';
 
@@ -9,6 +10,7 @@ export default function Conversations(props) {
     document.title = props.title;
 
     getConversations().then((res, err) => {
+      
       setConversations(res.data);
     })
   }, []);
@@ -20,6 +22,7 @@ export default function Conversations(props) {
         return <ConversationCell key={convo.other_username} username={convo.other_username}
           body={convo.body}
           avatarUrl={convo.avatarUrl}
+          createdAt={convo.created_at}
         />
       })}
     </div>

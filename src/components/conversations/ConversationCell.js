@@ -1,12 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { dbTimeToHHMMOrDayNameOrDateString } from '../../utils/DateText';
+
 import { ReactComponent as Avatar } from "../assets/avatar.svg";
 import { ReactComponent as Arrow } from "../assets/right-arrow.svg";
 
 const messageBodyLimit = 60;
 
 export default function ConversationCell(props) {
-  const { username, avatarUrl, body } = props;
+  const { username, avatarUrl, body, createdAt } = props;
+  const timestamp = dbTimeToHHMMOrDayNameOrDateString(createdAt);
 
   return (
     <div>
@@ -22,6 +25,7 @@ export default function ConversationCell(props) {
             <div className='conversation-name'>{username}</div>
             <div className='conversation-body'>{body.length > messageBodyLimit ? body.substring(0, messageBodyLimit) + '...' : body}</div>
             <Arrow className='conversation-arrow' />
+            <div className='conversation-timestamp'>{timestamp}</div>
           </div>
         </Link>
       }

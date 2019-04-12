@@ -13,6 +13,7 @@ export default class Auth {
 
   constructor() {
     this.login = this.login.bind(this);
+    this.logout = this.logout.bind(this);
   }
 
   login() {
@@ -41,9 +42,15 @@ export default class Auth {
   }
 
   logout() {
+    // clear localStorage of any stored tokens
     localStorage.removeItem("access_token");
     localStorage.removeItem("id_token");
     localStorage.removeItem("expires_at");
-    location.pathname = "/"
+    
+    this.auth0.logout({
+      returnTo: "https://localhost:3000/",
+      clientID: "mqQZli4ZkGR5eL3r8OT4x7AQBKaIuJtg"
+    });
+    
   }
 }

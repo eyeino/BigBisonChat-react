@@ -29,7 +29,7 @@ function App(props) {
           <Switch>
             {/* Redirect to list of conversations if logged in, otherwise show login button */}
             <Route exact path="/" render={() => (
-                loggedIn ? <Redirect to="/conversations" /> : <Home auth={props.auth} />
+                loggedIn ? <Redirect to="/conversations" /> : <Home auth={props.auth} title='BigBisonChat - Home' />
             )}
             />
             {/* Callback: to handle authentication flow with Auth0 */}

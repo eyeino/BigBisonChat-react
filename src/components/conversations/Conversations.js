@@ -16,7 +16,7 @@ export default function Conversations(props) {
   }, []);
 
   return (
-    <div>
+    <div className='conversations'>
       {conversations && 
         conversations.map((convo) => {
         return <ConversationCell key={convo.other_username} username={convo.other_username}

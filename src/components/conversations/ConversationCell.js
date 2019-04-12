@@ -5,7 +5,7 @@ import { dbTimeToHHMMOrDayNameOrDateString } from '../../utils/DateText';
 import { ReactComponent as Avatar } from "../assets/avatar.svg";
 import { ReactComponent as Arrow } from "../assets/right-arrow.svg";
 
-const messageBodyLimit = 60;
+const messageBodyLimit = 50;
 
 export default function ConversationCell(props) {
   const { username, avatarUrl, body, createdAt } = props;

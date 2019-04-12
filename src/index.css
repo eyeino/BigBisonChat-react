@@ -277,6 +277,8 @@ html, body {
   padding-left: 10px;
   padding-top: 7px;
   padding-bottom: 7px;
+  display: flex;
+  flex-direction: column;
 }
 
 .bubble-username {
@@ -289,12 +291,12 @@ html, body {
   max-width: 300px;
   padding: 12px;
   word-break: keep-all;
-  display: inline-flex;
 }
 
 .bubble-timestamp {
   color: grey;
   font-size: 13px;
+  white-space: nowrap;
 }
 
 .bubble-list {
@@ -308,6 +310,7 @@ html, body {
 
 .bubble-right {
   align-self: flex-end;
+  text-align: right;
 }
 
 .bubble-left > .bubble-body {
@@ -315,6 +318,7 @@ html, body {
   border: 1px solid rgb(213, 213, 213);
   background-image: linear-gradient(to bottom, #ffffff, #fefefe, #fcfdfc, #fbfbfb, #fafafa);
   color: black;
+  align-self: flex-start;
 }
 
 .bubble-left > .bubble-username {
@@ -331,6 +335,7 @@ html, body {
   border-radius: 15px 15px 0 15px;
   color: white;
   float: right;
+  align-self: flex-end;
 }
 
 .bubble-right > .bubble-timestamp {

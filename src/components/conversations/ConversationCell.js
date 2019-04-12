@@ -10,7 +10,7 @@ const messageBodyLimit = 60;
 export default function ConversationCell(props) {
   const { username, avatarUrl, body, createdAt } = props;
   const timestamp = dbTimeToHHMMOrDayNameOrDateString(createdAt);
-
+  
   return (
     <div>
       {username &&

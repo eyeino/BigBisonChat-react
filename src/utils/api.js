@@ -3,8 +3,10 @@ import axios from 'axios';
 const token = localStorage.getItem("id_token");
 axios.defaults.headers.common['authorization'] = 'Bearer ' + token;
 
-// const baseUrl = 'https://bigbisonchat.herokuapp.com';
-const baseUrl = 'http://localhost:8080';
+const baseUrl =
+  process.env.NODE_ENV === "production"
+    ? "https://bigbisonchat.herokuapp.com"
+    : "http://localhost:8080";
 
 export async function getMessages(otherUsername) {
   try {

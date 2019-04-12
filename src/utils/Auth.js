@@ -2,11 +2,21 @@
 
 import auth0 from 'auth0-js';
 
+const callbackUrl =
+  process.env.NODE_ENV === "production"
+    ? "https://bigbison.chat/callback"
+    : "http://localhost:3000/callback";
+
+const returnToUrl =
+  process.env.NODE_ENV === "production"
+    ? "https://bigbison.chat/"
+    : "http://localhost:3000/";
+
 export default class Auth {
   auth0 = new auth0.WebAuth({
     domain: 'bigbisonchat.auth0.com',
     clientID: 'mqQZli4ZkGR5eL3r8OT4x7AQBKaIuJtg',
-    redirectUri: 'http://localhost:3000/callback',
+    redirectUri: callbackUrl,
     responseType: 'token id_token',
     scope: 'openid profile'
   });
@@ -48,7 +58,7 @@ export default class Auth {
     localStorage.removeItem("expires_at");
     
     this.auth0.logout({
-      returnTo: "http://localhost:3000/",
+      returnTo: returnToUrl,
       clientID: "mqQZli4ZkGR5eL3r8OT4x7AQBKaIuJtg"
     });
     

@@ -42,6 +42,7 @@ function MessageInput(props) {
         type="text"
         autoComplete="off"
         value={messageBody}
+        placeholder={'Send message to ' + props.otherUsername}
       />
       <button
         className="chat-submit-button"

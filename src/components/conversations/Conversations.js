@@ -10,21 +10,30 @@ export default function Conversations(props) {
     document.title = props.title;
 
     getConversations().then((res, err) => {
-
       setConversations(res.data);
     })
   }, []);
 
   return (
-    <div className='conversations'>
-      {conversations && 
-        conversations.map((convo) => {
-        return <ConversationCell key={convo.other_username} username={convo.other_username}
-          body={convo.body}
-          avatarUrl={convo.avatar_url}
-          createdAt={convo.created_at}
-        />
-      })}
+    <div className="conversations">
+      {conversations &&
+        conversations.map(convo => {
+          return (
+            <ConversationCell
+              key={convo.other_username}
+              username={convo.other_username}
+              body={convo.body}
+              avatarUrl={convo.avatar_url}
+              createdAt={convo.created_at}
+            />
+          );
+        })}
+      {!conversations && (
+        <>
+          <div>Welcome! You don't have any conversations yet!</div>
+          <div>Press 'New' and start talking!</div>
+        </>
+      )}
     </div>
-  )
+  );
 }

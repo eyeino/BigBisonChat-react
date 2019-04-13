@@ -27,11 +27,18 @@ export async function getConversations(user) {
 }
 
 export async function postMessage(otherUsername, messageBody) {
-  console.log(otherUsername, messageBody);
-  
   try {
     await axios.post(baseUrl + '/conversations/' + otherUsername,
       { messageBody: messageBody });
+  } catch(err) {
+    console.log(err);
+  }
+}
+
+export async function searchUsers(usernameQuery) {
+  try {
+    const res = await axios.get(baseUrl + '/search/users/' + usernameQuery);
+    return res
   } catch(err) {
     console.log(err);
   }

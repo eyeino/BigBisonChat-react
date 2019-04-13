@@ -255,8 +255,11 @@ html, body {
   flex-direction: column;
   flex-wrap: nowrap;
   padding: 10px;
-  max-width: 500px;
   margin: 0 auto;
+  background-image: url(https://s3.us-east-2.amazonaws.com/bigbisonchat/bison-background.jpg);
+  background-size: cover;
+  height: 100%;
+  max-width: 500px;
 }
 
 .new-chat-form {
@@ -353,4 +356,15 @@ html, body {
 
 .header-shadow{
   box-shadow: 0 10px 10px -6px rgb(232, 232, 232);
+}
+
+.recipient-wrapper {
+  padding: 5px;
+}
+
+.recipient-to {
+  padding: 5px;
+  color: #797979;
+  vertical-align: middle;
+  flex: 1 1;
 }

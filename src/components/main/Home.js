@@ -26,14 +26,15 @@ export default function Home(props) {
           It's lit! I'll bring the grass!
         </div>
       </div>
-      <div style={{ textAlign: "center", paddingTop: "30px" }}>
-        Fun fact: bison can run up to 35 miles per hour.
+      <div style={{ textAlign: "center", paddingTop: "70px" }}>
+        <div>Fun fact: bison can run</div>
+        <div>up to 35 miles per hour.</div>
       </div>
       <button onClick={props.auth.login} className="button">
         Login / Register
       </button>
-      <div style={{ textAlign: 'center', color: 'lightgray', paddingTop: '20px' }}>
-        A project by <a style={{ color: 'lightgray'}} href='https://github.com/eyeino'>@eyeino</a>
+      <div style={{ textAlign: 'center', paddingTop: '20px' }}>
+        A project by <a href='https://github.com/eyeino'>@eyeino</a>
       </div>
     </div>
   );

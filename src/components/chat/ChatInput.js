@@ -32,7 +32,7 @@ function MessageInput(props) {
       setIsSending(false);
       setMessageBody('');
 
-      props.history.push('/conversations/' + props.otherUsername);
+      props.recipient && props.history.push('/conversations/' + props.otherUsername);
     })
   }
 

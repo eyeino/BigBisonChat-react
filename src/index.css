@@ -360,18 +360,11 @@ html, body {
 
 .recipient-wrapper {
   padding: 5px;
-  display: flex;
-  flex-direction: row;
 }
 
 .recipient-to {
   padding: 5px;
   color: #797979;
   vertical-align: middle;
-}
-
-.recipient-editable {
-  padding: 5px;
-  border-radius: 5px;
-  color: white;
+  flex: 1 1;
 }

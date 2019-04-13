@@ -10,7 +10,6 @@ export default function Conversations(props) {
     document.title = props.title;
 
     getConversations().then((res, err) => {
-
       setConversations(res.data);
     })
   }, []);

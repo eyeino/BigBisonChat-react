@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import { postMessage } from '../../utils/API';
 // import { sendMessageToServer } from '../utils/socket';
 
+
 export default function ChatInput(props) {
-  const otherUsername = props.match.params.username;
+  const otherUsername = props.recipient ? props.recipient : props.match.params.username;
   
   return (
     <div>
       <hr/>
-      <MessageInput otherUsername={otherUsername}/>
+      <MessageInput {...props} otherUsername={otherUsername}/>
     </div>
   )
 }
@@ -30,6 +31,8 @@ function MessageInput(props) {
     postMessage(props.otherUsername, messageBody).then(() => {
       setIsSending(false);
       setMessageBody('');
+
+      props.history.push('/conversations/' + props.otherUsername);
     })
   }
 
@@ -42,7 +45,7 @@ function MessageInput(props) {
         type="text"
         autoComplete="off"
         value={messageBody}
-        placeholder={'Send message to ' + props.otherUsername}
+        placeholder={props.otherUsername ? 'Send message to ' + props.otherUsername : ''}
       />
       <button
         className="chat-submit-button"

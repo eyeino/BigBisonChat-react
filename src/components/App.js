@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   BrowserRouter as Router,
   Route, Switch, Redirect
@@ -14,7 +14,9 @@ import { RecipientBar } from './chat/RecipientBar'; // input bar for recipient i
 
 function App(props) {
   const { auth } = props;
-  const loggedIn = auth.isAuthenticated()
+  const loggedIn = auth.isAuthenticated();
+
+  const [recipient, setRecipient] = useState(null);
   
   return (
     <Router>
@@ -23,7 +25,7 @@ function App(props) {
         <div className='header header-shadow'>
           <Nav auth={props.auth} />
           <Switch>
-            <Route path='/new' component={RecipientBar}></Route>
+            <Route path='/new' render={() => <RecipientBar setRecipient={setRecipient} />}></Route>
           </Switch>
         </div>
         
@@ -36,6 +38,7 @@ function App(props) {
             />
             {/* Callback: to handle authentication flow with Auth0 */}
             <Route path="/callback" render={() => (<Callback auth={props.auth} />)} />
+            
             {/* Redirect from all routes to homepage if not logged in */}
             {!loggedIn && <Redirect from="*" to="/" />}
             
@@ -49,7 +52,7 @@ function App(props) {
         {/* Footer: renders only if viewing a chat */}
         <div className='footer'>
           <Switch>
-            <Route path='/new' component={ChatInput} />
+            <Route path='/new' render={(props) => <ChatInput {...props} recipient={recipient} />} />
             <Route path='/conversations/:username' component={ChatInput} />
           </Switch>
         </div>

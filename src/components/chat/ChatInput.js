@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { postMessage } from '../../utils/API';
+import { postMessage } from '../../utils/api.js';
 // import { sendMessageToServer } from '../utils/socket';
 
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import ConversationCell from './ConversationCell';
-import { getConversations } from '../../utils/API.js';
+import { getConversations } from '../../utils/api.js';
 
 export default function Conversations(props) {
   const [conversations, setConversations] = useState([]);

@@ -1,6 +1,6 @@
 import React from 'react';
 import AsyncSelect from 'react-select/lib/Async';
-import { searchUsers } from '../../utils/API';
+import { searchUsers } from '../../utils/api.js';
 
 const promiseOptions = async inputValue => {
   // new Promise(resolve => {

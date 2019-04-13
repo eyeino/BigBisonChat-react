@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import fecha from 'fecha';
 
-import { getMessages } from '../../utils/API';
+import { getMessages } from '../../utils/api';
 
 export default class Chat extends React.Component {
   constructor(props) {

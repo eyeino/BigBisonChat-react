@@ -25,10 +25,11 @@ export default function WithPromises(props) {
         defaultOptions
         loadOptions={promiseOptions}
         placeholder='To:'
+        isSearchable
+        noOptionsMessage={() => (`Tip: give 'eyeino' a buzz.`)}
         theme={theme => ({
           ...theme,
           borderRadius: "2px",
-          width: "200px",
           colors: {
             ...theme.colors,
             primary25: "pink",

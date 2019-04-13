@@ -9,7 +9,6 @@ import Home from './main/Home'; // login page
 import Conversations from './conversations/Conversations'; // list of convos
 import Chat from './chat/ChatWindow'; // list of messages in a convo
 import Callback from './auth/Callback'; // callback url for Auth0
-import NewChat from './chat/NewChat'; // create chat with a user
 import ChatInput from './chat/ChatInput'; // input bar for messages in chat window
 import { RecipientBar } from './chat/RecipientBar'; // input bar for recipient in new message
 
@@ -41,7 +40,7 @@ function App(props) {
             {!loggedIn && <Redirect from="*" to="/" />}
             
             {/* Chat functions, only accessible if logged in */}
-            <Route path="/new" render={(props) => (<NewChat {...props} title="BigBisonChat - Create Chat" />)} />
+            <Route path="/new" render={(props) => (<div></div>)} />
             <Route path="/conversations/:username" component={Chat} />
             <Route path="/conversations" render={(props) => (<Conversations {...props} title="BigBisonChat - Convos" />)} />
             <Route render={() => <p>Not found!</p>} />

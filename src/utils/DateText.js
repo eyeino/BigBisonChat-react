@@ -17,6 +17,8 @@ export function dbTimeToHHMMOrDayNameOrDateString(dbTime) {
   if (dateDiff < 1) {
     return fecha.format(epochTime, 'hh:mm A');
   // less than a week of difference, show day name
+  } else if (dateDiff < 2) {
+    return 'Yesterday'
   } else if (dateDiff < 7) {
     return dbDate.toLocaleString('en-us', { weekday: 'long' });
   // show date and time

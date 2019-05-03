@@ -8,6 +8,8 @@ const baseUrl =
     ? "https://bigbisonchat.herokuapp.com"
     : "http://localhost:8080";
 
+export const eventSourceURL = baseUrl + '/eventstream/'
+
 export async function getMessages(otherUsername) {
   try {
     const res = await axios.get(baseUrl + '/conversations/' + otherUsername);

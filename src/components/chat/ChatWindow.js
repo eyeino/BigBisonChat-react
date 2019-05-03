@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import fecha from 'fecha';
+import EventSource from 'eventsource';
 
-import { getMessages } from '../../utils/api';
+import { getMessages, eventSourceURL } from '../../utils/api';
 
 export default class Chat extends React.Component {
   constructor(props) {
@@ -11,16 +12,39 @@ export default class Chat extends React.Component {
       messages: [],
       otherUsername: this.props.match.params.username
     };
+
+    // subscribe to eventstream offered by server
+    const token = localStorage.getItem("id_token");
+    const url = eventSourceURL + this.state.otherUsername;
+
+    const eventSourceInitDict = {
+      headers: { authorization: "Bearer " + token }
+    };
+    this.evtSource = new EventSource(url, eventSourceInitDict);
   }
 
   componentDidMount() {
     document.title = "BigBisonChat - " + this.state.otherUsername;
 
     getMessages(this.state.otherUsername).then((res, err) => {
+      console.log(res.data);
       this.setState({
         messages: res.data
       });
     });
+
+    // add listener to add messages to chat window upon receipt
+    this.evtSource.onmessage = (e) => {
+      const eventData = JSON.parse(e.data);
+      console.log('new message received:', eventData);
+      this.setState(prevState => ({
+        messages: [...prevState.messages, eventData],
+      }));
+    }
+  }
+
+  componentWillUnmount() {
+    this.evtSource.close();
   }
 
   componentDidUpdate() {
@@ -28,7 +52,12 @@ export default class Chat extends React.Component {
   }
 
   scrollToBottom() {
-    this.messagesEnd.scrollIntoView({behavior: "smooth"});
+    this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+  }
+
+  determineEventNameFromUsernames(userOneUsername, userTwoUsername) {
+    // create deterministic but unique room name between two users
+    return [userOneUsername, userTwoUsername].sort().join("-");
   }
 
   render() {
@@ -39,8 +68,11 @@ export default class Chat extends React.Component {
           otherUsername={this.state.otherUsername}
         />
         <div
-          style={{ float: "left", clear: "both"}}
-          ref={(el) => { this.messagesEnd = el; }}/>
+          style={{ float: "left", clear: "both" }}
+          ref={el => {
+            this.messagesEnd = el;
+          }}
+        />
       </div>
     );
   }

@@ -11,7 +11,7 @@ export default function Conversations(props) {
 
     getConversations().then((res, err) => {
       setConversations(res.data);
-    })
+    });
   }, []);
 
   return (

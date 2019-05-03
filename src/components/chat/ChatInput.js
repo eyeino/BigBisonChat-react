@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { postMessage } from '../../utils/api.js';
-// import { sendMessageToServer } from '../utils/socket';
-
 
 export default function ChatInput(props) {
   const otherUsername = props.recipient ? props.recipient : props.match.params.username;

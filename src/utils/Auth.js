@@ -4,12 +4,12 @@ import auth0 from 'auth0-js';
 
 const callbackUrl =
   process.env.NODE_ENV === "production"
-    ? "https://bigbison.chat/callback"
+    ? "https://bigbison.co/callback"
     : "http://localhost:3000/callback";
 
 const returnToUrl =
   process.env.NODE_ENV === "production"
-    ? "https://bigbison.chat/"
+    ? "https://bigbison.co/"
     : "http://localhost:3000/";
 
 export default class Auth {

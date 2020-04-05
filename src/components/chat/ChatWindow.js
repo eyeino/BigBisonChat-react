@@ -122,9 +122,9 @@ function ChatBubble(props) {
   return (
     <>
       <li className={`bubble-wrap ${directionClass}`}>
-        <div className='bubble-username'>{sender_username}</div>
-        <div className='bubble-body'>{body}</div>
-        <div className='bubble-timestamp'>{timestamp}</div>
+        <p className='bubble-username'>{sender_username}</p>
+        <p className='bubble-body'>{body}</p>
+        <p className='bubble-timestamp'>{timestamp}</p>
       </li>
     </>
   )

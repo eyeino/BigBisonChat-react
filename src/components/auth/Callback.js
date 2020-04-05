@@ -4,8 +4,8 @@ export default function Callback(props) {
   props.auth.handleAuthentication();
 
   return (
-    <div>
+    <p>
       Redirected from Auth0. Loading...
-    </div>
+    </p>
   )
 }

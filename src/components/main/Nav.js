@@ -4,7 +4,7 @@ import { ReactComponent as Logo } from "../assets/bison.svg";
 
 function Nav(props) {
   return (
-    <>
+    <nav>
       <ul className="nav">
         <li className="complete-logo">
           <NavLink id="nav-logo" to="/">
@@ -25,7 +25,7 @@ function Nav(props) {
               </NavLink>
             </li>
             <li>
-              <button className="logout-button" onClick={props.auth.logout}>
+              <button type="button" className="logout-button" onClick={props.auth.logout}>
                 Logout
               </button>
             </li>
@@ -33,7 +33,7 @@ function Nav(props) {
         )}
       </ul>
       <hr />
-    </>
+    </nav>
   );
 }
 

@@ -51,7 +51,7 @@ function MessageInput(props) {
         type="submit"
         onClick={handleSubmit}>
         <span role='img' aria-label='message bubble'>💬</span>
-        </button>
+      </button>
     </form>
   );
 }

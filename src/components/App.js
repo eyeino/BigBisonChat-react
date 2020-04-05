@@ -22,14 +22,13 @@ function App(props) {
     <Router>
       {/* Wrapper for header, content, footer */}
       <div className='wrapper'>
-        <div className='header header-shadow'>
+        <header className='header header-shadow'>
           <Nav auth={props.auth} />
           <Switch>
             <Route path='/new' render={() => <RecipientBar setRecipient={setRecipient} />}></Route>
           </Switch>
-        </div>
-        
-        <div className='content'>
+        </header>
+        <main className='content'>
           <Switch>
             {/* Redirect to list of conversations if logged in, otherwise show login button */}
             <Route exact path="/" render={() => (
@@ -48,14 +47,14 @@ function App(props) {
             <Route path="/conversations" render={(props) => (<Conversations {...props} title="BigBisonChat - Convos" />)} />
             <Route render={() => <p>Not found!</p>} />
           </Switch>
-        </div>
+        </main>
         {/* Footer: renders only if viewing a chat */}
-        <div className='footer'>
+        <footer className='footer'>
           <Switch>
             <Route path='/new' render={(props) => <ChatInput {...props} recipient={recipient} />} />
             <Route path='/conversations/:username' component={ChatInput} />
           </Switch>
-        </div>
+        </footer>
       </div>
     </Router>
   );

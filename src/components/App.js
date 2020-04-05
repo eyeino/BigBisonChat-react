@@ -17,7 +17,8 @@ function App(props) {
   const loggedIn = auth.isAuthenticated();
 
   const [recipient, setRecipient] = useState(null);
-  
+  const [selectedConversation, setSelectedConversation] = useState(null);
+
   return (
     <Router>
       {/* Wrapper for header, content, footer */}
@@ -43,18 +44,37 @@ function App(props) {
             
             {/* Chat functions, only accessible if logged in */}
             <Route path="/new" render={(props) => (<div></div>)} />
-            <Route path="/conversations/:username" component={Chat} />
+            <Route path="/conversations/:username" render={ (props) =>
+              <>
+                {/* wide screens get conversations and detailview */}
+                { window.innerWidth >= 768 &&
+                  <div className="detail-view-wrapper">
+                    <Conversations {...props} setSelectedConversation={setSelectedConversation} selectedConversation={selectedConversation} />
+                    <Chat {...props} selectedConversation={selectedConversation}>
+                      <ChatInput {...props} />
+                    </Chat>
+                  </div>
+                }
+                {/* small screen only gets conversations */}
+                { window.innerWidth < 768 &&
+                  <Chat {...props} selectedConversation={selectedConversation}>
+                    <ChatInput {...props} />
+                  </Chat>
+                }
+              </>
+            } />
             <Route path="/conversations" render={(props) => (<Conversations {...props} title="BigBisonChat - Convos" />)} />
             <Route render={() => <p>Not found!</p>} />
           </Switch>
         </main>
         {/* Footer: renders only if viewing a chat */}
-        <footer className='footer'>
-          <Switch>
-            <Route path='/new' render={(props) => <ChatInput {...props} recipient={recipient} />} />
-            <Route path='/conversations/:username' component={ChatInput} />
-          </Switch>
-        </footer>
+        <Switch>
+          <Route path='/new' render={(props) => (
+            <footer>
+              <ChatInput {...props} recipient={recipient} />} />
+            </footer>
+          )} />
+        </Switch>
       </div>
     </Router>
   );

@@ -8,14 +8,14 @@ import { ReactComponent as Arrow } from "../assets/right-arrow.svg";
 const messageBodyLimit = 50;
 
 export default function ConversationCell(props) {
-  const { username, avatarUrl, body, createdAt } = props;
+  const { username, avatarUrl, body, createdAt, selected, setSelectedConversation } = props;
   const timestamp = dbTimeToHHMMOrDayNameOrDateString(createdAt);
   
   return (
     <div>
       {username &&
-        <Link to={`/conversations/${username}`}>
-          <div className='conversation-cell'>
+        <Link to={`/conversations/${username}`} onClick={setSelectedConversation(username)}>
+          <div className={`conversation-cell${selected ? ' selected-conversation-cell' : ''}`}>
             {
               avatarUrl ? 
               <img className='conversation-avatar' alt={username} src={avatarUrl} />

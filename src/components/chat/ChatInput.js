@@ -5,7 +5,7 @@ export default function ChatInput(props) {
   const otherUsername = props.recipient ? props.recipient : props.match.params.username;
   
   return (
-    <div>
+    <div className="chat-form-wrapper">
       <hr/>
       <MessageInput {...props} otherUsername={otherUsername}/>
     </div>

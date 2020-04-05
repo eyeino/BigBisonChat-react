@@ -211,7 +211,16 @@ html, body {
   background: #fafafa;
 }
 
+.chat-form-wrapper {
+  align-self: center;
+  position: sticky;
+  bottom: 0;
+  background: white;
+  width: 100%;
+}
+
 .chat-form {
+  box-sizing: border-box;
   display: inline-flex;
   flex-direction: row;
   width: 100%;
@@ -257,8 +266,7 @@ html, body {
 
 .content {
   flex: 1;
-  overflow: auto;
-  overflow-y: scroll;
+  overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -325,6 +333,8 @@ html, body {
 }
 
 .bubble-list {
+  overflow-y: auto;
+  height: 100%;
   display: flex;
   flex-direction: column;
 }
@@ -379,4 +389,30 @@ html, body {
   color: #797979;
   vertical-align: middle;
   flex: 1 1;
+}
+
+.detail-view-wrapper {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+}
+
+.detail-view-wrapper .conversations {
+  flex: 1 0 25%;
+  max-width: 350px;
+  min-width: 300px;
+  overflow-y: auto;
+}
+
+.detail-view-wrapper .chat-wrapper {
+  position: relative;
+  flex: 1 1 50%;
+  overflow-y: auto;
+  min-width: 350px;
+  border-left: 2px solid #e6e6e6;
+  
+  display: flex;
+  flex-flow: column nowrap;
 }

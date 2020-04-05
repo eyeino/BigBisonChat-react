@@ -9,13 +9,12 @@ export default class Chat extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      messages: [],
-      otherUsername: this.props.match.params.username
+      messages: []
     };
 
     // subscribe to eventstream offered by server
     const token = localStorage.getItem("id_token");
-    const url = eventSourceURL + this.state.otherUsername;
+    const url = eventSourceURL + this.props.match.params.username;
 
     const eventSourceInitDict = {
       headers: { authorization: "Bearer " + token }
@@ -24,9 +23,9 @@ export default class Chat extends React.Component {
   }
 
   componentDidMount() {
-    document.title = "BigBisonChat - " + this.state.otherUsername;
+    document.title = "BigBisonChat - " + this.props.match.params.username;
 
-    getMessages(this.state.otherUsername).then((res, err) => {
+    getMessages(this.props.match.params.username).then((res, err) => {
       console.log(res.data);
       this.setState({
         messages: res.data
@@ -47,7 +46,25 @@ export default class Chat extends React.Component {
     this.evtSource.close();
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
+    if (prevProps.match.params.username !== this.props.match.params.username) {
+      getMessages(this.props.match.params.username).then((res, err) => {
+        console.log(res.data);
+        this.setState({
+          messages: res.data
+        }, this.scrollToBottom);
+      });
+  
+      // add listener to add messages to chat window upon receipt
+      this.evtSource.onmessage = (e) => {
+        const eventData = JSON.parse(e.data);
+        console.log('new message received:', eventData);
+        this.setState(prevState => ({
+          messages: [...prevState.messages, eventData],
+        }));
+      }
+    }
+
     this.scrollToBottom();
   }
 
@@ -62,7 +79,7 @@ export default class Chat extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="chat-wrapper">
         <MessageList
           messages={this.state.messages}
           otherUsername={this.state.otherUsername}
@@ -73,6 +90,7 @@ export default class Chat extends React.Component {
             this.messagesEnd = el;
           }}
         />
+        { this.props.children }
       </div>
     );
   }

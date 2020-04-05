@@ -17,7 +17,6 @@ function App(props) {
   const loggedIn = auth.isAuthenticated();
 
   const [recipient, setRecipient] = useState(null);
-  const [selectedConversation, setSelectedConversation] = useState(null);
 
   return (
     <Router>
@@ -49,15 +48,15 @@ function App(props) {
                 {/* wide screens get conversations and detailview */}
                 { window.innerWidth >= 768 &&
                   <div className="detail-view-wrapper">
-                    <Conversations {...props} setSelectedConversation={setSelectedConversation} selectedConversation={selectedConversation} />
-                    <Chat {...props} selectedConversation={selectedConversation}>
+                    <Conversations {...props} />
+                    <Chat {...props}>
                       <ChatInput {...props} />
                     </Chat>
                   </div>
                 }
                 {/* small screen only gets conversations */}
                 { window.innerWidth < 768 &&
-                  <Chat {...props} selectedConversation={selectedConversation}>
+                  <Chat {...props}>
                     <ChatInput {...props} />
                   </Chat>
                 }

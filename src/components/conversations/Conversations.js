@@ -25,8 +25,6 @@ export default function Conversations(props) {
               body={convo.body}
               avatarUrl={convo.avatar_url}
               createdAt={convo.created_at}
-              selected={props.selectedConversation === convo.other_username}
-              setSelectedConversation={props.setSelectedConversation}
             />
           );
         })}

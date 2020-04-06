@@ -5,10 +5,9 @@ import { getConversations } from '../../utils/api.js';
 
 export default function Conversations(props) {
   const [conversations, setConversations] = useState([]);
+  document.title = props.title;
   
   useEffect(() => {
-    document.title = props.title;
-
     getConversations().then((res, err) => {
       setConversations(res.data);
     });

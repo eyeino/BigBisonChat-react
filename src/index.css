@@ -320,6 +320,7 @@ html, body {
   padding-top: 7px;
   padding-bottom: 7px;
   display: flex;
+  flex: 1 0 auto;
   flex-direction: column;
 }
 

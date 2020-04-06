@@ -11,12 +11,14 @@ import Chat from './chat/ChatWindow'; // list of messages in a convo
 import Callback from './auth/Callback'; // callback url for Auth0
 import ChatInput from './chat/ChatInput'; // input bar for messages in chat window
 import { RecipientBar } from './chat/RecipientBar'; // input bar for recipient in new message
+import { useWindowSize } from './hooks/useWindowSize';
 
 function App(props) {
   const { auth } = props;
   const loggedIn = auth.isAuthenticated();
 
   const [recipient, setRecipient] = useState(null);
+  const windowSize = useWindowSize();
 
   return (
     <Router>
@@ -46,19 +48,21 @@ function App(props) {
             <Route path="/conversations/:username" render={ (props) =>
               <>
                 {/* wide screens get conversations and detailview */}
-                { window.innerWidth >= 768 &&
+                { windowSize.width >= 768 &&
                   <div className="detail-view-wrapper">
                     <Conversations {...props} />
-                    <Chat {...props}>
+                    <div className="chat-window-wrapper">
+                      <Chat {...props} />
                       <ChatInput {...props} />
-                    </Chat>
+                    </div>
                   </div>
                 }
                 {/* small screen only gets conversations */}
-                { window.innerWidth < 768 &&
-                  <Chat {...props}>
+                { windowSize.width < 768 &&
+                  <>
+                    <Chat {...props} />
                     <ChatInput {...props} />
-                  </Chat>
+                  </>
                 }
               </>
             } />
@@ -70,7 +74,7 @@ function App(props) {
         <Switch>
           <Route path='/new' render={(props) => (
             <footer>
-              <ChatInput {...props} recipient={recipient} />} />
+              <ChatInput {...props} recipient={recipient} />
             </footer>
           )} />
         </Switch>

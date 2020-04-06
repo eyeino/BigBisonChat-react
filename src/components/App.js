@@ -66,7 +66,19 @@ function App(props) {
                 }
               </>
             } />
-            <Route path="/conversations" render={(props) => (<Conversations {...props} title="BigBisonChat - Convos" />)} />
+            <Route path="/conversations" render={ (props) =>
+              <>
+                { windowSize.width >= 768 &&
+                  <div className="detail-view-wrapper">
+                    <Conversations {...props} />
+                    <div className="chat-window-wrapper" />
+                  </div>
+                }
+                { windowSize.width < 768 &&
+                  <Conversations {...props} title="BigBisonChat - Convos" />
+                }
+              </>
+            }/>
             <Route render={() => <p>Not found!</p>} />
           </Switch>
         </main>

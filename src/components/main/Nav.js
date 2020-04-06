@@ -32,7 +32,6 @@ function Nav(props) {
           </>
         )}
       </ul>
-      <hr />
     </nav>
   );
 }

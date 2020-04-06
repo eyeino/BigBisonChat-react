@@ -38,19 +38,30 @@ input:focus {
   outline-offset: 0;
 }
 
-.nav {
-  display: flex;
+header {
   height: 60px;
-  flex-direction: row;
-  position: sticky;
-  top: 0;
+  display: flex;
+  align-items: center;
+  width: 100%;
 }
 
-.nav li {
-  margin: auto;
+nav {
+  position: relative;
 }
 
-.nav button {
+nav ul {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+
+nav li {
+  display: flex;
+  align-items: center;
+}
+
+nav button {
   color: #000000;
   border-color: #0a0a0a;
   background: #ffffff;
@@ -63,18 +74,18 @@ input:focus {
   width: 70px;
 }
 
-.nav button:hover:enabled {
+nav button:hover:enabled {
   color: #ffffff;
   background: #0a0a0a;
 }
 
-.nav button:active {
+nav button:active {
   transform: translateY(1px);
 }
 
 #nav-logo {
   border: none;
-  color: #0a0a0a
+  color: #0a0a0a;
 }
 
 .button {
@@ -100,6 +111,7 @@ input:focus {
 
 .completeLogo {
   display: inline;
+  margin-right: auto;
 }
 
 .logo {

@@ -82,7 +82,7 @@ export default class Chat extends React.Component {
       <div className="chat-wrapper">
         <MessageList
           messages={this.state.messages}
-          otherUsername={this.state.otherUsername}
+          otherUsername={this.props.match.params.username}
         />
         <div
           style={{ float: "left", clear: "both" }}

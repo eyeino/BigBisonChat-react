@@ -2,16 +2,16 @@
 
 import { useState, useEffect } from 'react';
 
+const isClient = typeof window === 'object';
+
+function getSize() {
+  return {
+    width: isClient ? window.innerWidth : undefined,
+    height: isClient ? window.innerHeight : undefined
+  };
+}
+
 export function useWindowSize() {
-  const isClient = typeof window === 'object';
-
-  function getSize() {
-    return {
-      width: isClient ? window.innerWidth : undefined,
-      height: isClient ? window.innerHeight : undefined
-    };
-  }
-
   const [windowSize, setWindowSize] = useState(getSize);
 
   useEffect(() => {

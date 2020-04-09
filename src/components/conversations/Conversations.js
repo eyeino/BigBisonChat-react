@@ -14,7 +14,7 @@ export default function Conversations(props) {
   }, []);
 
   return (
-    <div className="conversations">
+    <section className="conversations">
       {conversations &&
         conversations.map(convo => {
           return (
@@ -30,10 +30,10 @@ export default function Conversations(props) {
         })}
       {!conversations && (
         <>
-          <div>Welcome! You don't have any conversations yet!</div>
-          <div>Press 'New' and start talking!</div>
+          <p>Welcome! You don't have any conversations yet!</p>
+          <p>Press 'New' and start talking!</p>
         </>
       )}
-    </div>
+    </section>
   );
 }

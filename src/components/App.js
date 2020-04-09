@@ -51,10 +51,10 @@ function App(props) {
                 { windowSize.width >= 768 &&
                   <div className="detail-view-wrapper">
                     <Conversations {...props} />
-                    <div className="chat-window-wrapper">
+                    <section className="chat-window-wrapper">
                       <Chat {...props} />
                       <ChatInput {...props} />
-                    </div>
+                    </section>
                   </div>
                 }
                 {/* small screen only gets conversations */}
@@ -71,7 +71,7 @@ function App(props) {
                 { windowSize.width >= 768 &&
                   <div className="detail-view-wrapper">
                     <Conversations {...props} />
-                    <div className="chat-window-wrapper" />
+                    <section className="chat-window-wrapper" />
                   </div>
                 }
                 { windowSize.width < 768 &&

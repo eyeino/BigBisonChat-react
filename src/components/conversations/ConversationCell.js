@@ -12,24 +12,25 @@ export default function ConversationCell(props) {
   const timestamp = dbTimeToHHMMOrDayNameOrDateString(createdAt);
   
   return (
-    <div>
-      {username &&
-        <Link to={`/conversations/${username}`}>
-          <div className={`conversation-cell${selected ? ' selected-conversation-cell' : ''}`}>
-            {
-              avatarUrl ? 
-              <img className='conversation-avatar' alt={username} src={avatarUrl} />
-              :
-              <Avatar className='conversation-avatar' style={{ borderRadius: 0, transform: 'scale(0.8)' }}/>
-            }
-            <div className='conversation-name'>{username}</div>
-            <div className='conversation-body'>{body.length > messageBodyLimit ? body.substring(0, messageBodyLimit) + '...' : body}</div>
-            <Arrow className='conversation-arrow' />
-            <div className='conversation-timestamp'>{timestamp}</div>
-          </div>
-        </Link>
-      }
-      <hr/>
-    </div>
-  )
+    <Link to={`/conversations/${username}`}>
+      <div className={`conversation-cell${selected ? " selected" : ""}`}>
+        {avatarUrl ? (
+          <img className="conversation-avatar" alt={username} src={avatarUrl} />
+        ) : (
+          <Avatar
+            className="conversation-avatar"
+            style={{ borderRadius: 0, transform: "scale(0.8)" }}
+          />
+        )}
+        <div className="conversation-name">{username}</div>
+        <div className="conversation-body">
+          {body.length > messageBodyLimit
+            ? body.substring(0, messageBodyLimit) + "..."
+            : body}
+        </div>
+        <Arrow className="conversation-arrow" />
+        <div className="conversation-timestamp">{timestamp}</div>
+      </div>
+    </Link>
+  );
 }

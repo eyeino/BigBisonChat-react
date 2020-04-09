@@ -133,27 +133,35 @@ nav button:active {
   transform: translateY(1px);
 }
 
-div .conversations {
+.conversations {
   display: flex;
   flex-direction: column;
 }
 
-div .conversation-cell {
+.conversation-cell {
   display: grid;
   grid-template-columns: 70px repeat(3, 1fr) 15px;
   grid-template-rows: repeat(6, 10px);
-  padding: 7px;
-  margin: 3px;
+  padding: 10px;
 }
 
-div .conversation-avatar {
+.conversation-cell:hover {
+  background-color: #f0efef;
+}
+
+.conversation-cell.selected {
+  background-color: #fbe5e5;
+  transition: background-color 0.3s ease-out;
+}
+
+.conversation-avatar {
   grid-row: 1 / end;
   grid-column: 1 / 2;
   border-radius: 50%;
   height: 60px;
 }
 
-div .conversation-body {
+.conversation-body {
   grid-column: 2 / 8;
   grid-row: 3 / end;
   color: #797979;
@@ -161,7 +169,7 @@ div .conversation-body {
   font-size: 16px;
 }
 
-div .conversation-name {
+.conversation-name {
   grid-column: 2 / 7;
   grid-row: 1;
   font-weight: 500;

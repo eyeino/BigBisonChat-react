@@ -41,18 +41,12 @@ input:focus {
 header {
   padding: 10px;
   border-bottom: 2px solid #e6e6e6;
-  height: 52px;
-  box-sizing: border-box;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
 }
 
 nav ul {
   display: flex;
   justify-content: flex-end;
+  align-items: baseline;
 }
 
 nav li + li {
@@ -109,6 +103,7 @@ nav button:active {
 
 .complete-logo {
   margin-right: auto;
+  align-self: flex-start;
 }
 
 #nav-logo {
@@ -212,6 +207,8 @@ html, body {
   display: flex;
   flex-direction: column;
   min-width: 320px;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
 }
 
 .header {
@@ -221,6 +218,8 @@ html, body {
 .footer {
   padding-top: 0;
   background: #fafafa;
+  position: absolute;
+  bottom: 0;
 }
 
 .chat-form-wrapper {
@@ -279,12 +278,9 @@ html, body {
 
 .content {
   position: relative;
-  margin-top: 52px;
   box-sizing: border-box;
   flex: 1;
   -webkit-overflow-scrolling: touch;
-  min-height: 100vh;
-  min-height: -webkit-fill-available;
 }
 
 .home-container {

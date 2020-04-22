@@ -41,6 +41,13 @@ input:focus {
 header {
   padding: 10px;
   border-bottom: 2px solid #e6e6e6;
+  height: 52px;
+  box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
 }
 
 nav ul {
@@ -134,8 +141,10 @@ nav button:active {
 }
 
 .conversations {
+  position: relative;
   display: flex;
   flex-direction: column;
+  height: calc(100vh - 52px);
 }
 
 .conversation-cell {
@@ -192,27 +201,14 @@ nav button:active {
   justify-content: end;
 }
 
-hr {
-  border: 0;
-  height: 0;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-  margin: 0;
-}
-
 html, body {
-  height: 100%;
   width: 100%;
   margin: 0;
   overflow: hidden;
   position: fixed;
 }
 
-#root {
-  height: 100%;
-}
-
 .wrapper {
-  height: 100%;
   display: flex;
   flex-direction: column;
   min-width: 320px;
@@ -229,7 +225,7 @@ html, body {
 
 .chat-form-wrapper {
   align-self: center;
-  position: sticky;
+  position: relative;
   bottom: 0;
   background: white;
   width: 100%;
@@ -283,9 +279,12 @@ html, body {
 
 .content {
   position: relative;
+  margin-top: 52px;
+  box-sizing: border-box;
   flex: 1;
-  overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
 }
 
 .home-container {
@@ -296,7 +295,6 @@ html, body {
   margin: 0 auto;
   background-image: url(https://s3.us-east-2.amazonaws.com/bigbisonchat/bison-background.jpg);
   background-size: cover;
-  height: 100%;
   max-width: 500px;
 }
 
@@ -317,7 +315,6 @@ html, body {
 
 .new-chat {
   margin: 10%;
-  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -411,21 +408,18 @@ html, body {
 
 .detail-view-wrapper {
   display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-between;
-  width: 100%;
-  height: 100%;
+  position: relative;
 }
 
 .detail-view-wrapper .conversations {
   flex: 1 0 25%;
   max-width: 350px;
   min-width: 300px;
-  height: calc(100vh - 60px);
   overflow-y: auto;
 }
 
 .chat-window-wrapper {
+  position: relative;
   flex: 1 1 50%;
   border-left: 2px solid #e6e6e6;
 }
@@ -433,7 +427,7 @@ html, body {
 .chat-wrapper {
   position: relative;
   overflow-y: auto;
-  height: calc(100vh - 95px);
+  height: calc(100vh - 100px);
 }
 
 .detail-view-wrapper .chat-wrapper {

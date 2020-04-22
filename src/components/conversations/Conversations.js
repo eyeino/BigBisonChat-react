@@ -6,6 +6,7 @@ import { getConversations } from '../../utils/api.js';
 export default function Conversations(props) {
   const [conversations, setConversations] = useState([]);
   document.title = props.title;
+
   
   useEffect(() => {
     getConversations().then((res, err) => {
@@ -16,7 +17,13 @@ export default function Conversations(props) {
   return (
     <section className="conversations">
       {conversations &&
-        conversations.map(convo => {
+        conversations
+          .reduce((unique, item) => {
+            return unique.includes(item.other_username) ? unique : [...unique, item, item.other_username]
+          }, [])
+          .filter(item => typeof item === 'object')
+          .map(convo => {
+
           return (
             <ConversationCell
               key={convo.other_username}

@@ -26,7 +26,6 @@ li {
 a {
   text-decoration: none;
   color: #e80505;
-  font-weight: 100;
 }
 
 input {
@@ -101,8 +100,8 @@ nav button:active {
 }
 
 .active {
-  font-weight: bold;
   border-bottom: 3px solid #e80505;
+  transition: border-bottom 0.3s ease-out;
 }
 
 .complete-logo {
@@ -297,14 +296,34 @@ html, body {
 }
 
 .home-container {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  padding: 10px;
+  padding: 20px;
   margin: 0 auto;
   background-image: url(https://s3.us-east-2.amazonaws.com/bigbisonchat/bison-background.jpg);
   background-size: cover;
-  max-width: 500px;
+  height: var(--app-height);
+}
+
+.text-wrapper {
+  text-align: center;
+  margin: 0 auto;
+  max-width: 600px;
+}
+
+.text-wrapper > h1 {
+  font-size: 36px;
+}
+
+.home-bubbles {
+  margin-top: 2rem;
+}
+
+.home-bottom {
+  margin: 2em auto;
+  padding: 1em;
+  background-color: #f0efef;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  max-width: 200px;
 }
 
 .new-chat-form {

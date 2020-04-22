@@ -7,34 +7,32 @@ export default function Home(props) {
 
   return (
     <div className="home-container">
-      <h1
-        style={{
-          textAlign: "center",
-          paddingTop: "20px",
-          paddingBottom: "30px"
-        }}
-      >
-        Chat with your friends, majestically.
-      </h1>
-      <div className="bubble-wrap bubble-right">
-        <div className="bubble-body bubble-right">
-          Going to the ranch at 8. Be there!
+      <div className="text-wrapper">
+        <h1>
+          Chat with your friends, majestically.
+        </h1>
+        <div className="home-bubbles">
+          <div className="bubble-wrap bubble-right">
+            <div className="bubble-body bubble-right">
+              Going to the ranch at 8. Be there!
+            </div>
+          </div>
+          <div className="bubble-wrap bubble-left">
+            <div className="bubble-body bubble-left">
+              It's lit! I'll bring the grass!
+            </div>
+          </div>
         </div>
-      </div>
-      <div className="bubble-wrap bubble-left">
-        <div className="bubble-body bubble-left">
-          It's lit! I'll bring the grass!
+        <div className="home-bottom">
+          <div>Fun fact: bison can run</div>
+          <div>up to 35 miles per hour.</div>
+          <button onClick={props.auth.login} className="button">
+            Login / Register
+          </button>
+          <p>
+            A project by <a href='https://github.com/eyeino'>@eyeino</a>
+          </p>
         </div>
-      </div>
-      <div style={{ textAlign: "center", paddingTop: "70px" }}>
-        <div>Fun fact: bison can run</div>
-        <div>up to 35 miles per hour.</div>
-      </div>
-      <button onClick={props.auth.login} className="button">
-        Login / Register
-      </button>
-      <div style={{ textAlign: 'center', paddingTop: '20px' }}>
-        A project by <a href='https://github.com/eyeino'>@eyeino</a>
       </div>
     </div>
   );

@@ -1,3 +1,7 @@
+:root {
+  --app-height: 100%;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -120,6 +124,16 @@ nav button:active {
   width: 30px;
 }
 
+@media (max-width: 360px) {
+  .logo {
+    display: none;
+  }
+
+  .complete-logo {
+    align-self: unset;
+  }
+}
+
 .logotype {
   font-weight: 700;
   display: inline;
@@ -207,8 +221,7 @@ html, body {
   display: flex;
   flex-direction: column;
   min-width: 320px;
-  min-height: 100vh;
-  min-height: -webkit-fill-available;
+  min-height: var(--app-height);
 }
 
 .header {

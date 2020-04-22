@@ -20,6 +20,9 @@ function App(props) {
   const [recipient, setRecipient] = useState(null);
   const windowSize = useWindowSize();
 
+  // for iOS devices and their finicky viewport handling :/
+  document.documentElement.style.setProperty('--app-height', `${windowSize.height}px`);
+
   return (
     <Router>
       {/* Wrapper for header, content, footer */}

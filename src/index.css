@@ -450,7 +450,7 @@ nav button:active {
   max-width: 350px;
   min-width: 300px;
   overflow-y: auto;
-  height: calc(var(--app-height) - 52px - 45px);
+  height: calc(var(--app-height) - 52px);
 }
 
 .chat-window-wrapper {

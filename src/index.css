@@ -164,6 +164,7 @@ nav button:active {
   display: flex;
   flex-direction: column;
   height: calc(var(--app-height) - 52px);
+  overflow-y: auto;
 }
 
 .conversation-cell {
@@ -449,8 +450,6 @@ nav button:active {
   flex: 1 0 25%;
   max-width: 350px;
   min-width: 300px;
-  overflow-y: auto;
-  height: calc(var(--app-height) - 52px);
 }
 
 .chat-window-wrapper {

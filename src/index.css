@@ -1,5 +1,5 @@
 :root {
-  --app-height: 100%;
+  --app-height: 100vh;
 }
 
 * {
@@ -44,6 +44,11 @@ input:focus {
 header {
   padding: 10px;
   border-bottom: 2px solid #e6e6e6;
+  box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
 }
 
 nav ul {
@@ -220,7 +225,7 @@ html, body {
   display: flex;
   flex-direction: column;
   min-width: 320px;
-  min-height: var(--app-height);
+  height: var(--app-height);
 }
 
 .header {
@@ -236,7 +241,7 @@ html, body {
 
 .chat-form-wrapper {
   align-self: center;
-  position: relative;
+  position: fixed;
   bottom: 0;
   background: white;
   width: 100%;
@@ -289,10 +294,13 @@ html, body {
 }
 
 .content {
-  position: relative;
+  position: absolute;
+  top: 52px;
+  left: 0;
+  right: 0;
   box-sizing: border-box;
   flex: 1;
-  -webkit-overflow-scrolling: touch;
+  height: calc(var(--app-height) - 52px);
 }
 
 .home-container {
@@ -444,6 +452,7 @@ html, body {
   max-width: 350px;
   min-width: 300px;
   overflow-y: auto;
+  height: calc(var(--app-height) - 52px - 45px);
 }
 
 .chat-window-wrapper {
@@ -455,7 +464,7 @@ html, body {
 .chat-wrapper {
   position: relative;
   overflow-y: auto;
-  height: calc(100vh - 100px);
+  height: calc(var(--app-height) - 52px - 45px);
 }
 
 .detail-view-wrapper .chat-wrapper {

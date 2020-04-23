@@ -163,7 +163,7 @@ nav button:active {
   position: relative;
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 52px);
+  height: calc(var(--app-height) - 52px);
 }
 
 .conversation-cell {

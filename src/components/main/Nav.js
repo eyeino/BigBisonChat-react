@@ -4,28 +4,26 @@ import { ReactComponent as Logo } from "../assets/bison.svg";
 
 function Nav(props) {
   return (
-    <nav>
-      <ul className="nav">
-        <li className="complete-logo">
-          <NavLink id="nav-logo" to="/">
-            <Logo className="logo" />
-            <div className="logotype">BigBisonChat</div>
-          </NavLink>
-        </li>
+    <nav className="flex items-center justify-between flex-wrap bg-red-500 p-4 m-2 rounded">
+      <NavLink className="flex items-center flex-shrink-0 mr-2" to="/">
+        <Logo className="fill-current h-10 w-10 mr-2" />
+        <span className="font-semibold text-white text-xl tracking-tight hidden sm:inline">BigBisonChat</span>
+      </NavLink>
+      <ul className="flex items-baseline justify-between text-white sm:ml-auto">
         {props.auth.isAuthenticated() && (
           <>
             <li>
-              <NavLink activeClassName="active" to="/new">
+              <NavLink className="font-semibold inline-block text-underline py-1 px-2 rounded outline-none focus:shadow-outline ml-auto" activeClassName="bg-red-600 shadow-inner" to="/new">
                 New
               </NavLink>
             </li>
             <li>
-              <NavLink exact activeClassName="active" to="/conversations">
+              <NavLink exact className="inline-block font-semibold text-underline py-1 px-2 rounded outline-none focus:shadow-outline ml-2" activeClassName="bg-red-600 shadow-inner" to="/conversations">
                 Convos
               </NavLink>
             </li>
             <li>
-              <button type="button" className="logout-button" onClick={props.auth.logout}>
+              <button type="button" className="text-red-600 rounded bg-red-400 py-1 px-2 outline-none focus:shadow-outline ml-2" onClick={props.auth.logout}>
                 Logout
               </button>
             </li>

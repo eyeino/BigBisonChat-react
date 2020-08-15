@@ -1,9 +1,15 @@
 import React, { useEffect } from 'react';
+import { pingServer } from '../../utils/api';
 
 export default function Home(props) {
   useEffect(() => {
     document.title = props.title;
   });
+
+  useEffect(() => {
+    // ping server to wake it up!
+    pingServer();
+  }, [])
 
   return (
     <div className="home-container">

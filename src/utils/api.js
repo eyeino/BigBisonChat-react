@@ -45,3 +45,7 @@ export async function searchUsers(usernameQuery) {
     console.log(err);
   }
 }
+
+export async function pingServer() {
+  return await axios.get(baseUrl + '/ping');
+}

@@ -13,12 +13,12 @@ export default function ConversationCell(props) {
   
   return (
     <Link to={`/conversations/${username}`}>
-      <div className={`flex flex-wrap text-gray-500 justify-between items-center p-4 rounded border-transparent my-2 transition-colors sm:transition-all ease-out duration-150 hover:text-gray-900 ${selected ? "sm:border-l-8 sm:border-red-600 sm:shadow-lg" : ""}`}>
+      <div className={`flex flex-wrap text-gray-500 justify-between items-center p-4 rounded border-transparent my-2 transition-colors sm:transition-all ease-out duration-150 hover:text-gray-900 ${selected ? "sm:border-l-8 sm:border-teal-400 sm:shadow-lg" : ""}`}>
         {avatarUrl ? (
           <img className="flex-grow-0 flex-shrink-0 h-12 w-12 mr-2 rounded-full" alt={username} src={avatarUrl} />
         ) : (
           <Avatar
-            className={`fill-current flex-grow-0 flex-shrink-0 h-12 w-12 mr-2 ${selected ? "text-red-400" : ""}`}
+            className={`fill-current flex-grow-0 flex-shrink-0 h-12 w-12 mr-2 ${selected ? "text-teal-400" : ""}`}
           />
         )}
         <div className="">
@@ -29,7 +29,7 @@ export default function ConversationCell(props) {
               : body}
           </p>
         </div>
-        <Arrow className={`h-4 w-4 ml-auto fill-current ${selected ? "text-red-400" : ""}`} />
+        <Arrow className={`h-4 w-4 ml-auto fill-current ${selected ? "text-teal-400" : ""}`} />
         <time className="w-full text-right font-light text-sm text-gray-500">{timestamp}</time>
       </div>
     </Link>

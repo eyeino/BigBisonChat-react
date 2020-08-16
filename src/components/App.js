@@ -11,6 +11,7 @@ import Chat from './chat/ChatWindow'; // list of messages in a convo
 import Callback from './auth/Callback'; // callback url for Auth0
 import ChatInput from './chat/ChatInput'; // input bar for messages in chat window
 import { RecipientBar } from './chat/RecipientBar'; // input bar for recipient in new message
+import { ReactComponent as Logo } from "./assets/bison.svg";
 import { useWindowSize } from './hooks/useWindowSize';
 
 function App(props) {
@@ -30,7 +31,7 @@ function App(props) {
         <header className="header header-shadow">
           <Nav auth={props.auth} />
         </header>
-        <main className="ml-2 mb-2 flex-grow overflow-hidden h-full">
+        <main className="ml-2 mb-2 flex-grow overflow-hidden h-full flex flex-col">
           <Switch>
             <Route path='/new' render={() => <RecipientBar setRecipient={setRecipient} />}></Route>
           </Switch>
@@ -47,7 +48,7 @@ function App(props) {
             {!loggedIn && <Redirect from="*" to="/" />}
             
             {/* Chat functions, only accessible if logged in */}
-            <Route path="/new" render={(props) => (<div></div>)} />
+            <Route path="/new" render={(props) => (<Logo className="m-auto h-48 w-48 fill-current text-gray-200" />)} />
             <Route path="/conversations/:username" render={ (props) =>
               <>
                 {/* wide screens get conversations and detailview */}
@@ -71,13 +72,15 @@ function App(props) {
             } />
             <Route path="/conversations" render={ (props) =>
               <>
-                { windowSize.width >= 768 &&
-                  <div className="detail-view-wrapper">
+                { windowSize.width >= 640 &&
+                  <div className="flex w-full h-full justify-between space-x-2">
                     <Conversations {...props} />
-                    <section className="chat-window-wrapper" />
+                    <section className="flex-grow flex flex-col justify-around">
+                      <Logo className="self-center my-auto text-gray-200 fill-current h-48 w-48" />
+                    </section>
                   </div>
                 }
-                { windowSize.width < 768 &&
+                { windowSize.width < 640 &&
                   <Conversations {...props} title="BigBisonChat - Convos" />
                 }
               </>

@@ -20,7 +20,7 @@ const promiseOptions = async inputValue => {
 export default function WithPromises(props) {
     return (
       <AsyncSelect
-        className="shadow rounded"
+        className="shadow rounded mr-2"
         onChange={props.onChange}
         cacheOptions
         defaultOptions

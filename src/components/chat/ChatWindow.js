@@ -69,7 +69,7 @@ export default class Chat extends React.Component {
   }
 
   scrollToBottom() {
-    this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+    // this.messagesEnd.scrollIntoView({ behavior: "smooth" });
   }
 
   determineEventNameFromUsernames(userOneUsername, userTwoUsername) {
@@ -79,7 +79,7 @@ export default class Chat extends React.Component {
 
   render() {
     return (
-      <>
+      <div className="flex-grow overflow-y-scroll">
         <MessageList
           messages={this.state.messages}
           otherUsername={this.props.match.params.username}
@@ -91,7 +91,7 @@ export default class Chat extends React.Component {
           }}
         />
         { this.props.children }
-      </>
+      </div>
     );
   }
 }

@@ -30,7 +30,7 @@ function App(props) {
         <header className="header header-shadow">
           <Nav auth={props.auth} />
         </header>
-        <main className="m-2 flex-grow">
+        <main className="ml-2 mb-2 flex-grow overflow-hidden">
           <Switch>
             <Route path='/new' render={() => <RecipientBar setRecipient={setRecipient} />}></Route>
           </Switch>
@@ -52,9 +52,9 @@ function App(props) {
               <>
                 {/* wide screens get conversations and detailview */}
                 { windowSize.width >= 640 &&
-                  <div className="flex w-full justify-between space-x-2">
+                  <div className="flex w-full h-full justify-between space-x-2">
                     <Conversations {...props} />
-                    <section className="flex-grow">
+                    <section className="flex-grow flex flex-col">
                       <Chat {...props} />
                       <ChatInput {...props} />
                     </section>
@@ -62,7 +62,7 @@ function App(props) {
                 }
                 {/* small screen only gets conversations */}
                 { windowSize.width < 640 &&
-                  <div className="">
+                  <div className="flex-grow flex flex-col h-full">
                     <Chat {...props} />
                     <ChatInput {...props} />
                   </div>

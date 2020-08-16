@@ -32,10 +32,9 @@ function MessageInput(props) {
   }
 
   return (
-    <form className="flex justify-between" onSubmit={handleSubmit}>
-      <label className="hidden" htmlFor="messageInput">Your Message</label>
+    <form className={`flex justify-between space-x-2 ${props.location.pathname.includes("/conversations") && "mr-2"}`} onSubmit={handleSubmit}>
       <input
-        className="bg-gray-100 rounded border w-full mr-2 shadow p-2"
+        className="bg-gray-100 rounded border w-full shadow p-2"
         id="messageInput"
         onChange={handleChange}
         type="text"

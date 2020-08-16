@@ -20,6 +20,7 @@ const promiseOptions = async inputValue => {
 export default function WithPromises(props) {
     return (
       <AsyncSelect
+        className="shadow rounded"
         onChange={props.onChange}
         cacheOptions
         defaultOptions
@@ -29,11 +30,11 @@ export default function WithPromises(props) {
         noOptionsMessage={() => (`Tip: give 'eyeino' a buzz.`)}
         theme={theme => ({
           ...theme,
-          borderRadius: "2px",
+          borderRadius: "0.25rem",
           colors: {
             ...theme.colors,
             primary25: "pink",
-            primary: "#e80505"
+            primary: "#f56565"
           }
         })}
       />

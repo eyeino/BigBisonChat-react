@@ -26,14 +26,14 @@ function App(props) {
   return (
     <Router>
       {/* Wrapper for header, content, footer */}
-      <div className='wrapper'>
+      <div className="flex flex-col justify-start">
         <header className='header header-shadow'>
           <Nav auth={props.auth} />
+        </header>
+        <main className="m-2 flex-grow">
           <Switch>
             <Route path='/new' render={() => <RecipientBar setRecipient={setRecipient} />}></Route>
           </Switch>
-        </header>
-        <main className='content'>
           <Switch>
             {/* Redirect to list of conversations if logged in, otherwise show login button */}
             <Route exact path="/" render={() => (
@@ -52,9 +52,9 @@ function App(props) {
               <>
                 {/* wide screens get conversations and detailview */}
                 { windowSize.width >= 768 &&
-                  <div className="detail-view-wrapper">
+                  <div className="flex w-full justify-between space-x-2">
                     <Conversations {...props} />
-                    <section className="chat-window-wrapper">
+                    <section className="flex-grow">
                       <Chat {...props} />
                       <ChatInput {...props} />
                     </section>
@@ -88,9 +88,9 @@ function App(props) {
         {/* Footer: renders only if viewing a chat */}
         <Switch>
           <Route path='/new' render={(props) => (
-            <footer>
-              <ChatInput {...props} recipient={recipient} />
-            </footer>
+            <div className="m-2">
+             <ChatInput {...props} recipient={recipient} />
+            </div>
           )} />
         </Switch>
       </div>

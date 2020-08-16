@@ -5,10 +5,7 @@ export default function ChatInput(props) {
   const otherUsername = props.recipient ? props.recipient : props.match.params.username;
   
   return (
-    <div className="chat-form-wrapper">
-      <hr/>
-      <MessageInput {...props} otherUsername={otherUsername}/>
-    </div>
+    <MessageInput {...props} otherUsername={otherUsername}/>
   )
 }
 
@@ -35,9 +32,10 @@ function MessageInput(props) {
   }
 
   return (
-    <form className='chat-form' onSubmit={handleSubmit}>
+    <form className="flex justify-between" onSubmit={handleSubmit}>
+      <label className="hidden" htmlFor="messageInput">Your Message</label>
       <input
-        className="chat-input"
+        className="bg-gray-100 rounded border w-full mr-2 shadow p-2"
         id="messageInput"
         onChange={handleChange}
         type="text"
@@ -46,11 +44,11 @@ function MessageInput(props) {
         placeholder={props.otherUsername ? 'Send message to ' + props.otherUsername : ''}
       />
       <button
-        className="chat-submit-button"
+        className="bg-red-500 text-white py-1 px-2 rounded shadow-md"
         disabled={!messageBody || isSending}
         type="submit"
         onClick={handleSubmit}>
-        <span role='img' aria-label='message bubble'>💬</span>
+        Send
       </button>
     </form>
   );

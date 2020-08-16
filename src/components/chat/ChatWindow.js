@@ -52,7 +52,7 @@ export default class Chat extends React.Component {
         console.log(res.data);
         this.setState({
           messages: res.data
-        }, this.scrollToBottom);
+        }); //this.scrollToBottom);
       });
   
       // add listener to add messages to chat window upon receipt
@@ -79,7 +79,7 @@ export default class Chat extends React.Component {
 
   render() {
     return (
-      <div className="chat-wrapper">
+      <>
         <MessageList
           messages={this.state.messages}
           otherUsername={this.props.match.params.username}
@@ -91,7 +91,7 @@ export default class Chat extends React.Component {
           }}
         />
         { this.props.children }
-      </div>
+      </>
     );
   }
 }
@@ -100,7 +100,7 @@ function MessageList(props) {
   const { messages, otherUsername } = props;
 
   return (
-    <ol className="bubble-list">
+    <ol className="m-2 flex flex-col">
       {messages &&
         messages.map(message => {
           const chatBubble = (
@@ -135,14 +135,13 @@ function ChatBubble(props) {
   const timestamp = fecha.format(epochTime, 'MM/DD/YY hh:mmA');
   
   const { otherUsername } = props; 
-  const directionClass = sender_username === otherUsername ? 'bubble-left' : 'bubble-right';
+  const isFromSender = sender_username === otherUsername;
 
   return (
     <>
-      <li className={`bubble-wrap ${directionClass}`}>
-        <p className='bubble-username'>{sender_username}</p>
-        <p className='bubble-body'>{body}</p>
-        <p className='bubble-timestamp'>{timestamp}</p>
+      <li className={`max-w-xs hover:text-gray-500 text-transparent ${isFromSender ? 'self-start text-left' : 'self-end text-right'}`}>
+        <p className={`inline-block p-2 shadow rounded-lg w-auto ${isFromSender ? 'bg-gray-200 text-gray-700 rounded-bl-none' : 'bg-red-100 text-red-700 rounded-br-none'}`}>{body}</p>
+        <p className="text-xs">{timestamp}</p>
       </li>
     </>
   )

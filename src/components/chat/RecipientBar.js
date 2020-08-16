@@ -9,8 +9,6 @@ export function RecipientBar(props) {
   }
 
   return (
-    <div className="recipient-wrapper">
-      <AsyncSelect className='recipient-search' onChange={handleChange} />
-    </div>
+    <AsyncSelect onChange={handleChange} />
   );
 }

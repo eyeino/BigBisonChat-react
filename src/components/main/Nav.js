@@ -4,7 +4,7 @@ import { ReactComponent as Logo } from "../assets/bison.svg";
 
 function Nav(props) {
   return (
-    <nav className="flex items-center justify-between flex-wrap p-4 m-2 rounded">
+    <nav className="flex items-center justify-between flex-wrap p-4 rounded border-b-2 border-gray-100">
       <NavLink className="flex items-center flex-shrink-0 mr-2 text-red-900" to="/">
         <Logo className="fill-current h-8 w-8 mr-2" />
         <span className="font-semibold text-xl tracking-tight hidden sm:inline">BigBisonChat</span>

@@ -15,7 +15,7 @@ export default function Conversations(props) {
   }, []);
 
   return (
-    <section className="conversations">
+    <section className="flex-grow max-w-xs border-r-2 border-gray-100">
       {conversations &&
         conversations
           .reduce((unique, item) => {

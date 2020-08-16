@@ -13,23 +13,24 @@ export default function ConversationCell(props) {
   
   return (
     <Link to={`/conversations/${username}`}>
-      <div className={`conversation-cell${selected ? " selected" : ""}`}>
+      <div className={`flex flex-wrap justify-between items-center p-4 rounded border-l-8 border-transparent my-2 ${selected ? "text-black border-red-600 shadow-lg" : ""}`}>
         {avatarUrl ? (
-          <img className="conversation-avatar" alt={username} src={avatarUrl} />
+          <img className="flex-grow-0 flex-shrink-0 h-12 w-12 mr-2 rounded-full" alt={username} src={avatarUrl} />
         ) : (
           <Avatar
-            className="conversation-avatar"
-            style={{ borderRadius: 0, transform: "scale(0.8)" }}
+            className={`text-gray-500 fill-current flex-grow-0 flex-shrink-0 h-12 w-12 mr-2 ${selected ? "text-red-400" : ""}`}
           />
         )}
-        <div className="conversation-name">{username}</div>
-        <div className="conversation-body">
-          {body.length > messageBodyLimit
-            ? body.substring(0, messageBodyLimit) + "..."
-            : body}
+        <div className="">
+          <p className="font-bold">{username}</p>
+          <p className="text-gray-500">
+            {body.length > messageBodyLimit
+              ? body.substring(0, messageBodyLimit) + "..."
+              : body}
+          </p>
         </div>
-        <Arrow className="conversation-arrow" />
-        <div className="conversation-timestamp">{timestamp}</div>
+        <Arrow className="h-4 w-4 ml-auto" />
+        <time className="w-full text-right text-gray-500 font-light text-sm">{timestamp}</time>
       </div>
     </Link>
   );

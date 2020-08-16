@@ -40,11 +40,12 @@ function MessageInput(props) {
         type="text"
         autoComplete="off"
         value={messageBody}
-        placeholder={props.otherUsername ? 'Send message to ' + props.otherUsername : ''}
+        disabled={!props.otherUsername}
+        placeholder={props.otherUsername ? 'Send message to ' + props.otherUsername : 'Find someone to message first!'}
       />
       <button
         className="bg-red-500 text-white font-semibold py-1 px-6 rounded-lg shadow-md"
-        disabled={!messageBody || isSending}
+        disabled={!messageBody || isSending || !props.otherUsername}
         type="submit"
         onClick={handleSubmit}>
         Send

@@ -5,12 +5,12 @@ import { dbTimeToHHMMOrDayNameOrDateString } from '../../utils/DateText';
 import { ReactComponent as Avatar } from "../assets/avatar.svg";
 import { ReactComponent as Arrow } from "../assets/right-arrow.svg";
 
-const messageBodyLimit = 50;
+const messageBodyLimit = 15;
 
 export default function ConversationCell(props) {
   const { username, avatarUrl, body, createdAt, selected } = props;
   const timestamp = dbTimeToHHMMOrDayNameOrDateString(createdAt);
-  
+
   return (
     <Link to={`/conversations/${username}`}>
       <div className={`flex flex-wrap text-gray-500 justify-between items-center p-4 rounded border-transparent my-2 transition-colors sm:transition-all ease-out duration-150 hover:text-gray-900 ${selected ? "sm:border-l-8 sm:border-teal-400 sm:shadow-lg" : ""}`}>

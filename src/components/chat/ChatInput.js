@@ -32,9 +32,9 @@ function MessageInput(props) {
   }
 
   return (
-    <form className={`flex justify-between flex-shrink-0 space-x-2 ${props.location.pathname.includes("/conversations") && "mr-2"}`} onSubmit={handleSubmit}>
+    <form className={`flex justify-between flex-shrink-0 space-x-2`} onSubmit={handleSubmit}>
       <input
-        className="bg-gray-100 border w-full shadow p-2 rounded-lg"
+        className="bg-gray-100 border w-full shadow-md p-2 rounded-lg"
         id="messageInput"
         onChange={handleChange}
         type="text"
@@ -44,7 +44,7 @@ function MessageInput(props) {
         placeholder={props.otherUsername ? 'Send message to ' + props.otherUsername : 'Find someone to message first!'}
       />
       <button
-        className="bg-red-500 text-white font-semibold py-1 px-6 rounded-lg shadow-md"
+        className="bg-red-500 text-white font-semibold py-1 px-6 rounded-lg shadow-lg"
         disabled={!messageBody || isSending || !props.otherUsername}
         type="submit"
         onClick={handleSubmit}>

@@ -6,8 +6,8 @@ const isClient = typeof window === 'object';
 
 function getSize() {
   return {
-    width: isClient ? window.visualViewport.width || window.innerWidth : undefined,
-    height: isClient ? window.visualViewport.height || window.innerHeight : undefined
+    width: isClient ? window.innerWidth : undefined,
+    height: isClient ? window.innerHeight : undefined
   };
 }
 

@@ -64,10 +64,12 @@ export default class Chat extends React.Component {
         }), this.scrollToBottom());
       }
     }
+
+    this.scrollToBottom();
   }
 
   scrollToBottom() {
-    this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+    this.messagesEnd.scrollIntoView({ behavior: "smooth", alignToTop: true });
   }
 
   determineEventNameFromUsernames(userOneUsername, userTwoUsername) {
@@ -77,13 +79,13 @@ export default class Chat extends React.Component {
 
   render() {
     return (
-      <div className="flex-grow overflow-y-scroll">
+      <div className="flex-grow overflow-y-scroll overscroll-auto shadow-inner" style={{ WebkitOverflowScrolling: 'auto' }}>
         <MessageList
           messages={this.state.messages}
           otherUsername={this.props.match.params.username}
         />
         <div
-          style={{ float: "left", clear: "both" }}
+          className="h-16"
           ref={el => {
             this.messagesEnd = el;
           }}
@@ -98,7 +100,7 @@ function MessageList(props) {
   const { messages, otherUsername } = props;
 
   return (
-    <ol className="m-2 flex flex-col">
+    <ol className="m-2 ml-5 flex flex-col">
       {messages &&
         messages.map(message => {
           const chatBubble = (

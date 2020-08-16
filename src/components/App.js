@@ -13,6 +13,7 @@ import ChatInput from './chat/ChatInput'; // input bar for messages in chat wind
 import { RecipientBar } from './chat/RecipientBar'; // input bar for recipient in new message
 import { ReactComponent as Logo } from "./assets/bison.svg";
 import { useWindowSize } from './hooks/useWindowSize';
+import { FixedBottom } from 'react-fixed-bottom';
 
 function App(props) {
   const { auth } = props;
@@ -21,20 +22,17 @@ function App(props) {
   const [recipient, setRecipient] = useState(null);
   const windowSize = useWindowSize();
 
-  // for iOS devices and their finicky viewport handling :/
-  document.documentElement.style.setProperty('--app-height', `${windowSize.height}px`);
-
   return (
     <Router>
       {/* Wrapper for header, content, footer */}
       <div className="flex flex-col justify-start h-screen">
-        <header className="header header-shadow">
+        <header className="block sticky top-0 bg-white mx-2 mb-0 z-50 overscroll-y-none">
           <Nav auth={props.auth} />
-        </header>
-        <main className="ml-2 mb-2 flex-grow overflow-hidden h-full flex flex-col">
           <Switch>
             <Route path='/new' render={() => <RecipientBar setRecipient={setRecipient} />}></Route>
           </Switch>
+        </header>
+        <main className="flex-grow overflow-hidden flex flex-col">
           <Switch>
             {/* Redirect to list of conversations if logged in, otherwise show login button */}
             <Route exact path="/" render={() => (
@@ -53,11 +51,13 @@ function App(props) {
               <>
                 {/* wide screens get conversations and detailview */}
                 { windowSize.width >= 640 &&
-                  <div className="flex w-full h-full justify-between space-x-2">
+                  <div className="flex w-full h-full justify-between">
                     <Conversations {...props} />
                     <section className="flex-grow flex flex-col">
                       <Chat {...props} />
-                      <ChatInput {...props} />
+                      <div className="p-4 border-t-2 border-gray-100">
+                        <ChatInput {...props } />
+                      </div>
                     </section>
                   </div>
                 }
@@ -65,7 +65,11 @@ function App(props) {
                 { windowSize.width < 640 &&
                   <div className="flex-grow flex flex-col h-full">
                     <Chat {...props} />
-                    <ChatInput {...props} />
+                    <FixedBottom>
+                      <div className="w-full p-4 bg-transparent rounded-lg" style={{ position: "fixed", bottom: "0", backdropFilter: "blur(20px)" }}>
+                        <ChatInput {...props} />
+                      </div>
+                    </FixedBottom>
                   </div>
                 }
               </>
@@ -75,7 +79,7 @@ function App(props) {
                 { windowSize.width >= 640 &&
                   <div className="flex w-full h-full justify-between space-x-2">
                     <Conversations {...props} />
-                    <section className="flex-grow flex flex-col justify-around">
+                    <section className="flex-grow flex flex-col justify-around self-center">
                       <Logo className="self-center my-auto text-gray-200 fill-current h-48 w-48" />
                     </section>
                   </div>
@@ -89,14 +93,16 @@ function App(props) {
           </Switch>
         </main>
         {/* Footer: renders only if viewing a chat */}
+      </div>
         <Switch>
           <Route path='/new' render={(props) => (
-            <div className="m-2">
-             <ChatInput {...props} recipient={recipient} />
-            </div>
+            <FixedBottom>
+              <div className="w-full p-4" style={{ position: "fixed", bottom: "0" }}>
+                <ChatInput {...props} recipient={recipient} />
+              </div>
+            </FixedBottom>
           )} />
         </Switch>
-      </div>
     </Router>
   );
 }

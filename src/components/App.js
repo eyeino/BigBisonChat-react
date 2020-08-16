@@ -26,8 +26,8 @@ function App(props) {
   return (
     <Router>
       {/* Wrapper for header, content, footer */}
-      <div className="flex flex-col justify-start">
-        <header className='header header-shadow'>
+      <div className="flex flex-col justify-start h-screen">
+        <header className="header header-shadow">
           <Nav auth={props.auth} />
         </header>
         <main className="m-2 flex-grow">
@@ -51,7 +51,7 @@ function App(props) {
             <Route path="/conversations/:username" render={ (props) =>
               <>
                 {/* wide screens get conversations and detailview */}
-                { windowSize.width >= 768 &&
+                { windowSize.width >= 640 &&
                   <div className="flex w-full justify-between space-x-2">
                     <Conversations {...props} />
                     <section className="flex-grow">
@@ -61,11 +61,11 @@ function App(props) {
                   </div>
                 }
                 {/* small screen only gets conversations */}
-                { windowSize.width < 768 &&
-                  <>
+                { windowSize.width < 640 &&
+                  <div className="">
                     <Chat {...props} />
                     <ChatInput {...props} />
-                  </>
+                  </div>
                 }
               </>
             } />

@@ -52,7 +52,7 @@ export default class Chat extends React.Component {
         console.log(res.data);
         this.setState({
           messages: res.data
-        }); //this.scrollToBottom);
+        }, this.scrollToBottom);
       });
   
       // add listener to add messages to chat window upon receipt
@@ -61,15 +61,13 @@ export default class Chat extends React.Component {
         console.log('new message received:', eventData);
         this.setState(prevState => ({
           messages: [...prevState.messages, eventData],
-        }));
+        }), this.scrollToBottom());
       }
     }
-
-    this.scrollToBottom();
   }
 
   scrollToBottom() {
-    // this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+    this.messagesEnd.scrollIntoView({ behavior: "smooth" });
   }
 
   determineEventNameFromUsernames(userOneUsername, userTwoUsername) {

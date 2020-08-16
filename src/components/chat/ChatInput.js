@@ -34,7 +34,7 @@ function MessageInput(props) {
   return (
     <form className={`flex justify-between space-x-2 ${props.location.pathname.includes("/conversations") && "mr-2"}`} onSubmit={handleSubmit}>
       <input
-        className="bg-gray-100 rounded border w-full shadow p-2"
+        className="bg-gray-100 border w-full shadow p-2 rounded-lg"
         id="messageInput"
         onChange={handleChange}
         type="text"
@@ -43,7 +43,7 @@ function MessageInput(props) {
         placeholder={props.otherUsername ? 'Send message to ' + props.otherUsername : ''}
       />
       <button
-        className="bg-red-500 text-white py-1 px-2 rounded shadow-md"
+        className="bg-red-500 text-white font-semibold py-1 px-6 rounded-lg shadow-md"
         disabled={!messageBody || isSending}
         type="submit"
         onClick={handleSubmit}>

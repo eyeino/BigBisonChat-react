@@ -30,7 +30,7 @@ function App(props) {
         <header className="header header-shadow">
           <Nav auth={props.auth} />
         </header>
-        <main className="ml-2 mb-2 flex-grow overflow-hidden">
+        <main className="ml-2 mb-2 flex-grow overflow-hidden h-full">
           <Switch>
             <Route path='/new' render={() => <RecipientBar setRecipient={setRecipient} />}></Route>
           </Switch>

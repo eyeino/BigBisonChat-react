@@ -32,7 +32,7 @@ function MessageInput(props) {
   }
 
   return (
-    <form className={`flex justify-between space-x-2 ${props.location.pathname.includes("/conversations") && "mr-2"}`} onSubmit={handleSubmit}>
+    <form className={`flex justify-between flex-shrink-0 space-x-2 ${props.location.pathname.includes("/conversations") && "mr-2"}`} onSubmit={handleSubmit}>
       <input
         className="bg-gray-100 border w-full shadow p-2 rounded-lg"
         id="messageInput"

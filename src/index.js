@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import App from './components/App';
 import Auth from './utils/Auth';
 import './tailwind.output.css'
-// import './index.css';
 
 const auth = new Auth();
 

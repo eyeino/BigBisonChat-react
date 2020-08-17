@@ -12,7 +12,7 @@ export default function Home(props) {
   }, [])
 
   return (
-    <div className="flex flex-col h-screen max-w-2xl m-12 md:mt-12 md:mx-auto space-y-10">
+    <div className="flex flex-col max-w-2xl m-12 md:mt-12 md:mx-auto space-y-10">
       <div className="flex flex-no-wrap items-center z-10">
         <h1 className="text-5xl sm:text-6xl font-bold leading-tight">
           Chat with your friends... <span className="text-teal-400">majestically</span>.

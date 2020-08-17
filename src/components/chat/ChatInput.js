@@ -44,7 +44,7 @@ function MessageInput(props) {
         placeholder={props.otherUsername ? 'Send message to ' + props.otherUsername : 'Find someone to message first!'}
       />
       <button
-        className="bg-red-500 text-white font-semibold py-1 px-6 rounded-lg shadow-lg"
+        className="bg-red-500 text-white font-semibold py-1 px-3 sm:px-6 rounded-lg shadow-lg"
         disabled={!messageBody || isSending || !props.otherUsername}
         type="submit"
         onClick={handleSubmit}>

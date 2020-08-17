@@ -20,7 +20,7 @@ export function RecipientBar(props) {
 
   return (
     <AsyncSelect
-      className="shadow rounded mr-2"
+      className="shadow rounded mx-4"
       onChange={handleChange}
       cacheOptions
       defaultOptions

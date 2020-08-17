@@ -26,13 +26,13 @@ function App(props) {
     <Router>
       {/* Wrapper for header, content, footer */}
       <div className="flex flex-col justify-start h-screen">
-        <header className="block sticky top-0 bg-white mx-2 mb-0 z-50 overscroll-y-none">
+        <header className="block sticky top-0 w-full bg-white mb-0 z-50 border-b-2 border-gray-100">
           <Nav auth={props.auth} />
           <Switch>
             <Route path='/new' render={() => <RecipientBar setRecipient={setRecipient} />}></Route>
           </Switch>
         </header>
-        <main className="flex-grow overflow-hidden flex flex-col">
+        <main className="flex-grow sm:overflow-hidden flex flex-col">
           <Switch>
             {/* Redirect to list of conversations if logged in, otherwise show login button */}
             <Route exact path="/" render={() => (
@@ -51,7 +51,7 @@ function App(props) {
               <>
                 {/* wide screens get conversations and detailview */}
                 { windowSize.width >= 640 &&
-                  <div className="flex w-full h-full justify-between">
+                  <div className="flex w-full sm:h-full justify-between">
                     <Conversations {...props} />
                     <section className="flex-grow flex flex-col">
                       <Chat {...props} />

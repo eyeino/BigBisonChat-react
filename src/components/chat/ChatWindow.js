@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import fecha from 'fecha';
-import EventSource from 'eventsource';
+import io from 'socket.io-client';
 
-import { getMessages, eventSourceURL } from '../../utils/api';
+import { getMessages, baseUrl } from '../../utils/api';
 
 export default class Chat extends React.Component {
   constructor(props) {
@@ -11,25 +11,13 @@ export default class Chat extends React.Component {
     this.state = {
       messages: []
     };
-
-    // subscribe to eventstream offered by server
-    const token = localStorage.getItem("id_token");
-    const url = eventSourceURL + this.props.match.params.username;
-
-    const eventSourceInitDict = {
-      headers: { 
-        authorization: "Bearer " + token, 
-        Origin: process.env.NODE_ENV === "production" 
-          ? "https://chat.bigbison.co"
-          : "http://localhost:3000"
-        }
-    };
-
-    this.evtSource = new EventSource(url, eventSourceInitDict);
   }
 
   componentDidMount() {
     document.title = "BigBisonChat - " + this.props.match.params.username;
+
+    const token = localStorage.getItem("id_token");
+    this.socket = io(baseUrl);
 
     getMessages(this.props.match.params.username).then((res, err) => {
       console.log(res.data);
@@ -39,17 +27,15 @@ export default class Chat extends React.Component {
     });
 
     // add listener to add messages to chat window upon receipt
-    this.evtSource.onmessage = (e) => {
-      const eventData = JSON.parse(e.data);
-      console.log('new message received:', eventData);
+    this.socket.on(token, payload => {
       this.setState(prevState => ({
-        messages: [...prevState.messages, eventData],
+        messages: [...prevState.messages, payload],
       }));
-    }
+    });
   }
 
   componentWillUnmount() {
-    this.evtSource.close();
+    this.socket.close();
   }
 
   componentDidUpdate(prevProps) {
@@ -60,15 +46,6 @@ export default class Chat extends React.Component {
           messages: res.data
         }, this.scrollToBottom);
       });
-  
-      // add listener to add messages to chat window upon receipt
-      this.evtSource.onmessage = (e) => {
-        const eventData = JSON.parse(e.data);
-        console.log('new message received:', eventData);
-        this.setState(prevState => ({
-          messages: [...prevState.messages, eventData],
-        }), this.scrollToBottom());
-      }
     }
 
     this.scrollToBottom();

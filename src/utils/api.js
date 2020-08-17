@@ -3,12 +3,10 @@ import axios from 'axios';
 const token = localStorage.getItem("id_token");
 axios.defaults.headers.common['authorization'] = 'Bearer ' + token;
 
-const baseUrl =
+export const baseUrl =
   process.env.NODE_ENV === "production"
     ? "https://bigbisonchat.herokuapp.com"
     : "http://localhost:8080";
-
-export const eventSourceURL = baseUrl + '/eventstream/'
 
 export async function getMessages(otherUsername) {
   try {

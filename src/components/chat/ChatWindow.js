@@ -61,7 +61,7 @@ export default class Chat extends React.Component {
         console.log('new message received:', eventData);
         this.setState(prevState => ({
           messages: [...prevState.messages, eventData],
-        }));
+        }), this.scrollToBottom());
       }
     }
 
@@ -69,7 +69,7 @@ export default class Chat extends React.Component {
   }
 
   scrollToBottom() {
-    this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+    this.messagesEnd.scrollIntoView({ behavior: "smooth", alignToTop: true });
   }
 
   determineEventNameFromUsernames(userOneUsername, userTwoUsername) {
@@ -79,13 +79,13 @@ export default class Chat extends React.Component {
 
   render() {
     return (
-      <div className="chat-wrapper">
+      <div className="flex-grow overflow-y-scroll overscroll-auto shadow-inner" style={{ WebkitOverflowScrolling: 'auto' }}>
         <MessageList
           messages={this.state.messages}
           otherUsername={this.props.match.params.username}
         />
         <div
-          style={{ float: "left", clear: "both" }}
+          className="h-16"
           ref={el => {
             this.messagesEnd = el;
           }}
@@ -100,7 +100,7 @@ function MessageList(props) {
   const { messages, otherUsername } = props;
 
   return (
-    <ol className="bubble-list">
+    <ol className="m-2 ml-5 flex flex-col">
       {messages &&
         messages.map(message => {
           const chatBubble = (
@@ -135,14 +135,13 @@ function ChatBubble(props) {
   const timestamp = fecha.format(epochTime, 'MM/DD/YY hh:mmA');
   
   const { otherUsername } = props; 
-  const directionClass = sender_username === otherUsername ? 'bubble-left' : 'bubble-right';
+  const isFromSender = sender_username === otherUsername;
 
   return (
     <>
-      <li className={`bubble-wrap ${directionClass}`}>
-        <p className='bubble-username'>{sender_username}</p>
-        <p className='bubble-body'>{body}</p>
-        <p className='bubble-timestamp'>{timestamp}</p>
+      <li className={`max-w-xs hover:text-gray-500 transition-colors ease-out duration-200 delay-500 text-transparent ${isFromSender ? 'self-start text-left' : 'self-end text-right'}`}>
+        <p className={`inline-block p-2 shadow rounded-lg w-auto ${isFromSender ? 'bg-gray-200 text-gray-700 rounded-bl-none' : 'bg-red-100 text-red-700 rounded-br-none'}`}>{body}</p>
+        <time className="block text-xs">{timestamp}</time>
       </li>
     </>
   )

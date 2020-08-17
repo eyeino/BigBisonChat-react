@@ -13,12 +13,12 @@ function Nav(props) {
         {props.auth.isAuthenticated() && (
           <>
             <li>
-              <NavLink className="font-semibold shadow-sm inline-block text-underline py-1 px-2 rounded-l-lg border border-r-0 outline-none focus:shadow-outline hover:bg-teal-300 ml-auto transition-all duration-150 ease-out" activeClassName="bg-teal-200 shadow-inner" to="/new">
+              <NavLink className="font-semibold shadow-sm inline-block text-underline py-1 px-2 rounded-l-lg border border-r-0 outline-none focus:shadow-outline hover:bg-teal-200 ml-auto transition-all duration-150 ease-out" activeClassName="bg-teal-100 shadow-inner" to="/new">
                 New
               </NavLink>
             </li>
             <li>
-              <NavLink exact className="inline-block shadow-sm border-l font-semibold text-underline py-1 px-2 rounded-r-lg border outline-none focus:shadow-outline hover:bg-teal-300 transition-all duration-150 ease-out" activeClassName="bg-teal-200 shadow-inner" to="/conversations">
+              <NavLink exact className="inline-block shadow-sm border-l font-semibold text-underline py-1 px-2 rounded-r-lg border outline-none focus:shadow-outline hover:bg-teal-200 transition-all duration-150 ease-out" activeClassName="bg-teal-100 shadow-inner" to="/conversations">
                 Convos
               </NavLink>
             </li>

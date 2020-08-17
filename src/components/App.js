@@ -25,7 +25,7 @@ function App(props) {
   return (
     <Router>
       {/* Wrapper for header, content, footer */}
-      <div className="flex flex-col justify-start h-screen">
+      <div className="flex flex-col justify-start sm:h-screen">
         <header className="block sticky top-0 w-full bg-white mb-0 z-50 border-b-2 border-gray-100">
           <Nav auth={props.auth} />
           <Switch>
@@ -46,7 +46,7 @@ function App(props) {
             {!loggedIn && <Redirect from="*" to="/" />}
             
             {/* Chat functions, only accessible if logged in */}
-            <Route path="/new" render={(props) => (<Logo className="m-auto h-48 w-48 fill-current text-gray-200" />)} />
+            <Route path="/new" render={(props) => (<Logo className="mx-auto sm:m-auto mt-20 h-48 w-48 fill-current text-gray-200" />)} />
             <Route path="/conversations/:username" render={ (props) =>
               <>
                 {/* wide screens get conversations and detailview */}
@@ -55,7 +55,7 @@ function App(props) {
                     <Conversations {...props} />
                     <section className="flex-grow flex flex-col">
                       <Chat {...props} />
-                      <div className="p-4 border-t-2 border-gray-100">
+                      <div className="p-4 bg-gray-100">
                         <ChatInput {...props } />
                       </div>
                     </section>

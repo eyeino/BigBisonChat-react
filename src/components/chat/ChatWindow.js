@@ -79,13 +79,13 @@ export default class Chat extends React.Component {
 
   render() {
     return (
-      <div className="flex-grow sm:overflow-y-scroll sm:overscroll-auto" style={{ WebkitOverflowScrolling: 'auto' }}>
+      <div className="flex-grow sm:overflow-y-scroll" style={{ WebkitOverflowScrolling: 'auto' }}>
         <MessageList
           messages={this.state.messages}
           otherUsername={this.props.match.params.username}
         />
         <div
-          className="h-16"
+          className="h-16 sm:h-0"
           ref={el => {
             this.messagesEnd = el;
           }}

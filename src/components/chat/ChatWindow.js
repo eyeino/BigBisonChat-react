@@ -17,8 +17,14 @@ export default class Chat extends React.Component {
     const url = eventSourceURL + this.props.match.params.username;
 
     const eventSourceInitDict = {
-      headers: { authorization: "Bearer " + token }
+      headers: { 
+        authorization: "Bearer " + token, 
+        Origin: process.env.NODE_ENV === "production" 
+          ? "https://chat.bigbison.co"
+          : "http://localhost:3000"
+        }
     };
+
     this.evtSource = new EventSource(url, eventSourceInitDict);
   }
 

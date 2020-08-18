@@ -25,7 +25,7 @@ export function RecipientBar(props) {
       cacheOptions
       defaultOptions
       loadOptions={promiseOptions}
-      placeholder='To:'
+      placeholder='Search for a user...'
       isSearchable
       noOptionsMessage={() => (`Tip: search for 'eyeino' and send him a message!`)}
       theme={theme => ({

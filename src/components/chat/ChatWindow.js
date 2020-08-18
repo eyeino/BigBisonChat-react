@@ -4,6 +4,16 @@ import fecha from 'fecha';
 import io from 'socket.io-client';
 
 import { getMessages, baseUrl } from '../../utils/api';
+import { parseJWTUserInfo } from '../../utils/Auth';
+
+function determineEventName(userOneUsername, userTwoUsername) {
+  // create deterministic but unique room name between two users
+  return [userOneUsername, userTwoUsername].sort().join("-");
+}
+
+function scrollToBottom(ref) {
+  ref.current.scrollIntoView({ behavior: "smooth", alignToTop: true });
+}
 
 export default class Chat extends React.Component {
   constructor(props) {
@@ -11,12 +21,16 @@ export default class Chat extends React.Component {
     this.state = {
       messages: []
     };
+
+    this.messagesEnd = React.createRef();
+
+    const token = localStorage.getItem("id_token");
+    this.username = parseJWTUserInfo(token).nickname;
   }
 
   componentDidMount() {
     document.title = "BigBisonChat - " + this.props.match.params.username;
 
-    const token = localStorage.getItem("id_token");
     this.socket = io(baseUrl);
 
     getMessages(this.props.match.params.username).then((res, err) => {
@@ -24,14 +38,12 @@ export default class Chat extends React.Component {
       this.setState({
         messages: res.data
       });
+
     });
 
     // add listener to add messages to chat window upon receipt
-    this.socket.on(token, payload => {
-      this.setState(prevState => ({
-        messages: [...prevState.messages, payload],
-      }));
-    });
+    const eventName = determineEventName(this.username, this.props.match.params.username);
+    this.socket.on(eventName, this.payloadHandler);
   }
 
   componentWillUnmount() {
@@ -40,25 +52,30 @@ export default class Chat extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.match.params.username !== this.props.match.params.username) {
+      // in this case, user switched to a different conversation with another person
       getMessages(this.props.match.params.username).then((res, err) => {
         console.log(res.data);
         this.setState({
           messages: res.data
-        }, this.scrollToBottom);
+        }, () => {
+          const oldEventName = determineEventName(this.username, prevProps.match.params.username);
+          const newEventName = determineEventName(this.username, this.props.match.params.username);
+          this.socket.off(oldEventName);
+          this.socket.on(newEventName, this.payloadHandler);
+
+          scrollToBottom( this.messagesEnd );
+        });
       });
     }
 
-    this.scrollToBottom();
+    scrollToBottom( this.messagesEnd );
   }
 
-  scrollToBottom() {
-    this.messagesEnd.scrollIntoView({ behavior: "smooth", alignToTop: true });
-  }
-
-  determineEventNameFromUsernames(userOneUsername, userTwoUsername) {
-    // create deterministic but unique room name between two users
-    return [userOneUsername, userTwoUsername].sort().join("-");
-  }
+  payloadHandler = payload => {
+    this.setState(prevState => ({
+      messages: [...prevState.messages, payload],
+    }));
+  };
 
   render() {
     return (
@@ -69,9 +86,7 @@ export default class Chat extends React.Component {
         />
         <div
           className="h-16 sm:h-0"
-          ref={el => {
-            this.messagesEnd = el;
-          }}
+          ref={ this.messagesEnd }
         />
         { this.props.children }
       </div>

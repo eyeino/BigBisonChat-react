@@ -138,7 +138,7 @@ function ChatBubble(props) {
   return (
     <>
       <li className={`max-w-xs hover:text-gray-500 transition-colors ease-out duration-200 delay-500 text-transparent ${isFromSender ? 'self-start text-left' : 'self-end text-right'}`}>
-        <p className={`inline-block p-2 shadow rounded-lg w-auto ${isFromSender ? 'bg-gray-200 text-gray-700 rounded-bl-none' : 'bg-red-100 text-red-700 rounded-br-none'}`}>{body}</p>
+        <p className={`inline-block p-2 shadow rounded-lg w-auto ${isFromSender ? 'bg-gray-200 text-gray-700 rounded-bl-none' : 'bg-red-100 text-red-700 rounded-br-none'}`} style={{ wordBreak: 'break-word', hyphens: 'auto' }}>{body}</p>
         <time className="block text-xs">{timestamp}</time>
       </li>
     </>

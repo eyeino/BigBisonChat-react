@@ -13,7 +13,7 @@ export default function ConversationCell(props) {
 
   return (
     <Link to={`/conversations/${username}`}>
-      <div className={`flex flex-wrap text-gray-500 justify-between items-center p-4 rounded border-transparent border-l-8 my-2 transition-colors sm:transition-all ease-out duration-150 hover:text-gray-900 hover:border-teal-200 ${selected ? "sm:border-teal-400 sm:shadow-lg" : ""}`}>
+      <div className={`flex flex-wrap text-gray-500 justify-between items-center p-4 rounded border-transparent border-l-8 my-2 transition-colors sm:transition-all ease-out duration-150 hover:text-gray-700 hover:border-teal-200 ${selected ? "sm:border-teal-400 sm:shadow-lg" : ""}`}>
         {avatarUrl ? (
           <img className="flex-grow-0 flex-shrink-0 h-12 w-12 mr-2 rounded-full" alt={username} src={avatarUrl} />
         ) : (

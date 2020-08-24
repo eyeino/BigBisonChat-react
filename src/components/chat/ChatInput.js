@@ -1,18 +1,13 @@
 import React, { useState } from 'react';
+import { useRouteMatch, useHistory } from 'react-router-dom';
 import { postMessage } from '../../utils/api.js';
-import { useRouteMatch } from 'react-router-dom';
 
-export default function ChatInput(props) {
+export function ChatInput(props) {
   const match = useRouteMatch('/conversations/:otherUsername');
-  
-  return (
-    <MessageInput {...props} otherUsername={match && match.params.otherUsername}/>
-  )
-}
-
-function MessageInput(props) {
+  const otherUsername = (match && match.params.otherUsername) || props.recipient;
   const [messageBody, setMessageBody] = useState('');
   const [isSending, setIsSending] = useState(false);
+  let history = useHistory();
 
   function handleChange(event) {
     let value = event.target.value;
@@ -24,11 +19,11 @@ function MessageInput(props) {
 
     setIsSending(true);
 
-    postMessage(props.otherUsername, messageBody).then(() => {
+    postMessage(otherUsername, messageBody).then(() => {
       setIsSending(false);
       setMessageBody('');
 
-      props.recipient && props.history.push('/conversations/' + props.otherUsername);
+      props.recipient && history.push('/conversations/' + props.recipient);
     })
   }
 
@@ -41,12 +36,12 @@ function MessageInput(props) {
         type="text"
         autoComplete="off"
         value={messageBody}
-        disabled={!props.otherUsername}
-        placeholder={props.otherUsername ? 'Send message to ' + props.otherUsername : 'Find someone to message first!'}
+        disabled={!otherUsername}
+        placeholder={otherUsername ? 'Send message to ' + otherUsername : 'Find someone to message first!'}
       />
       <button
         className="bg-red-500 text-white font-semibold py-1 px-3 sm:px-6 rounded-lg shadow-lg"
-        disabled={!messageBody || isSending || !props.otherUsername}
+        disabled={!messageBody || isSending || !otherUsername}
         type="submit"
         onClick={handleSubmit}>
         Send

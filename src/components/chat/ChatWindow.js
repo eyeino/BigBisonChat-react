@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import fecha from 'fecha';
 import io from 'socket.io-client';
 
-import { getMessages, baseUrl } from '../../utils/api';
+import { baseUrl } from '../../utils/api';
 import { parseJWTUserInfo } from '../../utils/Auth';
+
+import { fetcher } from '../../utils/api.js';
+
+import useSWR from 'swr';
+import { useRouteMatch } from 'react-router-dom';
+import useMutation, { mutationTypes } from '../hooks/useMutation';
 
 function determineEventName(userOneUsername, userTwoUsername) {
   // create deterministic but unique room name between two users
@@ -12,90 +18,77 @@ function determineEventName(userOneUsername, userTwoUsername) {
 }
 
 function scrollToBottom(ref) {
-  ref.current.scrollIntoView({ behavior: "smooth", alignToTop: true });
+  ref.current && ref.current.scrollIntoView({ behavior: "smooth", alignToTop: true });
 }
 
-export default class Chat extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      messages: []
-    };
+export function ChatWithHooks() {
+  const { params: { otherUsername } } = useRouteMatch('/conversations/:otherUsername');
+  const prevOtherUsername = usePrevious(otherUsername);
 
-    this.messagesEnd = React.createRef();
+  const { data: messagesData, error: messagesError } = useSWR(`/conversations/${otherUsername}`, fetcher);
+  const { data: conversationsData } = useSWR(`/conversations`, fetcher);
+  const mutateMessages = useMutation(undefined, { currentData: messagesData, type: mutationTypes.MESSAGES });
+  const mutateConversations = useMutation(undefined, { currentData: conversationsData, type: mutationTypes.CONVERSATIONS, replaceUsername: otherUsername });
 
-    const token = localStorage.getItem("id_token");
-    this.username = parseJWTUserInfo(token).nickname;
-  }
+  const token = localStorage.getItem("id_token");
+  const ownUsername = parseJWTUserInfo(token).nickname;
 
-  componentDidMount() {
-    document.title = "BigBisonChat - " + this.props.match.params.otherUsername;
+  const messagesEnd = useRef(null);
+  
+  const { current: { socket } } = useRef({ socket: io(baseUrl) });
 
-    this.socket = io(baseUrl);
+  useEffect(() => {
+    return () => {
+      socket.close();
+    }
+  }, [socket]);
 
-    getMessages(this.props.match.params.otherUsername).then((res, err) => {
-      this.setState({
-        messages: res.data
-      });
-
+  useEffect(() => {
+    const oldEventName = determineEventName(ownUsername, prevOtherUsername);
+    const newEventName = determineEventName(ownUsername, otherUsername);
+    socket.off(oldEventName);
+    socket.on(newEventName, socketPayload => { 
+      mutateMessages(`/conversations/${otherUsername}`, socketPayload);
+      mutateConversations('/conversations', socketPayload);
     });
 
-    // add listener to add messages to chat window upon receipt
-    const eventName = determineEventName(this.username, this.props.match.params.otherUsername);
-    this.socket.on(eventName, this.payloadHandler);
-  }
+    scrollToBottom(messagesEnd);
+  }, [otherUsername, prevOtherUsername, socket, mutateMessages, mutateConversations, ownUsername]);
 
-  componentWillUnmount() {
-    this.socket.close();
-  }
+  useEffect(() => {
+    document.title = "BigBisonChat - " + otherUsername;
+  }, [otherUsername]);
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.match.params.otherUsername !== this.props.match.params.otherUsername) {
-      // in this case, user switched to a different conversation with another person
-      getMessages(this.props.match.params.otherUsername).then((res, err) => {
-        this.setState({
-          messages: res.data
-        }, () => {
-          const oldEventName = determineEventName(this.username, prevProps.match.params.otherUsername);
-          const newEventName = determineEventName(this.username, this.props.match.params.otherUsername);
-          this.socket.off(oldEventName);
-          this.socket.on(newEventName, this.payloadHandler);
+  if (messagesError) return <div>failed to load</div>;
+  if (!messagesData) return <div>loading</div>;
 
-          scrollToBottom( this.messagesEnd );
-        });
-      });
-    }
-
-    scrollToBottom( this.messagesEnd );
-  }
-
-  payloadHandler = payload => {
-    this.setState(prevState => ({
-      messages: [...prevState.messages, payload],
-    }));
-  };
-
-  render() {
-    return (
-      <div className="flex-grow sm:overflow-y-scroll" style={{ WebkitOverflowScrolling: 'auto' }}>
+  return (
+    <div className="flex-grow sm:overflow-y-scroll" style={{ WebkitOverflowScrolling: 'auto' }}>
         <ol className="m-2 ml-5 flex flex-col">
-          { this.state.messages &&
-            this.state.messages.map(message =>
+          { messagesData.map(message =>
               <ChatBubble
                 key={message.message_id}
                 message={message}
-                otherUsername={this.props.match.params.otherUsername}
+                otherUsername={otherUsername}
               />
           )}
         </ol>
         <div
           className="h-16 sm:h-0"
-          ref={ this.messagesEnd }
+          ref={ messagesEnd }
         />
-        { this.props.children }
       </div>
-    );
-  }
+  )
+}
+
+function usePrevious(value) {
+  const ref = useRef();
+  
+  useEffect(() => {
+    ref.current = value;
+  });
+
+  return ref.current;
 }
 
 function ChatBubble(props) {
@@ -108,12 +101,10 @@ function ChatBubble(props) {
   const isFromSender = sender_username === otherUsername;
 
   return (
-    <>
       <li className={`max-w-xs hover:text-gray-500 transition-colors ease-out duration-200 delay-500 text-transparent ${isFromSender ? 'self-start text-left' : 'self-end text-right'}`}>
         <p className={`inline-block p-2 shadow rounded-lg w-auto ${isFromSender ? 'bg-gray-200 text-gray-700 rounded-bl-none' : 'bg-red-100 text-red-700 rounded-br-none'}`} style={{ wordBreak: 'break-word', hyphens: 'auto' }}>{body}</p>
         <time className="block text-xs">{timestamp}</time>
       </li>
-    </>
   )
 }
 

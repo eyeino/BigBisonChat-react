@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Route, Switch, Redirect, useRouteMatch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
 import Nav from './main/Nav'; // navigation bar
 import Home from './main/Home'; // login page
 import Conversations from './conversations/Conversations'; // list of convos
-import Chat from './chat/ChatWindow'; // list of messages in a convo
+import { ChatWithHooks } from './chat/ChatWindow'; // list of messages in a convo
 import Callback from './auth/Callback'; // callback url for Auth0
 import ChatInput from './chat/ChatInput'; // input bar for messages in chat window
 import { RecipientBar } from './chat/RecipientBar'; // input bar for recipient in new message
@@ -18,7 +18,6 @@ function App(props) {
 
   const [recipient, setRecipient] = useState(null);
   const windowSize = useWindowSize();
-  const match = useRouteMatch('/conversations/:otherUsername');
 
   return (
     <>
@@ -56,17 +55,17 @@ function App(props) {
                   <div className="flex w-full sm:h-full justify-between">
                     <Conversations />
                     <section className="flex-grow flex flex-col">
-                      <Chat match={match} />
+                      <ChatWithHooks />
                       <div className="p-4 bg-gray-100">
                         <ChatInput />
                       </div>
                     </section>
                   </div>
                 }
-                {/* small screen only gets conversations */}
+                {/* small screen only gets specific conversation */}
                 { windowSize.width < 640 &&
                   <div className="flex-grow flex flex-col h-full">
-                    <Chat match={match} />
+                    <ChatWithHooks />
                     <FixedBottom>
                       <div className="w-full p-4 bg-transparent rounded-lg" style={{ position: "fixed", bottom: "0", backdropFilter: "blur(20px)" }}>
                         <ChatInput />

@@ -12,18 +12,14 @@ export default function Conversations(props) {
   const match = useRouteMatch('/conversations/:otherUsername');
   const { data, error } = useSWR(`/conversations`, fetcher);
 
-  if (error) return <div>failed to load</div>;
-  if (!data) return <div>loading</div>;
-
   return (
-    <section className="flex-grow-0 sm:max-w-xs flex-shrink-0 sm:border-r-2 sm:border-gray-100 overflow-y-auto sm:ml-2">
-      { data
+    <section className="flex-grow-0 sm:max-w-xs flex-shrink-0 sm:border-r-2 sm:border-gray-100 overflow-y-auto sm:ml-2 flex flex-col">
+      { data && data
           .reduce((unique, item) => {
             return unique.includes(item.other_username) ? unique : [...unique, item, item.other_username]
           }, [])
           .filter(item => typeof item === 'object')
           .map(convo => {
-
           return (
             <ConversationCell
               key={convo.other_username}
@@ -35,10 +31,12 @@ export default function Conversations(props) {
             />
           );
         })}
-      { data.length === 0 && (
-        <div>
+      { error && <div className="p-4 bg-red-100 text-red-700">Failure to load.</div> }
+      { (!data && !error) && <div className="p-4 bg-yellow-100 text-yellow-700">Give them a minute, the Heroku server is awakening...</div> }
+      { data && data.length === 0 && (
+        <div className="p-4 bg-yellow-100 text-yellow-700">
           <p>Welcome! You don't have any conversations yet! </p>
-          <p>Press 'New' and start talking!</p>
+          <p>Press 'New' above and start talking!</p>
         </div>
       )}
     </section>

@@ -59,19 +59,22 @@ export function ChatWithHooks() {
     document.title = "BigBisonChat - " + otherUsername;
   }, [otherUsername]);
 
-  if (messagesError) return <div>failed to load</div>;
-  if (!messagesData) return <div>loading</div>;
-
   return (
     <div className="flex-grow sm:overflow-y-scroll" style={{ WebkitOverflowScrolling: 'auto' }}>
         <ol className="m-2 ml-5 flex flex-col">
-          { messagesData.map(message =>
+          { messagesData && messagesData.map(message =>
               <ChatBubble
                 key={message.message_id}
                 message={message}
                 otherUsername={otherUsername}
               />
           )}
+          { !messagesData && !messagesError &&
+            <div className="m-auto ">Loading...</div>
+          }
+          { messagesError &&
+            <div>Error!</div>
+          }
         </ol>
         <div
           className="h-16 sm:h-0"

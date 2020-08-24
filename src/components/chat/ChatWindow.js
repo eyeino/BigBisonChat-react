@@ -21,7 +21,7 @@ function scrollToBottom(ref) {
   ref.current && ref.current.scrollIntoView({ behavior: "smooth", alignToTop: true });
 }
 
-export function ChatWithHooks() {
+export function MessageList() {
   const { params: { otherUsername } } = useRouteMatch('/conversations/:otherUsername');
   const prevOtherUsername = usePrevious(otherUsername);
 
@@ -70,7 +70,7 @@ export function ChatWithHooks() {
               />
           )}
           { !messagesData && !messagesError &&
-            <div className="m-auto ">Loading...</div>
+            <div className="mx-auto text-teal-400 bg-teal-100 rounded p-3 uppercase font-semibold">Loading</div>
           }
           { messagesError &&
             <div>Error!</div>

@@ -21,7 +21,6 @@ function App(props) {
 
   return (
     <>
-      {/* Wrapper for header, content, footer */}
       <div className="flex flex-col justify-start sm:h-screen">
         <header className="block sticky top-0 w-full bg-white mb-0 z-50 border-b-2 border-gray-100">
           <Nav auth={auth} />
@@ -94,13 +93,13 @@ function App(props) {
         </main>
       </div>
       <Switch>
-        <Route path='/new' render={(props) => (
+        <Route path='/new'>
           <FixedBottom>
             <div className="w-full p-4" style={{ position: "fixed", bottom: "0" }}>
               <MessageInput recipient={recipient} />
             </div>
           </FixedBottom>
-        )} />
+        </Route>
       </Switch>
     </>
   );

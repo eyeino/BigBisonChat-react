@@ -29,12 +29,11 @@ export default class Chat extends React.Component {
   }
 
   componentDidMount() {
-    document.title = "BigBisonChat - " + this.props.match.params.username;
+    document.title = "BigBisonChat - " + this.props.match.params.otherUsername;
 
     this.socket = io(baseUrl);
 
-    getMessages(this.props.match.params.username).then((res, err) => {
-      console.log(res.data);
+    getMessages(this.props.match.params.otherUsername).then((res, err) => {
       this.setState({
         messages: res.data
       });
@@ -42,7 +41,7 @@ export default class Chat extends React.Component {
     });
 
     // add listener to add messages to chat window upon receipt
-    const eventName = determineEventName(this.username, this.props.match.params.username);
+    const eventName = determineEventName(this.username, this.props.match.params.otherUsername);
     this.socket.on(eventName, this.payloadHandler);
   }
 
@@ -51,15 +50,14 @@ export default class Chat extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.match.params.username !== this.props.match.params.username) {
+    if (prevProps.match.params.otherUsername !== this.props.match.params.otherUsername) {
       // in this case, user switched to a different conversation with another person
-      getMessages(this.props.match.params.username).then((res, err) => {
-        console.log(res.data);
+      getMessages(this.props.match.params.otherUsername).then((res, err) => {
         this.setState({
           messages: res.data
         }, () => {
-          const oldEventName = determineEventName(this.username, prevProps.match.params.username);
-          const newEventName = determineEventName(this.username, this.props.match.params.username);
+          const oldEventName = determineEventName(this.username, prevProps.match.params.otherUsername);
+          const newEventName = determineEventName(this.username, this.props.match.params.otherUsername);
           this.socket.off(oldEventName);
           this.socket.on(newEventName, this.payloadHandler);
 
@@ -80,10 +78,16 @@ export default class Chat extends React.Component {
   render() {
     return (
       <div className="flex-grow sm:overflow-y-scroll" style={{ WebkitOverflowScrolling: 'auto' }}>
-        <MessageList
-          messages={this.state.messages}
-          otherUsername={this.props.match.params.username}
-        />
+        <ol className="m-2 ml-5 flex flex-col">
+          { this.state.messages &&
+            this.state.messages.map(message =>
+              <ChatBubble
+                key={message.message_id}
+                message={message}
+                otherUsername={this.props.match.params.otherUsername}
+              />
+          )}
+        </ol>
         <div
           className="h-16 sm:h-0"
           ref={ this.messagesEnd }
@@ -92,38 +96,6 @@ export default class Chat extends React.Component {
       </div>
     );
   }
-}
-
-function MessageList(props) {
-  const { messages, otherUsername } = props;
-
-  return (
-    <ol className="m-2 ml-5 flex flex-col">
-      {messages &&
-        messages.map(message => {
-          const chatBubble = (
-            <ChatBubble
-              key={message.message_id}
-              message={message}
-              otherUsername={otherUsername}
-            />
-          );
-          return chatBubble;
-        })}
-    </ol>
-  );
-}
-
-MessageList.propTypes = {
-  messages: PropTypes.arrayOf(
-    PropTypes.shape({
-      sender: PropTypes.number.isRequired,
-      recipient: PropTypes.number.isRequired,
-      sender_username: PropTypes.string.isRequired,
-      body: PropTypes.string.isRequired,
-      created_at: PropTypes.string.isRequired
-    })
-  )
 }
 
 function ChatBubble(props) {

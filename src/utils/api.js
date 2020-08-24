@@ -8,12 +8,14 @@ export const baseUrl =
     ? "https://bigbisonchat.herokuapp.com"
     : "http://localhost:8080";
 
+export const fetcher = url => axios.request({ url, baseURL: baseUrl, method: 'get' }).then(res => res.data);
+
 export async function getMessages(otherUsername) {
   try {
     const res = await axios.get(baseUrl + '/conversations/' + otherUsername);
     return res
   } catch(err) {
-    console.log(err);
+
   }
 }
 
@@ -22,7 +24,7 @@ export async function getConversations(user) {
     const res = await axios.get(baseUrl + '/conversations/');
     return res
   } catch(err) {
-    console.log(err);
+
   }
 }
 
@@ -31,7 +33,7 @@ export async function postMessage(otherUsername, messageBody) {
     await axios.post(baseUrl + '/conversations/' + otherUsername,
       { messageBody: messageBody });
   } catch(err) {
-    console.log(err);
+
   }
 }
 
@@ -40,7 +42,7 @@ export async function searchUsers(usernameQuery) {
     const res = await axios.get(baseUrl + '/search/users/' + usernameQuery);
     return res
   } catch(err) {
-    console.log(err);
+
   }
 }
 

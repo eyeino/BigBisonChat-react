@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { postMessage } from '../../utils/api.js';
+import { useRouteMatch } from 'react-router-dom';
 
 export default function ChatInput(props) {
-  const otherUsername = props.recipient ? props.recipient : props.match.params.username;
+  const match = useRouteMatch('/conversations/:otherUsername');
   
   return (
-    <MessageInput {...props} otherUsername={otherUsername}/>
+    <MessageInput {...props} otherUsername={match && match.params.otherUsername}/>
   )
 }
 

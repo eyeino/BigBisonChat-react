@@ -39,9 +39,8 @@ export default class Auth {
         localStorage.setItem("expires_at", expiresAt);
         location.hash = "";
         location.pathname = "/";
-      } else if(err) {
+      } else if (err) {
         location.pathname = "/";
-        console.log(err);
       }
     })
   }

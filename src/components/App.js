@@ -1,16 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
 import Nav from './main/Nav'; // navigation bar
-import Home from './main/Home'; // login page
 import ConversationList from './conversations/Conversations'; // list of convos
 import { MessageList } from './chat/ChatWindow'; // list of messages in a convo
 import Callback from './auth/Callback'; // callback url for Auth0
-import { ChatInput as MessageInput } from './chat/ChatInput'; // input bar for messages in chat window
 import { RecipientBar } from './chat/RecipientBar'; // input bar for recipient in new message
 import { ReactComponent as Logo } from "./assets/bison.svg";
 import { useWindowSize } from './hooks/useWindowSize';
-import { FixedBottom } from 'react-fixed-bottom';
+
+const Home = React.lazy(() => import('./main/Home')); // login page
+const FixedBottom = React.lazy(() => import('../utils/wrapFixedBottom'));
+const MessageInput = React.lazy(() => import('./chat/MessageInput'))
 
 function App(props) {
   const { auth } = props;
@@ -35,7 +36,7 @@ function App(props) {
             <Route exact path="/">
               { loggedIn
               ? <Redirect to="/conversations" />
-              : <Home auth={auth} /> }
+              : <Suspense fallback={<div>Loading...</div>}><Home auth={auth} /></Suspense> }
             </Route>
 
             <Route path="/callback">
@@ -55,9 +56,11 @@ function App(props) {
                     <ConversationList />
                     <section className="flex-grow flex flex-col">
                       <MessageList />
-                      <div className="p-4 bg-gray-100">
-                        <MessageInput recipient={recipient} />
-                      </div>
+                      <Suspense fallback={<div>Loading...</div>}>
+                        <div className="p-4 bg-gray-100">
+                          <MessageInput recipient={recipient} />
+                        </div>
+                      </Suspense>
                     </section>
                   </div>
                 }
@@ -65,11 +68,13 @@ function App(props) {
                 { windowSize.width < 640 &&
                   <div className="flex-grow flex flex-col h-full">
                     <MessageList />
-                    <FixedBottom>
-                      <div className="w-full p-4 bg-transparent rounded-lg" style={{ position: "fixed", bottom: "0", backdropFilter: "blur(20px)" }}>
-                        <MessageInput recipient={recipient} />
-                      </div>
-                    </FixedBottom>
+                    <Suspense fallback={<div>Loading...</div>}>
+                      <FixedBottom>
+                        <div className="w-full p-4 bg-transparent rounded-lg" style={{ position: "fixed", bottom: "0", backdropFilter: "blur(20px)" }}>
+                          <MessageInput recipient={recipient} />
+                        </div>
+                      </FixedBottom>
+                    </Suspense>
                   </div>
                 }
             </Route>
@@ -94,11 +99,13 @@ function App(props) {
       </div>
       <Switch>
         <Route path='/new'>
-          <FixedBottom>
-            <div className="w-full p-4" style={{ position: "fixed", bottom: "0" }}>
-              <MessageInput recipient={recipient} />
-            </div>
-          </FixedBottom>
+          <Suspense fallback={<div>Loading...</div>}>
+            <FixedBottom>
+              <div className="w-full p-4" style={{ position: "fixed", bottom: "0" }}>
+                <MessageInput recipient={recipient} />
+              </div>
+            </FixedBottom>
+          </Suspense>
         </Route>
       </Switch>
     </>

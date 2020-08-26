@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useRouteMatch, useHistory } from 'react-router-dom';
 import { postMessage } from '../../utils/api.js';
 
-export function ChatInput(props) {
+export default function MessageInput(props) {
   const match = useRouteMatch('/conversations/:otherUsername');
   const otherUsername = (match && match.params.otherUsername) || props.recipient;
   const [messageBody, setMessageBody] = useState('');

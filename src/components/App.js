@@ -10,7 +10,6 @@ import { ChatInput as MessageInput } from './chat/ChatInput'; // input bar for m
 import { RecipientBar } from './chat/RecipientBar'; // input bar for recipient in new message
 import { ReactComponent as Logo } from "./assets/bison.svg";
 import { useWindowSize } from './hooks/useWindowSize';
-import { FixedBottom } from 'react-fixed-bottom';
 
 function App(props) {
   const { auth } = props;
@@ -30,7 +29,7 @@ function App(props) {
             </Route>
           </Switch>
         </header>
-        <main className="flex-grow sm:overflow-hidden flex flex-col">
+        <main className="sm:overflow-hidden flex flex-col h-full">
           <Switch>
             <Route exact path="/">
               { loggedIn
@@ -53,7 +52,7 @@ function App(props) {
                 { windowSize.width >= 640 &&
                   <div className="flex w-full sm:h-full justify-between">
                     <ConversationList />
-                    <section className="flex-grow flex flex-col">
+                    <section className="flex flex-col flex-grow">
                       <MessageList />
                       <div className="p-4 bg-gray-100">
                         <MessageInput recipient={recipient} />
@@ -65,11 +64,9 @@ function App(props) {
                 { windowSize.width < 640 &&
                   <div className="flex-grow flex flex-col h-full">
                     <MessageList />
-                    <FixedBottom>
-                      <div className="w-full p-4 bg-transparent rounded-lg" style={{ position: "fixed", bottom: "0", backdropFilter: "blur(20px)" }}>
-                        <MessageInput recipient={recipient} />
-                      </div>
-                    </FixedBottom>
+                    <div className="w-full p-4 bg-gray-100 bg-opacity-75 rounded-lg fixed bottom-0">
+                      <MessageInput recipient={recipient} />
+                    </div>
                   </div>
                 }
             </Route>
@@ -94,11 +91,9 @@ function App(props) {
       </div>
       <Switch>
         <Route path='/new'>
-          <FixedBottom>
-            <div className="w-full p-4" style={{ position: "fixed", bottom: "0" }}>
-              <MessageInput recipient={recipient} />
-            </div>
-          </FixedBottom>
+          <div className="w-full p-4 fixed bottom-0">
+            <MessageInput recipient={recipient} />
+          </div>
         </Route>
       </Switch>
     </>

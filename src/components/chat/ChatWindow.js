@@ -60,8 +60,8 @@ export function MessageList() {
   }, [otherUsername]);
 
   return (
-    <div className="flex-grow sm:overflow-y-scroll" style={{ WebkitOverflowScrolling: 'auto' }}>
-        <ol className="m-2 ml-5 flex flex-col">
+    <div className="flex-grow overflow-y-auto">
+        <ol className="m-2  flex flex-col">
           { messagesData && messagesData.map(message =>
               <ChatBubble
                 key={message.message_id}

@@ -4,8 +4,8 @@ export default function Callback(props) {
   props.auth.handleAuthentication();
 
   return (
-    <p>
-      Redirected from Auth0. Loading...
+    <p className="bg-green-100 text-green-400 p-4 rounded">
+      Loading...
     </p>
   )
 }

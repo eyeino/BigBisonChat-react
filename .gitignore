@@ -25,3 +25,5 @@ yarn-error.log*
 
 .firebase*
 firebase*
+
+src/*.d.ts

@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { pingServer } from '../../utils/api';
 
-export default function Home(props) {
+export const Home: React.FC<{ auth: any }> = ({ auth }) => {
   useEffect(() => {
-    document.title = props.title;
+    document.title = "BigBisonChat | Chat with your friends... majestically";
   });
 
   useEffect(() => {
@@ -18,7 +18,7 @@ export default function Home(props) {
           Chat with your friends... <span className="bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-blue-600">majestically.</span>
         </h1>
       </div>
-      <button onClick={props.auth.login} className="self-center bg-gradient-to-b from-red-400 to-red-700 p-3 sm:p-5 text-white font-semibold rounded-lg shadow-xl">
+      <button onClick={auth.login} className="self-center bg-gradient-to-b from-red-400 to-red-700 p-3 sm:p-5 text-white font-semibold rounded-lg shadow-xl">
         Login / Register
       </button>
       <div className="text-xl self-center text-center">

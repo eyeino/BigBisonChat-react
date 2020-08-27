@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
 import Nav from './main/Nav'; // navigation bar
-import Home from './main/Home'; // login page
+import { Home } from './main/Home'; // login page
 import ConversationList from './conversations/Conversations'; // list of convos
 import { MessageList } from './chat/ChatWindow'; // list of messages in a convo
 import Callback from './auth/Callback'; // callback url for Auth0

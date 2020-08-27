@@ -9,8 +9,7 @@ import Callback from './auth/Callback'; // callback url for Auth0
 import { ChatInput as MessageInput } from './chat/ChatInput'; // input bar for messages in chat window
 import { RecipientBar } from './chat/RecipientBar'; // input bar for recipient in new message
 import { useWindowSize } from './hooks/useWindowSize';
-
-const logoPath = require('./assets/bison.svg') as string;
+import { ReactComponent as Logo } from './assets/bison.svg';
 
 const App: React.FC<{ auth: any }> = ({ auth }) => {
   const loggedIn = auth.isAuthenticated();
@@ -44,7 +43,7 @@ const App: React.FC<{ auth: any }> = ({ auth }) => {
             { !loggedIn && <Redirect from="*" to="/" /> }
             
             <Route path="/new">
-              <img className="mx-auto sm:m-auto mt-20 h-48 w-48 fill-current text-gray-200" src={ logoPath } alt="Big Bison Logo" />
+              <Logo className="mx-auto sm:m-auto mt-20 h-48 w-48 fill-current text-gray-200" />
             </Route>
 
             <Route path="/conversations/:username">
@@ -76,7 +75,7 @@ const App: React.FC<{ auth: any }> = ({ auth }) => {
                   <div className="flex w-full h-full justify-between space-x-2">
                     <ConversationList />
                     <section className="flex-grow flex flex-col justify-around self-center">
-                      <img className="self-center my-auto text-gray-200 fill-current h-48 w-48" src={ logoPath } alt="Big Bison Logo" />
+                      <Logo className="self-center my-auto text-gray-200 fill-current h-48 w-48" />
                     </section>
                   </div>
                 }

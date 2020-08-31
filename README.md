@@ -4,7 +4,7 @@
 
 **BigBisonChat** is a chat client I built on React. I built the backend using Node, Express and Postgres. Authentication is provided by Auth0. Sign up and send me a message!
 
-![BigBisonChat screenshot](https://s3.us-east-2.amazonaws.com/bigbisonchat/Screen+Shot+2019-04-12+at+20.47.31.png)
+![BigBisonChat screenshot](https://bigbisonchat.s3.us-east-2.amazonaws.com/bbc.png)
 
 ## Motivation
 

@@ -3,7 +3,7 @@ import { useRouteMatch, useHistory } from 'react-router-dom';
 import { postMessage } from '../../utils/api';
 import { useWindowSize } from '../hooks/useWindowSize';
 
-export function ChatInput(props) {
+export function MessageInput(props) {
   const match = useRouteMatch('/conversations/:otherUsername');
   const otherUsername = (match && match.params.otherUsername) || props.recipient;
   const [messageBody, setMessageBody] = useState('');

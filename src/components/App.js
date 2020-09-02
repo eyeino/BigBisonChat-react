@@ -4,7 +4,7 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import Nav from './main/Nav'; // navigation bar
 import Home from './main/Home'; // login page
 import ConversationList from './conversations/Conversations'; // list of convos
-import { MessageList } from './chat/ChatWindow'; // list of messages in a convo
+import { MessageList } from './chat/MessageList'; // list of messages in a convo
 import Callback from './auth/Callback'; // callback url for Auth0
 import { MessageInput } from './chat/MessageInput'; // input bar for messages in chat window
 import { RecipientInput } from './chat/RecipientInput'; // input bar for recipient in new message

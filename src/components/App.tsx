@@ -4,12 +4,12 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import Nav from './main/Nav'; // navigation bar
 import { Home } from './main/Home'; // login page
 import ConversationList from './conversations/Conversations'; // list of convos
-import { MessageList } from './chat/ChatWindow'; // list of messages in a convo
+import { MessageList } from './chat/MessageList'; // list of messages in a convo
 import Callback from './auth/Callback'; // callback url for Auth0
-import { ChatInput as MessageInput } from './chat/ChatInput'; // input bar for messages in chat window
-import { RecipientBar } from './chat/RecipientBar'; // input bar for recipient in new message
+import { MessageInput } from './chat/MessageInput'; // input bar for messages in chat window
+import { RecipientInput } from './chat/RecipientInput'; // input bar for recipient in new message
+import { ReactComponent as Logo } from "./assets/bison.svg";
 import { useWindowSize } from './hooks/useWindowSize';
-import { ReactComponent as Logo } from './assets/bison.svg';
 
 const App: React.FC<{ auth: any }> = ({ auth }) => {
   const loggedIn = auth.isAuthenticated();
@@ -24,7 +24,7 @@ const App: React.FC<{ auth: any }> = ({ auth }) => {
           <Nav auth={auth} />
           <Switch>
             <Route path='/new'>
-              <RecipientBar setRecipient={setRecipient} />
+              <RecipientInput setRecipient={setRecipient} />
             </Route>
           </Switch>
         </header>

@@ -2,7 +2,7 @@ import React from "react";
 import AsyncSelect from 'react-select/async';
 import { searchUsers } from '../../utils/api.js';
 
-export function RecipientBar(props) {
+export function RecipientInput(props) {
   const promiseOptions = async inputValue => {
     return await searchUsers(inputValue).then((res, err) => {
       const loadedOptions = res.data.map((user) => ({

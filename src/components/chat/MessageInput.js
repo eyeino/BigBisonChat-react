@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
 import { useRouteMatch, useHistory } from 'react-router-dom';
-import { postMessage } from '../../utils/api.js';
+import { postMessage } from '../../utils/api';
+import { useWindowSize } from '../hooks/useWindowSize';
 
-export function ChatInput(props) {
+export function MessageInput(props) {
   const match = useRouteMatch('/conversations/:otherUsername');
   const otherUsername = (match && match.params.otherUsername) || props.recipient;
   const [messageBody, setMessageBody] = useState('');
   const [isSending, setIsSending] = useState(false);
+  
+  const [focusedWithin, setFocusedWithin] = useState(false);
+  const windowSize = useWindowSize();
+  const isFaded = !focusedWithin && windowSize.width < 640;
+
   let history = useHistory();
 
   function handleChange(event) {
@@ -28,11 +34,13 @@ export function ChatInput(props) {
   }
 
   return (
-    <form className={`flex justify-between flex-shrink-0 space-x-2`} onSubmit={handleSubmit}>
+    <form className={`flex justify-between flex-shrink-0 space-x-2 transition-opacity duration-150 ${isFaded ? "opacity-50" : ""}`} onSubmit={handleSubmit}>
       <input
         className="bg-gray-100 border w-full shadow-md p-2 rounded-lg"
         id="messageInput"
         onChange={handleChange}
+        onFocus={() => setFocusedWithin(true)}
+        onBlur={() => setFocusedWithin(false)}
         type="text"
         autoComplete="off"
         value={messageBody}

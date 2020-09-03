@@ -11,6 +11,7 @@ import { fetcher } from '../../utils/api.js';
 import useSWR from 'swr';
 import { useRouteMatch } from 'react-router-dom';
 import useMutation, { mutationTypes } from '../hooks/useMutation';
+import usePrevious from '../hooks/usePrevious';
 
 function determineEventName(userOneUsername, userTwoUsername) {
   // create deterministic but unique room name between two users
@@ -82,16 +83,6 @@ export function MessageList() {
         />
       </div>
   )
-}
-
-function usePrevious(value) {
-  const ref = useRef();
-  
-  useEffect(() => {
-    ref.current = value;
-  });
-
-  return ref.current;
 }
 
 function ChatBubble(props) {

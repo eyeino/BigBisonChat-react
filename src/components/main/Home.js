@@ -25,7 +25,15 @@ export default function Home(props) {
         Log In
       </button>
       <div className="text-xl self-center text-center">
-        <p>A project by <a className="text-red-500 font-semibold" href='https://github.com/iannotian'>@iannotian</a></p>
+        <p>
+          A project by{" "}
+          <a
+            className="text-red-500 font-semibold"
+            href="https://iannotian.com/"
+          >
+            @iannotian
+          </a>
+        </p>
       </div>
     </div>
   );

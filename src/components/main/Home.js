@@ -18,8 +18,11 @@ export default function Home(props) {
           Chat with your friends... <span className="bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-blue-600">majestically.</span>
         </h1>
       </div>
-      <button onClick={props.auth.login} className="self-center bg-gradient-to-b from-red-400 to-red-700 p-3 sm:p-5 text-white font-semibold rounded-lg shadow-xl">
-        Login / Register
+      <button
+        onClick={props.auth.login}
+        className="self-center bg-gradient-to-r from-teal-400 to-blue-700 p-3 px-5 text-white font-semibold rounded-lg shadow-lg"
+      >
+        Log In
       </button>
       <div className="text-xl self-center text-center">
         <p>A project by <a className="text-red-500 font-semibold" href='https://github.com/iannotian'>@iannotian</a></p>

@@ -44,14 +44,25 @@ export function MessageList() {
     replaceUsername: otherUsername,
   });
 
-  const token = localStorage.getItem("id_token");
-  const ownUsername = parseJWTUserInfo(token).nickname;
+  // const token = localStorage.getItem("id_token");
 
   const messagesEnd = useRef(null);
 
   const {
+    current: { token },
+  } = useRef({ token: localStorage.getItem("id_token") })
+
+  const {
     current: { socket },
-  } = useRef({ socket: io(baseUrl) });
+  } = useRef({
+    socket: io(baseUrl, {
+      auth: {
+        token
+      },
+    })
+  });
+
+  const ownUsername = process.env.NODE_ENV === 'production' ? parseJWTUserInfo(token).nickname : 'rodrigo';
 
   useEffect(() => {
     return () => {
@@ -62,7 +73,9 @@ export function MessageList() {
   useEffect(() => {
     const oldEventName = determineEventName(ownUsername, prevOtherUsername);
     const newEventName = determineEventName(ownUsername, otherUsername);
+
     socket.off(oldEventName);
+
     socket.on(newEventName, (socketPayload) => {
       mutateMessages(`/conversations/${otherUsername}`, socketPayload);
       mutateConversations("/conversations", socketPayload);
@@ -85,30 +98,30 @@ export function MessageList() {
   return (
     <div className="flex-grow overflow-y-auto">
       <ol className="m-2  flex flex-col">
-        {messagesData &&
+        { messagesData &&
           messagesData.map((message) => (
             <ChatBubble
-              key={message.message_id}
-              message={message}
-              otherUsername={otherUsername}
+              key={ message.message_id }
+              message={ message }
+              otherUsername={ otherUsername }
             />
-          ))}
-        {!messagesData && !messagesError && (
+          )) }
+        { !messagesData && !messagesError && (
           <div className="mx-auto text-teal-400 bg-teal-100 rounded p-3 uppercase font-semibold">
             Loading
           </div>
-        )}
-        {messagesError && <div>Error!</div>}
+        ) }
+        { messagesError && <div>Error!</div> }
       </ol>
-      <div className="h-16 sm:h-0" ref={messagesEnd} />
+      <div className="h-16 sm:h-0" ref={ messagesEnd } />
     </div>
   );
 }
 
 function ChatBubble(props) {
-  const { sender_username, body } = props.message;
+  const { sender_username, body, created_at } = props.message;
 
-  const epochTime = Date.parse(props.message.created_at);
+  const epochTime = Date.parse(created_at);
   const timestamp = fecha.format(epochTime, "MM/DD/YY hh:mmA");
 
   const { otherUsername } = props;
@@ -116,21 +129,19 @@ function ChatBubble(props) {
 
   return (
     <li
-      className={`max-w-xs hover:text-gray-500 transition-colors ease-out duration-200 delay-500 text-transparent ${
-        isFromSender ? "self-start text-left" : "self-end text-right"
-      }`}
+      className={ `max-w-xs hover:text-gray-500 transition-colors ease-out duration-200 delay-500 text-transparent ${isFromSender ? "self-start text-left" : "self-end text-right"
+        }` }
     >
       <p
-        className={`inline-block p-2 shadow rounded-lg w-auto ${
-          isFromSender
-            ? "bg-gray-200 text-gray-700 rounded-bl-none"
-            : "bg-red-100 text-red-700 rounded-br-none"
-        }`}
-        style={{ wordBreak: "break-word", hyphens: "auto" }}
+        className={ `inline-block p-2 shadow rounded-lg w-auto ${isFromSender
+          ? "bg-gray-200 text-gray-700 rounded-bl-none"
+          : "bg-red-100 text-red-700 rounded-br-none"
+          }` }
+        style={ { wordBreak: "break-word", hyphens: "auto" } }
       >
-        {body}
+        { body }
       </p>
-      <time className="block text-xs">{timestamp}</time>
+      <time className="block text-xs">{ timestamp }</time>
     </li>
   );
 }

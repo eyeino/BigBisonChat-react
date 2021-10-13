@@ -80,8 +80,6 @@ export function MessageList() {
       mutateMessages(`/conversations/${otherUsername}`, socketPayload);
       mutateConversations("/conversations", socketPayload);
     });
-
-    scrollToBottom(messagesEnd);
   }, [
     otherUsername,
     prevOtherUsername,
@@ -90,6 +88,10 @@ export function MessageList() {
     mutateConversations,
     ownUsername,
   ]);
+
+  useEffect(() => {
+    scrollToBottom(messagesEnd);
+  }, [])
 
   useEffect(() => {
     document.title = "BigBisonChat - " + otherUsername;

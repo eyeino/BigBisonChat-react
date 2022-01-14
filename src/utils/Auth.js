@@ -1,5 +1,5 @@
 /* eslint no-restricted-globals: 0 */
-
+import Buffer from 'buffer';
 import auth0 from 'auth0-js';
 
 const callbackUrl =

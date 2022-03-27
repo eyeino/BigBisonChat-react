@@ -1,20 +1,20 @@
+// @ts-check
+
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { postMessage } from "../../utils/api";
 import { useWindowSize } from "../hooks/useWindowSize";
 
 export function MessageInput(props) {
-  // const match = useRouteMatch("/conversations/:otherUsername");
-  const otherUsername = "eyeino";
-  // const otherUsername =
-  // (match && match.params.otherUsername) || props.recipient;
+  const router = useRouter();
+  const otherUsername = router.query.otherUsername ?? props.recipient;
+
   const [messageBody, setMessageBody] = useState("");
   const [isSending, setIsSending] = useState(false);
 
   const [focusedWithin, setFocusedWithin] = useState(false);
   const windowSize = useWindowSize();
   const isFaded = !focusedWithin && windowSize.width < 640;
-
-  // let history = useHistory();
 
   function handleChange(event) {
     let value = event.target.value;
@@ -30,7 +30,7 @@ export function MessageInput(props) {
       setIsSending(false);
       setMessageBody("");
 
-      props.recipient && history.push("/conversations/" + props.recipient);
+      props.recipient && router.push("/conversations/" + props.recipient);
     });
   }
 

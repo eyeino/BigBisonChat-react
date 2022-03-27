@@ -1,41 +1,42 @@
-import React from "react";
-import AsyncSelect from 'react-select/async';
-import { searchUsers } from '../../utils/api.js';
+// @ts-check
 
-export function RecipientInput(props) {
-  const promiseOptions = async inputValue => {
-    return await searchUsers(inputValue).then((res, err) => {
-      const loadedOptions = res.data.map((user) => ({
-        value: user.user_id,
-        label: user.username
-      }));
-      return loadedOptions
+import { Combobox } from "@headlessui/react";
+import React from "react";
+import { searchUsers } from "../../utils/api.js";
+
+export function RecipientInput({ recipient, setRecipient }) {
+  const [query, setQuery] = React.useState("");
+  const [options, setOptions] = React.useState([]);
+
+  function executeQuery(query) {
+    searchUsers(query).then((res) => {
+      setOptions(
+        res.data.map((user) => ({
+          value: user.user_id,
+          label: user.username,
+        }))
+      );
     });
   }
-  
+
   const handleChange = (selection) => {
-    props.setRecipient(selection.label);
-  }
+    setRecipient(selection.label);
+  };
 
   return (
-    <AsyncSelect
-      className="shadow rounded mx-4"
-      onChange={handleChange}
-      cacheOptions
-      defaultOptions
-      loadOptions={promiseOptions}
-      placeholder='Search for a user...'
-      isSearchable
-      noOptionsMessage={() => (`Tip: search for 'eyeino' and send him a message!`)}
-      theme={theme => ({
-        ...theme,
-        borderRadius: "0.25rem",
-        colors: {
-          ...theme.colors,
-          primary25: "pink",
-          primary: "#f56565"
-        }
-      })}
-    />
+    <Combobox value={recipient} onChange={handleChange}>
+      <Combobox.Input
+        value={query}
+        onChange={(event) => setQuery(event.target.value)}
+        placeholder="To"
+      />
+      <Combobox.Options>
+        {options.map((person) => (
+          <Combobox.Option key={person} value={person}>
+            {person}
+          </Combobox.Option>
+        ))}
+      </Combobox.Options>
+    </Combobox>
   );
 }

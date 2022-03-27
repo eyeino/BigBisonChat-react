@@ -13,7 +13,10 @@ export default function Conversations(props) {
   const router = useRouter();
   const { otherUsername } = router.query;
 
-  const { data, error } = useSWR(`api/conversations/`, ky);
+  const { data, error } = useSWR(
+    `api/conversations/`,
+    ky.get("api/conversations/").json
+  );
 
   return (
     <section className="flex-grow-0 sm:max-w-xs flex-shrink-0 overflow-y-auto sm:ml-2 flex flex-col">

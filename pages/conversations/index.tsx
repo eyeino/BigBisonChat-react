@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-import Nav from '../../src/components/main/Nav'; // navigation bar
 import ConversationList from '../../src/components/conversations/Conversations'; // list of convos
 import { useWindowSize } from '../../src/components/hooks/useWindowSize';
 // import { ReactComponent as Logo } from "./assets/bison.svg";
@@ -12,9 +11,6 @@ function ConversationsPage(props) {
   return (
     <>
       <div className="flex flex-col justify-start sm:h-screen">
-        <header className="block sticky top-0 w-full bg-white mb-0 z-50 border-b-2 border-gray-100">
-          <Nav auth={auth} />
-        </header>
         <main className="sm:overflow-hidden flex flex-col h-full">
           { windowSize.width >= 640 &&
             <div className="flex w-full h-full justify-between space-x-2">

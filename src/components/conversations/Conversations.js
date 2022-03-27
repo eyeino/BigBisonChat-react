@@ -4,11 +4,14 @@ import ConversationCell from "./ConversationCell";
 import { fetcher } from "../../utils/api.js";
 
 import useSWR from "swr";
+import { useRouter } from "next/router";
 
 export default function Conversations(props) {
   document.title = props.title;
 
-  // const match = useRouteMatch("/conversations/:otherUsername");
+  const router = useRouter();
+  const { otherUsername } = router.query;
+
   const { data, error } = useSWR(`/conversations`, fetcher);
 
   return (
@@ -29,9 +32,7 @@ export default function Conversations(props) {
                 body={convo.body}
                 avatarUrl={convo.avatar_url}
                 createdAt={convo.created_at}
-                selected={
-                  match && match.params.otherUsername === convo.other_username
-                }
+                selected={otherUsername === convo.other_username}
               />
             );
           })}

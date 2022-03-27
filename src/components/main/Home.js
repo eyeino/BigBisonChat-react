@@ -20,9 +20,12 @@ export default function Home(props) {
           </span>
         </h1>
       </div>
-      <button className="self-center bg-gradient-to-r from-teal-400 to-blue-700 p-3 px-5 text-white font-semibold rounded-lg shadow-lg">
-        Log In
-      </button>
+      <a
+        href="/api/auth/login"
+        className="self-center bg-gradient-to-r from-teal-400 to-blue-700 p-3 px-5 text-white font-semibold rounded-lg shadow-lg"
+      >
+        Login
+      </a>
       <div className="text-xl self-center text-center">
         <p>
           A project by{" "}

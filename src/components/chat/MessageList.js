@@ -9,7 +9,6 @@ import { parseJWTUserInfo } from "../../utils/Auth";
 import { fetcher } from "../../utils/api.js";
 
 import useSWR from "swr";
-import { useRouteMatch } from "react-router-dom";
 import useMutation, { mutationTypes } from "../hooks/useMutation";
 import { usePrevious } from "../hooks/usePrevious";
 
@@ -24,11 +23,6 @@ function scrollToBottom(ref) {
 }
 
 export function MessageList() {
-  const {
-    params: { otherUsername },
-  } = useRouteMatch("/conversations/:otherUsername");
-  const prevOtherUsername = usePrevious(otherUsername);
-
   const { data: messagesData, error: messagesError } = useSWR(
     `/conversations/${otherUsername}`,
     fetcher
@@ -48,74 +42,29 @@ export function MessageList() {
 
   const messagesEnd = useRef(null);
 
-  const {
-    current: { token },
-  } = useRef({ token: localStorage.getItem("id_token") })
-
-  const {
-    current: { socket },
-  } = useRef({
-    socket: io(baseUrl, {
-      auth: {
-        token
-      },
-    })
-  });
-
-  const ownUsername = process.env.NODE_ENV === 'production' ? parseJWTUserInfo(token).nickname : 'rodrigo';
-
-  useEffect(() => {
-    return () => {
-      socket.close();
-    };
-  }, [socket]);
-
-  useEffect(() => {
-    const oldEventName = determineEventName(ownUsername, prevOtherUsername);
-    const newEventName = determineEventName(ownUsername, otherUsername);
-
-    socket.off(oldEventName);
-
-    socket.on(newEventName, (socketPayload) => {
-      mutateMessages(`/conversations/${otherUsername}`, socketPayload);
-      mutateConversations("/conversations", socketPayload);
-    });
-  }, [
-    otherUsername,
-    prevOtherUsername,
-    socket,
-    mutateMessages,
-    mutateConversations,
-    ownUsername,
-  ]);
-
   useEffect(() => {
     scrollToBottom(messagesEnd);
-  }, [])
-
-  useEffect(() => {
-    document.title = "BigBisonChat - " + otherUsername;
-  }, [otherUsername]);
+  }, []);
 
   return (
     <div className="flex-grow overflow-y-auto">
       <ol className="m-2  flex flex-col">
-        { messagesData &&
+        {messagesData &&
           messagesData.map((message) => (
             <ChatBubble
-              key={ message.message_id }
-              message={ message }
-              otherUsername={ otherUsername }
+              key={message.message_id}
+              message={message}
+              otherUsername={otherUsername}
             />
-          )) }
-        { !messagesData && !messagesError && (
+          ))}
+        {!messagesData && !messagesError && (
           <div className="mx-auto text-teal-400 bg-teal-100 rounded p-3 uppercase font-semibold">
             Loading
           </div>
-        ) }
-        { messagesError && <div>Error!</div> }
+        )}
+        {messagesError && <div>Error!</div>}
       </ol>
-      <div className="h-16 sm:h-0" ref={ messagesEnd } />
+      <div className="h-16 sm:h-0" ref={messagesEnd} />
     </div>
   );
 }
@@ -131,19 +80,21 @@ function ChatBubble(props) {
 
   return (
     <li
-      className={ `max-w-xs hover:text-gray-500 transition-colors ease-out duration-200 delay-500 text-transparent ${isFromSender ? "self-start text-left" : "self-end text-right"
-        }` }
+      className={`max-w-xs hover:text-gray-500 transition-colors ease-out duration-200 delay-500 text-transparent ${
+        isFromSender ? "self-start text-left" : "self-end text-right"
+      }`}
     >
       <p
-        className={ `inline-block p-2 shadow rounded-lg w-auto ${isFromSender
-          ? "bg-gray-200 text-gray-700 rounded-bl-none"
-          : "bg-red-100 text-red-700 rounded-br-none"
-          }` }
-        style={ { wordBreak: "break-word", hyphens: "auto" } }
+        className={`inline-block p-2 shadow rounded-lg w-auto ${
+          isFromSender
+            ? "bg-gray-200 text-gray-700 rounded-bl-none"
+            : "bg-red-100 text-red-700 rounded-br-none"
+        }`}
+        style={{ wordBreak: "break-word", hyphens: "auto" }}
       >
-        { body }
+        {body}
       </p>
-      <time className="block text-xs">{ timestamp }</time>
+      <time className="block text-xs">{timestamp}</time>
     </li>
   );
 }

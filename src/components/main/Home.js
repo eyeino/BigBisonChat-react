@@ -8,7 +8,6 @@ export default function Home(props) {
 
   useEffect(() => {
     // ping server to wake it up!
-    pingServer();
   }, []);
 
   return (
@@ -21,10 +20,7 @@ export default function Home(props) {
           </span>
         </h1>
       </div>
-      <button
-        onClick={props.auth.login}
-        className="self-center bg-gradient-to-r from-teal-400 to-blue-700 p-3 px-5 text-white font-semibold rounded-lg shadow-lg"
-      >
+      <button className="self-center bg-gradient-to-r from-teal-400 to-blue-700 p-3 px-5 text-white font-semibold rounded-lg shadow-lg">
         Log In
       </button>
       <div className="text-xl self-center text-center">

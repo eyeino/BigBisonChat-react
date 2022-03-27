@@ -8,17 +8,15 @@ function NewPage() {
   const [recipient, setRecipient] = useState(null);
 
   return (
-    <>
-      <div className="flex flex-col justify-start sm:h-screen">
-        <main className="sm:overflow-hidden flex flex-col m-2">
-          <RecipientInput setRecipient={setRecipient} recipient={recipient} />
-          <Bison className="mx-auto sm:m-auto mt-20 h-48 w-48 fill-current text-gray-200" />
-        </main>
-      </div>
+    <div className="flex flex-col h-[100vh-66px]">
+      <main className="m-2">
+        <RecipientInput setRecipient={setRecipient} recipient={recipient} />
+      </main>
+      <Bison className="mx-auto sm:m-auto h-48 w-48 fill-current text-gray-200" />
       <div className="w-full p-4 fixed bottom-0 space-y-4">
         <MessageInput recipient={recipient} />
       </div>
-    </>
+    </div>
   );
 }
 

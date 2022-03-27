@@ -1,4 +1,5 @@
 import React from "react";
+import ky from "ky";
 
 import ConversationCell from "./ConversationCell";
 import { fetcher } from "../../utils/api.js";
@@ -12,10 +13,10 @@ export default function Conversations(props) {
   const router = useRouter();
   const { otherUsername } = router.query;
 
-  const { data, error } = useSWR(`/conversations`, fetcher);
+  const { data, error } = useSWR(`api/conversations/`, ky);
 
   return (
-    <section className="flex-grow-0 sm:max-w-xs flex-shrink-0 sm:border-r-2 sm:border-gray-100 overflow-y-auto sm:ml-2 flex flex-col">
+    <section className="flex-grow-0 sm:max-w-xs flex-shrink-0 overflow-y-auto sm:ml-2 flex flex-col">
       {data &&
         data
           .reduce((unique, item) => {

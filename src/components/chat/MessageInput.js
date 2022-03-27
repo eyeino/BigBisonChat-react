@@ -1,8 +1,6 @@
 // @ts-check
-
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-import { postMessage } from "../../utils/api";
 import { useWindowSize } from "../hooks/useWindowSize";
 
 export function MessageInput(props) {

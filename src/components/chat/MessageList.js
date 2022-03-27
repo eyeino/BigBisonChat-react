@@ -1,10 +1,6 @@
 import React, { useEffect, useRef } from "react";
-import PropTypes from "prop-types";
 import fecha from "fecha";
 import io from "socket.io-client";
-
-import { baseUrl } from "../../utils/api";
-import { parseJWTUserInfo } from "../../utils/Auth";
 
 import { fetcher } from "../../utils/api.js";
 
@@ -23,11 +19,14 @@ function scrollToBottom(ref) {
 }
 
 export function MessageList() {
+  console.log("hello hi hi hi");
+  const otherUsername = "eyeino";
+
   const { data: messagesData, error: messagesError } = useSWR(
-    `/conversations/${otherUsername}`,
-    fetcher
+    `/conversations/${otherUsername}`
   );
-  const { data: conversationsData } = useSWR(`/conversations`, fetcher);
+  const { data: conversationsData } = useSWR(`api/conversations`);
+  console.log(conversationsData);
   const mutateMessages = useMutation(undefined, {
     currentData: messagesData,
     type: mutationTypes.MESSAGES,
@@ -37,8 +36,6 @@ export function MessageList() {
     type: mutationTypes.CONVERSATIONS,
     replaceUsername: otherUsername,
   });
-
-  // const token = localStorage.getItem("id_token");
 
   const messagesEnd = useRef(null);
 
@@ -98,11 +95,3 @@ function ChatBubble(props) {
     </li>
   );
 }
-
-ChatBubble.propTypes = {
-  message: PropTypes.shape({
-    sender_username: PropTypes.string.isRequired,
-    body: PropTypes.string.isRequired,
-    created_at: PropTypes.string.isRequired,
-  }),
-};

@@ -15,7 +15,7 @@ function ConversationsPage() {
       </Head>
       {windowSize.width >= 640 && (
         <div className="flex w-full justify-between space-x-2">
-          <div className="mt-[86px]">
+          <div className="mt-[86px] min-h-[calc(100vh-86px)] max-h-[calc(100vh)] overflow-y-scroll">
             <ConversationList />
           </div>
           <section className="h-screen flex-grow flex flex-col justify-around self-center">

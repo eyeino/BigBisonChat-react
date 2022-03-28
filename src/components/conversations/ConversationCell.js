@@ -2,7 +2,7 @@ import React from "react";
 import { dbTimeToHHMMOrDayNameOrDateString } from "../../utils/DateText";
 import Link from "next/link";
 
-const messageBodyLimit = 15;
+const messageBodyLimit = 70;
 
 export default function ConversationCell(props) {
   const { username, avatarUrl, body, createdAt, selected } = props;
@@ -11,18 +11,22 @@ export default function ConversationCell(props) {
   return (
     <Link href={`/conversations/${username}`}>
       <div
-        className={`w-full flex flex-wrap cursor-pointer text-gray-500 justify-between items-center p-4 rounded-lg border-transparent border-l-8 transition-colors sm:transition-all ease-out duration-150 hover:text-gray-700 hover:border-teal-200 hover:bg-gray-100 ${
+        className={`w-full space-x-4 flex justify-start items-start cursor-pointer text-gray-500 p-2 rounded-lg border-transparent border-l-8 transition-colors sm:transition-all ease-out duration-150 hover:text-gray-700 hover:border-teal-200 hover:bg-gray-100 ${
           selected
             ? "sm:border-teal-400 bg-gray-100 shadow-md hover:sm:border-teal-400"
             : ""
         }`}
       >
-        {avatarUrl && (
+        {avatarUrl ? (
           <img
-            className="flex-grow-0 flex-shrink-0 h-12 w-12 mr-2 rounded-full"
+            className="flex-grow-0 flex-shrink-0 h-12 w-12 rounded-full"
             alt={username}
             src={avatarUrl}
           />
+        ) : (
+          <div className="flex-grow-0 flex-shrink-0 h-12 w-12 border-2 text-center pt-1 rounded-full">
+            <span className="text-2xl">{username[0]}</span>
+          </div>
         )}
         <div className="">
           <p
@@ -32,20 +36,20 @@ export default function ConversationCell(props) {
           >
             {username}
           </p>
-          <p className="text-gray-500">
+          <p className="text-xs text-gray-500">
             {body.length > messageBodyLimit
               ? body.substring(0, messageBodyLimit) + "..."
               : body}
           </p>
+          <time className="w-full font-light text-xs text-gray-500">
+            {timestamp}
+          </time>
         </div>
         {/* <Arrow
           className={`h-4 w-4 ml-auto fill-current ${
             selected ? "text-teal-400" : ""
           }`}
         /> */}
-        <time className="w-full text-right font-light text-sm text-gray-500">
-          {timestamp}
-        </time>
       </div>
     </Link>
   );

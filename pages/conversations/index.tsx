@@ -24,7 +24,7 @@ function ConversationsPage() {
       </Head>
       {windowSize.width >= 640 && (
         <div className="flex w-full justify-between space-x-2">
-          <div className="min-h-[calc(100vh-86px)] max-h-[calc(100vh)] overflow-y-scroll sm:max-w-xs">
+          <div className="min-h-[calc(100vh-86px)] max-h-[calc(100vh)] overflow-y-scroll sm:max-w-xs space-y-2">
             <div className="mt-[86px]"></div>
             <ConversationList
               data={conversationsData}

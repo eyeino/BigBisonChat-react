@@ -14,6 +14,12 @@ export default function OtherUsernameConversationPage() {
   const router = useRouter();
   const { otherUsername } = router.query;
 
+  const bottomOfListElementRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    bottomOfListElementRef.current.scrollIntoView({ behavior: "smooth" });
+  }, [otherUsername, windowSize]);
+
   return (
     <div className="relative">
       <Head>
@@ -33,7 +39,7 @@ export default function OtherUsernameConversationPage() {
               Your BigBisonChat with {otherUsername}
             </p>
             <MessageList />
-            <div className="mb-[86px]"></div>
+            <div ref={bottomOfListElementRef} className="mb-[86px]"></div>
             <div className="fixed bottom-0 right-0 p-4 backdrop-blur-sm h-20 w-1/2">
               <MessageInput recipient={otherUsername} />
             </div>
@@ -49,7 +55,7 @@ export default function OtherUsernameConversationPage() {
               Your BigBisonChat with {otherUsername}
             </p>
             <MessageList />
-            <div className="mb-[86px]"></div>
+            <div ref={bottomOfListElementRef} className="mb-[86px]"></div>
           </div>
           <div className="w-full p-4 bg-gray-100 bg-opacity-75 rounded-lg fixed bottom-0">
             <MessageInput recipient={otherUsername} />

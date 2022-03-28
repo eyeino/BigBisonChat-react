@@ -18,7 +18,7 @@ export default function OtherUsernameConversationPage() {
 
   React.useEffect(() => {
     bottomOfListElementRef.current.scrollIntoView({ behavior: "smooth" });
-  }, [otherUsername, windowSize, bottomOfListElementRef]);
+  }, [otherUsername, windowSize]);
 
   return (
     <div className="relative">

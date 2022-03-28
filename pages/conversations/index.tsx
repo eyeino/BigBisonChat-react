@@ -3,7 +3,6 @@ import React from "react";
 import ConversationList from "../../src/components/conversations/Conversations"; // list of convos
 import { useWindowSize } from "../../src/components/hooks/useWindowSize";
 import { Bison } from "../../src/components/svg/Bison";
-// import { ReactComponent as Logo } from "./assets/bison.svg";
 
 function ConversationsPage() {
   const windowSize = useWindowSize();

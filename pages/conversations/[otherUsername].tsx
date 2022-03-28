@@ -22,8 +22,10 @@ export default function OtherUsernameConversationPage() {
       {/* wide screens get conversations and detailview */}
       {windowSize.width >= 640 && (
         <div className="flex w-full justify-between">
-          <section className="mt-[86px] space-y-2 overflow-y-auto flex-grow-0 sm:max-w-xs flex-shrink-0 flex flex-col min-h-[calc(100vh-86px)] max-h-[calc(100vh)]">
+          <section className="space-y-2 overflow-y-auto sm:max-w-xs flex-shrink-0 flex flex-col min-h-[calc(100vh-86px)] max-h-[calc(100vh)]">
+            <div className="mt-[86px]"></div>
             <ConversationList />
+            <div className="mb-[86px]"></div>
           </section>
           <section className="relative ml-2 overflow-y-scroll flex flex-col flex-grow min-h-[calc(100vh-86px)] max-h-[calc(100vh)]">
             <div className="mt-[86px]"></div>

@@ -15,8 +15,10 @@ function ConversationsPage() {
       </Head>
       {windowSize.width >= 640 && (
         <div className="flex w-full justify-between space-x-2">
-          <div className="mt-[86px] min-h-[calc(100vh-86px)] max-h-[calc(100vh)] overflow-y-scroll">
+          <div className="min-h-[calc(100vh-86px)] max-h-[calc(100vh)] overflow-y-scroll">
+            <div className="mt-[86px]"></div>
             <ConversationList />
+            <div className="mb-[86px]"></div>
           </div>
           <section className="h-screen flex-grow flex flex-col justify-around self-center">
             <Bison className="self-center my-auto text-gray-200 fill-current h-48 w-48" />
@@ -24,8 +26,10 @@ function ConversationsPage() {
         </div>
       )}
       {windowSize.width < 640 && (
-        <div className="mt-[86px] space-y-2 flex flex-col w-full justify-between">
+        <div className="space-y-2 flex flex-col w-full justify-between min-h-[calc(100vh-86px)] max-h-[calc(100vh)] overflow-y-scroll">
+          <div className="mt-[86px]"></div>
           <ConversationList />
+          <div className="mb-[86px]"></div>
         </div>
       )}
     </>

@@ -16,7 +16,7 @@ export default function App({ Component, pageProps }: AppProps) {
       >
         <Nav />
       </header>
-      <main className="z-0 h-screen sm:mx-2">
+      <main className="z-0 h-screen mx-2">
         <Component {...pageProps} />
       </main>
     </UserProvider>

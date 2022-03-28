@@ -46,10 +46,6 @@ class ClientSideBigBisonApiService {
       return res;
     } catch (err) {}
   }
-
-  async pingServer() {
-    return await this.fetcher.get('ping');
-  }
 }
 
 export const ClientSideBigBisonApiServiceInstance = new ClientSideBigBisonApiService();

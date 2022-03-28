@@ -1,22 +1,16 @@
+import Head from "next/head";
 import React from "react";
-import { ClientSideBigBisonApiServiceInstance } from "../src/utils/api/client";
 
-function IndexPage(props) {
-  React.useEffect(() => {
-    document.title = props.title;
-  });
-
-  React.useEffect(() => {
-    // ping server to wake it up!
-    ClientSideBigBisonApiServiceInstance.pingServer();
-  }, []);
-
+function IndexPage() {
   return (
-    <div className="flex flex-col justify-start">
-      <main className="sm:overflow-hidden flex flex-col">
-        <div className="flex flex-col max-w-2xl m-12 md:mt-12 md:mx-auto space-y-10">
+    <div className="mt-[86px] flex flex-col justify-start">
+      <Head>
+        <title>BigBisonChat</title>
+      </Head>
+      <main className="sm:overflow-hidden flex flex-col md:mx-10">
+        <div className="flex flex-col sm:max-w-2xl md:max-w-3xl m-12 md:mt-12 md:mx-auto space-y-10">
           <div className="flex flex-no-wrap items-center z-10">
-            <h1 className="text-5xl sm:text-6xl font-bold leading-tight">
+            <h1 className="text-5xl leading-20 sm:text-7xl md:text-8xl font-bold">
               Chat with your friends...{" "}
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-blue-600">
                 majestically.
@@ -25,7 +19,7 @@ function IndexPage(props) {
           </div>
           <a
             href="/api/auth/login"
-            className="self-center bg-gradient-to-r from-teal-400 to-blue-700 p-3 px-5 text-white font-semibold rounded-lg shadow-lg"
+            className="self-center bg-gradient-to-r from-teal-400 to-blue-700 py-3 px-12 text-white font-semibold rounded-lg shadow-xl shadow-blue-300"
           >
             Login
           </a>

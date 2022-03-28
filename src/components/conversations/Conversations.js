@@ -8,9 +8,7 @@ import { useRouter } from "next/router";
 
 const conversationsFetcher = ky.get("/api/bigbison/conversations").json;
 
-export default function Conversations(props) {
-  document.title = props.title;
-
+export default function Conversations() {
   const router = useRouter();
   const { otherUsername } = router.query;
 

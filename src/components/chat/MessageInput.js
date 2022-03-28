@@ -2,10 +2,11 @@
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useWindowSize } from "../hooks/useWindowSize";
+import { ClientSideBigBisonApiServiceInstance } from "../../utils/api/client";
 
-export function MessageInput(props) {
+export function MessageInput({ recipient }) {
   const router = useRouter();
-  const otherUsername = router.query.otherUsername ?? props.recipient;
+  const otherUsername = router.query.otherUsername ?? recipient;
 
   const [messageBody, setMessageBody] = useState("");
   const [isSending, setIsSending] = useState(false);
@@ -24,17 +25,20 @@ export function MessageInput(props) {
 
     setIsSending(true);
 
-    postMessage(otherUsername, messageBody).then(() => {
+    ClientSideBigBisonApiServiceInstance.postMessage(
+      otherUsername,
+      messageBody
+    ).then(() => {
       setIsSending(false);
       setMessageBody("");
 
-      props.recipient && router.push("/conversations/" + props.recipient);
+      recipient && router.push("/conversations/" + recipient);
     });
   }
 
   return (
     <form
-      className={`flex justify-between flex-shrink-0 space-x-2 transition-opacity duration-150 ${
+      className={`w-full flex justify-between space-x-2 backdrop-blur-sm duration-150 ${
         isFaded ? "opacity-50" : ""
       }`}
       onSubmit={handleSubmit}

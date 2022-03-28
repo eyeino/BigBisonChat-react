@@ -1,5 +1,6 @@
 import React from "react";
 import { dbTimeToHHMMOrDayNameOrDateString } from "../../utils/DateText";
+import Link from "next/link";
 
 // import { ReactComponent as Avatar } from "../assets/avatar.svg";
 // import { ReactComponent as Arrow } from "../assets/right-arrow.svg";
@@ -11,10 +12,12 @@ export default function ConversationCell(props) {
   const timestamp = dbTimeToHHMMOrDayNameOrDateString(createdAt);
 
   return (
-    <Link to={`/conversations/${username}`}>
+    <Link href={`/conversations/${username}`}>
       <div
-        className={`flex flex-wrap text-gray-500 justify-between items-center p-4 rounded border-transparent border-l-8 my-2 transition-colors sm:transition-all ease-out duration-150 hover:text-gray-700 hover:border-teal-200 ${
-          selected ? "sm:border-teal-400 sm:shadow-lg" : ""
+        className={`flex flex-wrap text-gray-500 justify-between items-center p-4 rounded-lg border-transparent border-l-8 mr-2 my-2 transition-colors sm:transition-all ease-out duration-150 hover:text-gray-700 hover:border-teal-200 hover:bg-gray-100 ${
+          selected
+            ? "sm:border-teal-400 bg-gray-100 shadow-md hover:sm:border-teal-400"
+            : ""
         }`}
       >
         {avatarUrl ? (
@@ -44,11 +47,11 @@ export default function ConversationCell(props) {
               : body}
           </p>
         </div>
-        <Arrow
+        {/* <Arrow
           className={`h-4 w-4 ml-auto fill-current ${
             selected ? "text-teal-400" : ""
           }`}
-        />
+        /> */}
         <time className="w-full text-right font-light text-sm text-gray-500">
           {timestamp}
         </time>

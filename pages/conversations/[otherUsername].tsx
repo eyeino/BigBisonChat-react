@@ -14,14 +14,18 @@ export default function OtherUsernameConversationPage() {
   const { otherUsername } = router.query;
 
   return (
-    <>
+    <div className="relative">
       {/* wide screens get conversations and detailview */}
       {windowSize.width >= 640 && (
         <div className="flex w-full justify-between">
-          <ConversationList />
-          <section className="flex flex-col flex-grow">
+          <section className="mt-[100px] overflow-y-auto flex-grow-0 sm:max-w-xs flex-shrink-0 flex flex-col min-h-[calc(100vh-100px)] max-h-[calc(100vh-100px)]">
+            <ConversationList />
+          </section>
+          <section className="relative overflow-y-scroll flex flex-col flex-grow min-h-[calc(100vh-100px)] max-h-[calc(100vh)]">
+            <div className="mt-[100px]"></div>
             <MessageList />
-            <div className="p-4 bg-gray-100">
+            <div className="mb-[100px]"></div>
+            <div className="fixed bottom-0 right-0 p-4 backdrop-blur-sm h-20 w-1/2">
               <MessageInput recipient={otherUsername} />
             </div>
           </section>
@@ -29,13 +33,13 @@ export default function OtherUsernameConversationPage() {
       )}
       {/* small screen only gets specific conversation */}
       {windowSize.width < 640 && (
-        <div className="flex-grow flex flex-col">
+        <section className="flex-grow flex flex-col mt-[100px]">
           <MessageList />
           <div className="w-full p-4 bg-gray-100 bg-opacity-75 rounded-lg fixed bottom-0">
             <MessageInput recipient={otherUsername} />
           </div>
-        </div>
+        </section>
       )}
-    </>
+    </div>
   );
 }

@@ -1,20 +1,17 @@
-// @ts-check
-
 import { useUser } from "@auth0/nextjs-auth0";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import { Bison } from "../svg/Bison";
 import cx from "classnames";
-// import { ReactComponent as Logo } from "../assets/bison.svg";
 
 function Nav() {
   const userContext = useUser();
   const router = useRouter();
 
   return (
-    <header className="block sticky top-0 w-full mb-0 z-50 bg-transparent">
-      <div className="m-2 rounded-lg shadow-sm bg-white">
+    <div className="block mb-0 backdrop-blur-sm p-2 rounded-lg">
+      <div className="block mb-0 p-2 rounded-lg shadow-md bg-white bg-opacity-50">
         <nav className="flex items-center justify-between flex-wrap p-4 rounded">
           <Link href="/">
             <div className="flex items-center flex-shrink-0 mr-2 text-red-700">
@@ -70,7 +67,7 @@ function Nav() {
           </ul>
         </nav>
       </div>
-    </header>
+    </div>
   );
 }
 

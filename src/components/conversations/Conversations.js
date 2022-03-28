@@ -2,10 +2,11 @@ import React from "react";
 import ky from "ky";
 
 import ConversationCell from "./ConversationCell";
-import { fetcher } from "../../utils/api.js";
 
 import useSWR from "swr";
 import { useRouter } from "next/router";
+
+const conversationsFetcher = ky.get("/api/bigbison/conversations").json;
 
 export default function Conversations(props) {
   document.title = props.title;
@@ -13,13 +14,10 @@ export default function Conversations(props) {
   const router = useRouter();
   const { otherUsername } = router.query;
 
-  const { data, error } = useSWR(
-    `api/conversations/`,
-    ky.get("api/conversations/").json
-  );
+  const { data, error } = useSWR(`conversations/`, conversationsFetcher);
 
   return (
-    <section className="flex-grow-0 sm:max-w-xs flex-shrink-0 overflow-y-auto sm:ml-2 flex flex-col">
+    <>
       {data &&
         data
           .reduce((unique, item) => {
@@ -54,6 +52,6 @@ export default function Conversations(props) {
           <p>Press 'New' above and start talking!</p>
         </div>
       )}
-    </section>
+    </>
   );
 }

@@ -2,9 +2,6 @@ import React from "react";
 import { dbTimeToHHMMOrDayNameOrDateString } from "../../utils/DateText";
 import Link from "next/link";
 
-// import { ReactComponent as Avatar } from "../assets/avatar.svg";
-// import { ReactComponent as Arrow } from "../assets/right-arrow.svg";
-
 const messageBodyLimit = 15;
 
 export default function ConversationCell(props) {
@@ -20,17 +17,11 @@ export default function ConversationCell(props) {
             : ""
         }`}
       >
-        {avatarUrl ? (
+        {avatarUrl && (
           <img
             className="flex-grow-0 flex-shrink-0 h-12 w-12 mr-2 rounded-full"
             alt={username}
             src={avatarUrl}
-          />
-        ) : (
-          <Avatar
-            className={`fill-current flex-grow-0 flex-shrink-0 h-12 w-12 mr-2 ${
-              selected ? "text-teal-400" : ""
-            }`}
           />
         )}
         <div className="">

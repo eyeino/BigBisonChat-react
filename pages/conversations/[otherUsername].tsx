@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 
 import ConversationList from "../../src/components/conversations/Conversations"; // list of convos
 import { MessageList } from "../../src/components/chat/MessageList"; // list of messages in a convo
 import { MessageInput } from "../../src/components/chat/MessageInput"; // input bar for messages in chat window
-// import { ReactComponent as Logo } from "./assets/bison.svg";
 import { useWindowSize } from "../../src/components/hooks/useWindowSize";
 import { useRouter } from "next/router";
 import Head from "next/head";
@@ -38,7 +37,7 @@ export default function OtherUsernameConversationPage() {
 
   React.useEffect(() => {
     bottomOfListElementRef.current.scrollIntoView({ behavior: "smooth" });
-  }, [otherUsername, windowSize, messagesData]);
+  }, [otherUsername, windowSize]);
 
   return (
     <div className="relative">

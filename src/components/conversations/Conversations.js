@@ -1,18 +1,10 @@
 import React from "react";
-import ky from "ky";
-
 import ConversationCell from "./ConversationCell";
-
-import useSWR from "swr";
 import { useRouter } from "next/router";
 
-const conversationsFetcher = ky.get("/api/bigbison/conversations").json;
-
-export default function Conversations() {
+export default function Conversations({ data, error }) {
   const router = useRouter();
   const { otherUsername } = router.query;
-
-  const { data, error } = useSWR(`conversations/`, conversationsFetcher);
 
   return (
     <>

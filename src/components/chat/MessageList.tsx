@@ -1,22 +1,8 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import fecha from "fecha";
 import { useRouter } from "next/router";
 
-import useSWR from "swr";
-import ky from "ky";
-import debounceFn from "debounce-fn";
-
-function scrollToBottom(ref) {
-  ref.current &&
-    ref.current.scrollIntoView({ behavior: "smooth", alignToTop: true });
-}
-
-const conversationFetcher = ky.get("/api/bigbison/conversations").json;
-
-const messagesFetcherBuilder = (otherUsername) =>
-  ky.get(`/api/bigbison/conversations/${otherUsername}`).json;
-
-export function MessageList() {
+export function MessageList({ messagesData, messagesError }) {
   const router = useRouter();
   const { otherUsername } = router.query;
 
@@ -24,29 +10,10 @@ export function MessageList() {
     return null;
   }
 
-  const { data: messagesData, error: messagesError } = useSWR<any>(
-    `/conversations/${otherUsername}`,
-    messagesFetcherBuilder(otherUsername),
-    {
-      refreshInterval: 2000,
-    }
-  );
-
-  const { data: conversationsData } = useSWR<any>(
-    `/conversations`,
-    conversationFetcher
-  );
-
-  const messagesEnd = useRef(null);
-
-  useEffect(() => {
-    scrollToBottom(messagesEnd);
-  }, []);
-
   return (
     <ol className="flex flex-col">
       {messagesData &&
-        messagesData.map((message, index) => (
+        messagesData.map((message) => (
           <ChatBubble
             key={message.message_id}
             message={message}
@@ -60,7 +27,6 @@ export function MessageList() {
       )}
       {messagesError && <div>Error!</div>}
     </ol>
-    // <div className="h-16 sm:h-0" ref={messagesEnd} />
   );
 }
 

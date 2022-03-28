@@ -11,7 +11,7 @@ export default function ConversationCell(props) {
   return (
     <Link href={`/conversations/${username}`}>
       <div
-        className={`w-full space-x-4 flex justify-start items-start cursor-pointer text-gray-500 p-2 rounded-lg border-transparent border-l-8 transition-colors sm:transition-all ease-out duration-150 hover:text-gray-700 hover:border-teal-200 hover:bg-gray-100 ${
+        className={`w-full space-x-4 flex justify-start items-center cursor-pointer text-gray-500 p-2 rounded-lg border-transparent border-l-8 transition-colors sm:transition-all ease-out duration-150 hover:text-gray-700 hover:border-teal-200 hover:bg-gray-100 ${
           selected
             ? "sm:border-teal-400 bg-gray-100 shadow-md hover:sm:border-teal-400"
             : ""

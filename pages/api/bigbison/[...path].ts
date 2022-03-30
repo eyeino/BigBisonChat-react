@@ -4,7 +4,9 @@ import { ServerSideBigBisonApiService } from "../../../src/utils/api/server";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const { path } = req.query;
+  // todo should be able to pass arbitrary query strings
+  const { path, offset } = req.query;
+  console.log({ path, offset });
 
   if (typeof path === 'string') {
     throw new Error('Path expected to be string array. Next.js filename should follow [...x].ts format.')
@@ -14,7 +16,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   const api = new ServerSideBigBisonApiService(accessToken);
 
-  const bigBisonResponse = await api.proxy({ path: path.join('/'), method: req.method, ...( req.body && { body: req.body })});
+  const bigBisonResponse = await api.proxy({ path: path.join('/') + (typeof offset !== 'undefined' ? '?offset=' + offset : ''), method: req.method, ...( req.body && { body: req.body })});
 
   res.json(bigBisonResponse);
 }

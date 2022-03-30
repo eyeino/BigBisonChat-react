@@ -1,19 +1,35 @@
-import React, { useState } from "react";
+import React from "react";
 
 import ConversationList from "../../src/components/conversations/Conversations"; // list of convos
 import { MessageList } from "../../src/components/chat/MessageList"; // list of messages in a convo
 import { MessageInput } from "../../src/components/chat/MessageInput"; // input bar for messages in chat window
-// import { ReactComponent as Logo } from "./assets/bison.svg";
 import { useWindowSize } from "../../src/components/hooks/useWindowSize";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import ky from "ky";
 import useSWR from "swr";
+import useSWRInfinite from "swr/infinite";
 
-const messagesFetcherBuilder = (otherUsername) =>
+const buildMessagesFetcher = (otherUsername) =>
   ky.get(`/api/bigbison/conversations/${otherUsername}`).json;
 
 const conversationsFetcher = ky.get("/api/bigbison/conversations").json;
+
+const buildGetKey = (key) => (pageIndex, previousPageData) => {
+  console.log({ pageIndex, previousPageData, key });
+
+  // reached the end
+  if (previousPageData && previousPageData.conversation.length === 0)
+    return null;
+
+  // first page, we don't have `previousPageData`
+  if (pageIndex === 0) return `/api/bigbison/conversations/${key}?offset=0`;
+
+  console.log({ offset: previousPageData.offset });
+
+  // add the cursor to the API endpoint
+  return `/api/bigbison/conversations/${key}?offset=${previousPageData.offset}`;
+};
 
 export default function OtherUsernameConversationPage() {
   const windowSize = useWindowSize();
@@ -23,9 +39,14 @@ export default function OtherUsernameConversationPage() {
 
   const bottomOfListElementRef = React.useRef<HTMLDivElement>(null);
 
-  const { data: messagesData, error: messagesError } = useSWR<any>(
-    `/conversations/${otherUsername}`,
-    messagesFetcherBuilder(otherUsername),
+  const {
+    data: messagesData,
+    error: messagesError,
+    size,
+    setSize,
+  } = useSWRInfinite<any>(
+    buildGetKey(otherUsername),
+    buildMessagesFetcher(otherUsername),
     {
       refreshInterval: 2000,
     }
@@ -38,7 +59,7 @@ export default function OtherUsernameConversationPage() {
 
   React.useEffect(() => {
     bottomOfListElementRef.current.scrollIntoView({ behavior: "smooth" });
-  }, [otherUsername, windowSize, messagesData]);
+  }, [otherUsername, windowSize]);
 
   return (
     <div className="relative">
@@ -58,13 +79,21 @@ export default function OtherUsernameConversationPage() {
           </section>
           <section className="relative ml-2 overflow-y-scroll flex flex-col flex-grow min-h-[calc(100vh-86px)] max-h-[calc(100vh)]">
             <div className="mt-[86px]"></div>
-            <p className="py-2 text-sm uppercase text-gray-300 text-center">
+            {/* <p className="py-2 text-sm uppercase text-gray-300 text-center">
               Your BigBisonChat with {otherUsername}
-            </p>
-            <MessageList
-              messagesData={messagesData}
-              messagesError={messagesError}
-            />
+            </p> */}
+            <button
+              className="my-4 bg-green-300 font-bold text-white p-1 w-32 flex-shrink-0 self-center rounded-full"
+              onClick={() => setSize(size + 1)}
+            >
+              LOAD MORE
+            </button>
+            {messagesData?.map((messagesSection) => (
+              <MessageList
+                messagesData={messagesSection.conversation}
+                messagesError={undefined}
+              />
+            ))}
             <div ref={bottomOfListElementRef} className="mb-[86px]"></div>
             <div className="fixed bottom-0 right-0 p-4 backdrop-blur-sm h-20 w-1/2">
               <MessageInput recipient={otherUsername} />

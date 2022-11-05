@@ -33,7 +33,7 @@ export default function Conversations({ data, error }) {
       )}
       {!data && !error && (
         <div className="p-4 bg-yellow-100 text-yellow-700">
-          Give them a minute, the Heroku server is awakening...
+          Give it a minute, the Railway server is awakening...
         </div>
       )}
       {data && data.length === 0 && (

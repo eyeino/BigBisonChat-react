@@ -2,7 +2,7 @@ import got, { Got } from "got";
 
 export const bigBisonBaseUrl =
   process.env.NODE_ENV === "production"
-    ? "https://bigbisonchat.herokuapp.com"
+    ? "https://bbc.up.railway.app"
     : "http://localhost:8080";
 
 export class ServerSideBigBisonApiService {

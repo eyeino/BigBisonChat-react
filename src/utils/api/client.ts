@@ -41,6 +41,6 @@ export class ClientSideBigBisonApiService {
   }
 
   async searchUsers(query: string) {
-    return await this.fetcher.get("/search/users/" + query).json();
+    return await this.fetcher.get("search/users/" + query).json();
   }
 }

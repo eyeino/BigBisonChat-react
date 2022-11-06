@@ -1,13 +1,7 @@
 import React from "react";
 import ConversationCell from "./ConversationCell";
 import { useRouter } from "next/router";
-
-interface Conversation {
-  other_username: string;
-  body: string;
-  avatar_url: string;
-  created_at: string;
-}
+import { Conversation } from "../../types";
 
 interface Props {
   data: Conversation[];

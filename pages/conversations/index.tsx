@@ -5,14 +5,8 @@ import useSWR from "swr";
 import ConversationList from "../../src/components/conversations/Conversations"; // list of convos
 import { useWindowSize } from "../../src/components/hooks/useWindowSize";
 import { Bison } from "../../src/components/svg/Bison";
+import { Conversation } from "../../src/types";
 import { ClientSideBigBisonApiService } from "../../src/utils/api/client";
-
-interface Conversation {
-  other_username: string;
-  body: string;
-  avatar_url: string;
-  created_at: string;
-}
 
 const client = new ClientSideBigBisonApiService();
 

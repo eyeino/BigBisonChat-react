@@ -1,14 +1,7 @@
 import React from "react";
 import fecha from "fecha";
 import { useRouter } from "next/router";
-
-interface Message {
-  message_id: string;
-  sender_username: string;
-  body: string;
-  created_at: string;
-  otherUsername: string;
-}
+import { Message } from "../../types";
 
 export function MessageList({
   messagesData,

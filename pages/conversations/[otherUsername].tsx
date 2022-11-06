@@ -8,21 +8,7 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import useSWR from "swr";
 import { ClientSideBigBisonApiService } from "../../src/utils/api/client";
-
-interface Conversation {
-  other_username: string;
-  body: string;
-  avatar_url: string;
-  created_at: string;
-}
-
-interface Message {
-  message_id: string;
-  sender_username: string;
-  body: string;
-  created_at: string;
-  otherUsername: string;
-}
+import { Conversation, Message } from "../../src/types";
 
 const client = new ClientSideBigBisonApiService();
 

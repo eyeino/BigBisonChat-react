@@ -21,6 +21,9 @@ export class ClientSideBigBisonApiService {
   constructor() {
     this.fetcher = ky.extend({
       prefixUrl: "/api/bigbison",
+      retry: {
+        limit: 0,
+      },
     });
   }
 
@@ -39,15 +42,11 @@ export class ClientSideBigBisonApiService {
   async postMessage(otherUsername: string, messageBody: string) {
     console.log({ otherUsername, messageBody });
 
-    try {
-      await this.fetcher
-        .post("conversations/" + otherUsername, {
-          json: {
-            messageBody: messageBody,
-          },
-        })
-        .json();
-    } catch (err) {}
+    await this.fetcher.post("conversations/" + otherUsername, {
+      json: {
+        messageBody: messageBody,
+      },
+    });
   }
 
   async searchUsers(query: string) {

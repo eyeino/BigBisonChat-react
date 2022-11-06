@@ -2,7 +2,21 @@ import React from "react";
 import fecha from "fecha";
 import { useRouter } from "next/router";
 
-export function MessageList({ messagesData, messagesError }) {
+interface Message {
+  message_id: string;
+  sender_username: string;
+  body: string;
+  created_at: string;
+  otherUsername: string;
+}
+
+export function MessageList({
+  messagesData,
+  messagesError,
+}: {
+  messagesData: Message[];
+  messagesError: any;
+}) {
   const router = useRouter();
   const { otherUsername } = router.query;
 
@@ -30,13 +44,21 @@ export function MessageList({ messagesData, messagesError }) {
   );
 }
 
-function ChatBubble(props) {
-  const { sender_username, body, created_at } = props.message;
+interface ChatBubbleProps {
+  message: Message;
+  otherUsername: string;
+}
 
+function ChatBubble({
+  message,
+  otherUsername,
+}: {
+  message: Message;
+  otherUsername: string;
+}) {
+  const { body, created_at, sender_username } = message;
   const epochTime = Date.parse(created_at);
   const timestamp = fecha.format(new Date(epochTime), "MM/DD/YY hh:mmA");
-
-  const { otherUsername } = props;
   const isFromSender = sender_username === otherUsername;
 
   return (

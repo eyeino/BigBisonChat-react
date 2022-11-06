@@ -1,11 +1,19 @@
 import { Combobox } from "@headlessui/react";
-import React from "react";
+import React, { SetStateAction } from "react";
 import debounceFn from "debounce-fn";
 import { ClientSideBigBisonApiService } from "../../utils/api/client";
 
-export function UserSearchBar({ recipient, setRecipient }) {
+export function UserSearchBar({
+  recipient,
+  setRecipient,
+}: {
+  recipient: string;
+  setRecipient: (s: string) => void;
+}) {
   const [query, setQuery] = React.useState("");
-  const [options, setOptions] = React.useState([]);
+  const [options, setOptions] = React.useState<
+    { value: string; label: string }[]
+  >([]);
 
   const executeQuery = debounceFn(
     (query) => {
@@ -17,7 +25,7 @@ export function UserSearchBar({ recipient, setRecipient }) {
 
       const client = new ClientSideBigBisonApiService();
 
-      client.searchUsers(query).then((res) => {
+      client.searchUsers(query).then((res: unknown) => {
         if (!res || !Array.isArray(res)) {
           return;
         }
@@ -36,7 +44,7 @@ export function UserSearchBar({ recipient, setRecipient }) {
   return (
     <Combobox
       value={recipient}
-      onChange={(selection) => setRecipient(selection.label)}
+      onChange={(selection) => setRecipient(selection)}
     >
       <Combobox.Input
         className="w-full border shadow-sm p-2 rounded-lg"

@@ -26,7 +26,7 @@ export class ClientSideBigBisonApiService {
     } catch (err) {}
   }
 
-  async postMessage(otherUsername: string, messageBody) {
+  async postMessage(otherUsername: string, messageBody: string) {
     console.log({ otherUsername, messageBody });
 
     try {
@@ -41,9 +41,6 @@ export class ClientSideBigBisonApiService {
   }
 
   async searchUsers(query: string) {
-    try {
-      const res = await this.fetcher.get("search/users/" + query).json();
-      return res;
-    } catch (err) {}
+    return await this.fetcher.get("/search/users/" + query).json();
   }
 }

@@ -6,7 +6,7 @@ import { UserSearchBar } from "../src/components/chat/UserSearchBar"; // input b
 import { Bison } from "../src/components/svg/Bison";
 
 function SearchUsersPage() {
-  const [recipient, setRecipient] = useState(null);
+  const [recipient, setRecipient] = useState<string>();
 
   return (
     <div className="flex flex-col h-[100vh-86px]">
@@ -14,13 +14,16 @@ function SearchUsersPage() {
         <title>BigBisonChat – Search Users</title>
       </Head>
       <section className="mt-[86px] flex-shrink-0">
-        <UserSearchBar setRecipient={setRecipient} recipient={recipient} />
+        <UserSearchBar
+          setRecipient={setRecipient}
+          recipient={recipient ?? ""}
+        />
       </section>
       <div>
         <Bison className="h-[70vh] flex-grow mx-auto sm:m-auto w-48 fill-current text-gray-200" />
       </div>
       <div className="w-full p-4 fixed bottom-0 space-y-4">
-        <MessageInput recipient={recipient} />
+        <MessageInput recipient={recipient ?? ""} />
       </div>
     </div>
   );

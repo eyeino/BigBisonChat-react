@@ -3,16 +3,19 @@ import React, { useState } from "react";
 import { useWindowSize } from "../hooks/useWindowSize";
 import { ClientSideBigBisonApiService } from "../../utils/api/client";
 
-export function MessageInput({ recipient }) {
+export function MessageInput({ recipient }: { recipient: string }) {
   const router = useRouter();
-  const otherUsername = router.query.otherUsername ?? recipient;
+  const otherUsername =
+    typeof router.query.otherUsername === "string"
+      ? router.query.otherUsername
+      : router.query.otherUsername?.[0] ?? recipient;
 
   const [messageBody, setMessageBody] = useState("");
   const [isSending, setIsSending] = useState(false);
 
   const [focusedWithin, setFocusedWithin] = useState(false);
   const windowSize = useWindowSize();
-  const isFaded = !focusedWithin && windowSize.width < 640;
+  const isFaded = !focusedWithin && windowSize?.width && windowSize.width < 640;
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     let value = event.target.value;

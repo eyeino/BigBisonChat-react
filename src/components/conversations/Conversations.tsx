@@ -2,7 +2,19 @@ import React from "react";
 import ConversationCell from "./ConversationCell";
 import { useRouter } from "next/router";
 
-export default function Conversations({ data, error }) {
+interface Conversation {
+  other_username: string;
+  body: string;
+  avatar_url: string;
+  created_at: string;
+}
+
+interface Props {
+  data: Conversation[];
+  error: unknown;
+}
+
+export default function Conversations({ data, error }: Props) {
   const router = useRouter();
   const { otherUsername } = router.query;
 
@@ -10,13 +22,29 @@ export default function Conversations({ data, error }) {
     <>
       {data &&
         data
-          .reduce((unique, item) => {
-            return unique.includes(item.other_username)
-              ? unique
-              : [...unique, item, item.other_username];
-          }, [])
-          .filter((item) => typeof item === "object")
-          .map((convo) => {
+          .reduce(
+            (
+              acc: {
+                uniqueUsernames: string[];
+                uniqueConversations: Conversation[];
+              },
+              item
+            ) => {
+              if (acc.uniqueUsernames.includes(item.other_username)) {
+                return acc;
+              } else {
+                return {
+                  uniqueUsernames: [
+                    ...acc.uniqueUsernames,
+                    item.other_username,
+                  ],
+                  uniqueConversations: [...acc.uniqueConversations, item],
+                };
+              }
+            },
+            { uniqueUsernames: [], uniqueConversations: [] }
+          )
+          .uniqueConversations.map((convo: Conversation) => {
             return (
               <ConversationCell
                 key={convo.other_username}

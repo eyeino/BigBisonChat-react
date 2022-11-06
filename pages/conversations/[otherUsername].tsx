@@ -9,7 +9,14 @@ import Head from "next/head";
 import ky from "ky";
 import useSWR from "swr";
 
-const messagesFetcherBuilder = (otherUsername) =>
+interface Conversation {
+  other_username: string;
+  body: string;
+  avatar_url: string;
+  created_at: string;
+}
+
+const messagesFetcherBuilder = (otherUsername: string) =>
   ky.get(`/api/bigbison/conversations/${otherUsername}`).json;
 
 const conversationsFetcher = ky.get("/api/bigbison/conversations").json;
@@ -24,7 +31,11 @@ export default function OtherUsernameConversationPage() {
 
   const { data: messagesData, error: messagesError } = useSWR<any>(
     `/conversations/${otherUsername}`,
-    messagesFetcherBuilder(otherUsername),
+    messagesFetcherBuilder(
+      typeof otherUsername === "string"
+        ? otherUsername
+        : otherUsername?.[0] ?? ""
+    ),
     {
       refreshInterval: 2000,
     }
@@ -36,7 +47,7 @@ export default function OtherUsernameConversationPage() {
   );
 
   React.useEffect(() => {
-    bottomOfListElementRef.current.scrollIntoView({ behavior: "smooth" });
+    bottomOfListElementRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [otherUsername, windowSize]);
 
   return (
@@ -45,12 +56,12 @@ export default function OtherUsernameConversationPage() {
         <title>BigBisonChat – {otherUsername}</title>
       </Head>
       {/* wide screens get conversations and detailview */}
-      {windowSize.width >= 640 && (
+      {windowSize?.width && windowSize.width >= 640 && (
         <div className="flex w-full justify-between">
           <section className="space-y-2 overflow-y-auto sm:max-w-xs flex-shrink-0 flex flex-col min-h-[calc(100vh-86px)] max-h-[calc(100vh)]">
             <div className="mt-[86px]"></div>
             <ConversationList
-              data={conversationsData}
+              data={conversationsData as Conversation[]}
               error={conversationsError}
             />
             <div className="mb-[86px]"></div>
@@ -66,13 +77,21 @@ export default function OtherUsernameConversationPage() {
             />
             <div ref={bottomOfListElementRef} className="mb-[86px]"></div>
             <div className="fixed bottom-0 right-0 p-4 backdrop-blur-sm h-20 w-1/2">
-              <MessageInput recipient={otherUsername} />
+              <MessageInput
+                recipient={
+                  typeof otherUsername === "string"
+                    ? otherUsername
+                    : typeof otherUsername === "string"
+                    ? otherUsername
+                    : otherUsername?.[0] ?? ""
+                }
+              />
             </div>
           </section>
         </div>
       )}
       {/* small screen only gets specific conversation */}
-      {windowSize.width < 640 && (
+      {windowSize?.width && windowSize.width < 640 && (
         <section className="flex-grow flex flex-col">
           <div className="min-h-[calc(100vh-86px)] max-h-[calc(100vh)] overflow-y-auto">
             <div className="mt-[86px]"></div>
@@ -86,7 +105,13 @@ export default function OtherUsernameConversationPage() {
             <div ref={bottomOfListElementRef} className="mb-[86px]"></div>
           </div>
           <div className="w-full p-4 backdrop-blur-sm rounded-lg fixed bottom-0">
-            <MessageInput recipient={otherUsername} />
+            <MessageInput
+              recipient={
+                typeof otherUsername === "string"
+                  ? otherUsername
+                  : otherUsername?.[0] ?? ""
+              }
+            />
           </div>
         </section>
       )}

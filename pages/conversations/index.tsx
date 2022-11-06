@@ -9,6 +9,13 @@ import { Bison } from "../../src/components/svg/Bison";
 
 const conversationsFetcher = ky.get("/api/bigbison/conversations").json;
 
+interface Conversation {
+  other_username: string;
+  body: string;
+  avatar_url: string;
+  created_at: string;
+}
+
 function ConversationsPage() {
   const windowSize = useWindowSize();
 
@@ -22,12 +29,12 @@ function ConversationsPage() {
       <Head>
         <title>BigBisonChat – Conversations</title>
       </Head>
-      {windowSize.width >= 640 && (
+      {windowSize?.width && windowSize.width >= 640 && (
         <div className="flex w-full justify-between space-x-2">
           <div className="min-h-[calc(100vh-86px)] max-h-[calc(100vh)] overflow-y-scroll sm:max-w-xs space-y-2">
             <div className="mt-[86px]"></div>
             <ConversationList
-              data={conversationsData}
+              data={conversationsData as Conversation[]}
               error={conversationsError}
             />
             <div className="mb-[86px]"></div>
@@ -37,11 +44,11 @@ function ConversationsPage() {
           </section>
         </div>
       )}
-      {windowSize.width < 640 && (
+      {windowSize?.width && windowSize.width < 640 && (
         <div className="space-y-2 flex flex-col w-full justify-between min-h-[calc(100vh-86px)] max-h-[calc(100vh)] overflow-y-scroll">
           <div className="mt-[86px]"></div>
           <ConversationList
-            data={conversationsData}
+            data={conversationsData as Conversation[]}
             error={conversationsError}
           />
           <div className="mb-[86px]"></div>

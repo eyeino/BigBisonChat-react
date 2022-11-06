@@ -1,4 +1,4 @@
-import got, { Got } from "got";
+import got, { Got, Method } from "got";
 
 export const bigBisonBaseUrl =
   process.env.NODE_ENV === "production"
@@ -15,7 +15,15 @@ export class ServerSideBigBisonApiService {
     });
   }
 
-  async proxy({ path, body, method }) {
+  async proxy({
+    path,
+    body,
+    method,
+  }: {
+    path: string;
+    body: Record<string, any>;
+    method: Method;
+  }) {
     return await this.fetcher(path, { json: body, method }).json();
   }
 }

@@ -1,6 +1,6 @@
 import fecha from "fecha";
 
-export function dbTimeToHHMMOrDayNameOrDateString(dbTime) {
+export function dbTimeToHHMMOrDayNameOrDateString(dbTime: string) {
   const epochTime = Date.parse(dbTime);
   const dbDate = new Date(epochTime);
   const currentDate = new Date();

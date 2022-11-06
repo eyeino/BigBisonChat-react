@@ -2,7 +2,7 @@
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useWindowSize } from "../hooks/useWindowSize";
-import { ClientSideBigBisonApiServiceInstance } from "../../utils/api/client";
+import { ClientSideBigBisonApiService } from "../../utils/api/client";
 
 export function MessageInput({ recipient }) {
   const router = useRouter();
@@ -25,10 +25,9 @@ export function MessageInput({ recipient }) {
 
     setIsSending(true);
 
-    ClientSideBigBisonApiServiceInstance.postMessage(
-      otherUsername,
-      messageBody
-    ).then(() => {
+    const client = new ClientSideBigBisonApiService();
+
+    client.postMessage(otherUsername, messageBody).then(() => {
       setIsSending(false);
       setMessageBody("");
 

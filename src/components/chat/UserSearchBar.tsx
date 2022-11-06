@@ -1,7 +1,7 @@
 import { Combobox } from "@headlessui/react";
 import React from "react";
 import debounceFn from "debounce-fn";
-import { ClientSideBigBisonApiServiceInstance } from "../../utils/api/client";
+import { ClientSideBigBisonApiService } from "../../utils/api/client";
 
 export function UserSearchBar({ recipient, setRecipient }) {
   const [query, setQuery] = React.useState("");
@@ -15,7 +15,9 @@ export function UserSearchBar({ recipient, setRecipient }) {
 
       setQuery(query);
 
-      ClientSideBigBisonApiServiceInstance.searchUsers(query).then((res) => {
+      const client = new ClientSideBigBisonApiService();
+
+      client.searchUsers(query).then((res) => {
         if (!res || !Array.isArray(res)) {
           return;
         }

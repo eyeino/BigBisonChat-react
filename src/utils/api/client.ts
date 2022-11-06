@@ -1,20 +1,20 @@
 import ky from "ky";
 import { KyInstance } from "ky/distribution/types/ky";
 
-class ClientSideBigBisonApiService {
+export class ClientSideBigBisonApiService {
   fetcher: KyInstance;
 
   constructor() {
     this.fetcher = ky.extend({
-      prefixUrl: '/api/bigbison'
+      prefixUrl: "/api/bigbison",
     });
   }
 
   async getMessages(otherUsername: string) {
     try {
-      const res = await this.fetcher.get(
-        "conversations/" + otherUsername
-      ).json();
+      const res = await this.fetcher
+        .get("conversations/" + otherUsername)
+        .json();
       return res;
     } catch (err) {}
   }
@@ -27,25 +27,23 @@ class ClientSideBigBisonApiService {
   }
 
   async postMessage(otherUsername: string, messageBody) {
-    console.log({ otherUsername, messageBody })
+    console.log({ otherUsername, messageBody });
 
     try {
-      await this.fetcher.post("conversations/" + otherUsername, {
-        json: {
-          messageBody: messageBody,
-        }
-      }).json();
+      await this.fetcher
+        .post("conversations/" + otherUsername, {
+          json: {
+            messageBody: messageBody,
+          },
+        })
+        .json();
     } catch (err) {}
   }
 
   async searchUsers(query: string) {
     try {
-      const res = await this.fetcher.get(
-        "search/users/" + query,
-      ).json();
+      const res = await this.fetcher.get("search/users/" + query).json();
       return res;
     } catch (err) {}
   }
 }
-
-export const ClientSideBigBisonApiServiceInstance = new ClientSideBigBisonApiService();

@@ -1,4 +1,3 @@
-// @ts-check
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useWindowSize } from "../hooks/useWindowSize";
@@ -15,12 +14,16 @@ export function MessageInput({ recipient }) {
   const windowSize = useWindowSize();
   const isFaded = !focusedWithin && windowSize.width < 640;
 
-  function handleChange(event) {
+  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     let value = event.target.value;
     setMessageBody(value);
   }
 
-  function handleSubmit(event) {
+  function handleSubmit(
+    event:
+      | React.FormEvent<HTMLFormElement>
+      | React.MouseEvent<HTMLButtonElement>
+  ) {
     event.preventDefault();
 
     setIsSending(true);

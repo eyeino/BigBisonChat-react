@@ -4,8 +4,21 @@ import Link from "next/link";
 
 const messageBodyLimit = 70;
 
-export default function ConversationCell(props) {
-  const { username, avatarUrl, body, createdAt, selected } = props;
+interface Props {
+  username: string;
+  avatarUrl: string;
+  body: string;
+  createdAt: string;
+  selected: boolean;
+}
+
+export default function ConversationCell({
+  username,
+  avatarUrl,
+  body,
+  createdAt,
+  selected,
+}: Props) {
   const timestamp = dbTimeToHHMMOrDayNameOrDateString(createdAt);
 
   return (

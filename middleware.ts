@@ -1,6 +1,6 @@
 import { NextResponse, NextRequest } from "next/server";
 
-const getIsAuthenticated = async (req: NextRequest): Promise<boolean> => {
+const getIsLoggedIn = async (req: NextRequest): Promise<boolean> => {
   const url = req.nextUrl.origin + "/api/auth/me";
 
   const res = await fetch(url, {
@@ -12,13 +12,9 @@ const getIsAuthenticated = async (req: NextRequest): Promise<boolean> => {
 
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
-  const isLoggedIn = await getIsAuthenticated(req);
+  const isLoggedIn = await getIsLoggedIn(req);
 
-  if (!isLoggedIn) {
-    return;
-  }
-
-  if (pathname == "/" && isLoggedIn) {
+  if (isLoggedIn && pathname === "/") {
     return NextResponse.redirect(new URL("/conversations", req.url));
   }
 

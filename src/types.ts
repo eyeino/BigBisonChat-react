@@ -12,3 +12,8 @@ export interface Message {
   created_at: string;
   otherUsername: string;
 }
+
+export interface User {
+  user_id: string;
+  username: string;
+}

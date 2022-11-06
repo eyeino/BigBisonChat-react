@@ -1,6 +1,6 @@
 import ky from "ky";
 import { KyInstance } from "ky/distribution/types/ky";
-import { Message } from "../../types";
+import { Conversation, Message, User } from "../../types";
 
 export class ClientSideBigBisonApiService {
   fetcher: KyInstance;
@@ -14,19 +14,17 @@ export class ClientSideBigBisonApiService {
     });
   }
 
-  async getMessages(otherUsername: string) {
+  async getMessages(otherUsername: string): Promise<Message[]> {
     const res = await this.fetcher.get("conversations/" + otherUsername).json();
     return res as Message[];
   }
 
-  async getConversations() {
-    try {
-      const res = await this.fetcher.get("conversations").json();
-      return res;
-    } catch (err) {}
+  async getConversations(): Promise<Conversation[]> {
+    const res = await this.fetcher.get("conversations").json();
+    return res as Conversation[];
   }
 
-  async postMessage(otherUsername: string, messageBody: string) {
+  async postMessage(otherUsername: string, messageBody: string): Promise<void> {
     console.log({ otherUsername, messageBody });
 
     await this.fetcher.post("conversations/" + otherUsername, {
@@ -37,6 +35,7 @@ export class ClientSideBigBisonApiService {
   }
 
   async searchUsers(query: string) {
-    return await this.fetcher.get("search/users/" + query).json();
+    const res = await this.fetcher.get("search/users/" + query).json();
+    return res as User[];
   }
 }

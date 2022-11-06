@@ -1,5 +1,5 @@
 import { Combobox } from "@headlessui/react";
-import React, { SetStateAction } from "react";
+import React from "react";
 import debounceFn from "debounce-fn";
 import { ClientSideBigBisonApiService } from "../../utils/api/client";
 
@@ -15,21 +15,20 @@ export function UserSearchBar({
     { value: string; label: string }[]
   >([]);
 
-  const executeQuery = debounceFn(
-    (query) => {
-      if (!query || typeof query !== "string") {
+  const handleInputChange = debounceFn(
+    (inputValue: string) => {
+      if (!inputValue) {
+        setOptions([]);
+        setQuery("");
+        setRecipient("");
         return;
       }
 
-      setQuery(query);
+      setQuery(inputValue);
 
       const client = new ClientSideBigBisonApiService();
 
-      client.searchUsers(query).then((res: unknown) => {
-        if (!res || !Array.isArray(res)) {
-          return;
-        }
-
+      client.searchUsers(inputValue).then((res) => {
         setOptions(
           res.map((user) => ({
             value: user.user_id,
@@ -48,11 +47,9 @@ export function UserSearchBar({
     >
       <Combobox.Input
         className="w-full border shadow-sm p-2 rounded-lg"
-        onChange={(event) => executeQuery(event.target.value)}
+        onChange={(event) => handleInputChange(event.target.value)}
         placeholder="Search for a user"
-        displayValue={(recipient: { [k: string]: string }) =>
-          recipient?.label ?? query
-        }
+        displayValue={() => recipient ?? query}
       />
       <Combobox.Options className="absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
         {options.length === 0 && (

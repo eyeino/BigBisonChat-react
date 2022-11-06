@@ -14,7 +14,7 @@ export function MessageList({
   messagesData,
   messagesError,
 }: {
-  messagesData: Message[];
+  messagesData: Message[] | undefined;
   messagesError: any;
 }) {
   const router = useRouter();
@@ -39,7 +39,7 @@ export function MessageList({
           Loading
         </div>
       )}
-      {messagesError && <div>Error!</div>}
+      {messagesError && <div className="text-red-500">Error!</div>}
     </ol>
   );
 }

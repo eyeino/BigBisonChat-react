@@ -1,4 +1,3 @@
-import ky from "ky";
 import Head from "next/head";
 import React from "react";
 import useSWR from "swr";
@@ -6,8 +5,7 @@ import useSWR from "swr";
 import ConversationList from "../../src/components/conversations/Conversations"; // list of convos
 import { useWindowSize } from "../../src/components/hooks/useWindowSize";
 import { Bison } from "../../src/components/svg/Bison";
-
-const conversationsFetcher = ky.get("/api/bigbison/conversations").json;
+import { ClientSideBigBisonApiService } from "../../src/utils/api/client";
 
 interface Conversation {
   other_username: string;
@@ -16,12 +14,14 @@ interface Conversation {
   created_at: string;
 }
 
+const client = new ClientSideBigBisonApiService();
+
 function ConversationsPage() {
   const windowSize = useWindowSize();
 
   const { data: conversationsData, error: conversationsError } = useSWR(
-    `conversations/`,
-    conversationsFetcher
+    "conversations",
+    () => client.getConversations()
   );
 
   return (

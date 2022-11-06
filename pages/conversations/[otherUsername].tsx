@@ -6,8 +6,8 @@ import { MessageInput } from "../../src/components/chat/MessageInput"; // input 
 import { useWindowSize } from "../../src/components/hooks/useWindowSize";
 import { useRouter } from "next/router";
 import Head from "next/head";
-import ky from "ky";
 import useSWR from "swr";
+import { ClientSideBigBisonApiService } from "../../src/utils/api/client";
 
 interface Conversation {
   other_username: string;
@@ -16,10 +16,18 @@ interface Conversation {
   created_at: string;
 }
 
-const messagesFetcherBuilder = (otherUsername: string) =>
-  ky.get(`/api/bigbison/conversations/${otherUsername}`).json;
+interface Message {
+  message_id: string;
+  sender_username: string;
+  body: string;
+  created_at: string;
+  otherUsername: string;
+}
 
-const conversationsFetcher = ky.get("/api/bigbison/conversations").json;
+const client = new ClientSideBigBisonApiService();
+
+const messagesFetcherBuilder = (otherUsername: string) =>
+  client.getMessages(otherUsername);
 
 export default function OtherUsernameConversationPage() {
   const windowSize = useWindowSize();
@@ -29,21 +37,25 @@ export default function OtherUsernameConversationPage() {
 
   const bottomOfListElementRef = React.useRef<HTMLDivElement>(null);
 
-  const { data: messagesData, error: messagesError } = useSWR<any>(
-    `/conversations/${otherUsername}`,
-    messagesFetcherBuilder(
-      typeof otherUsername === "string"
-        ? otherUsername
-        : otherUsername?.[0] ?? ""
-    ),
+  const { data: messagesData, error: messagesError } = useSWR<
+    Message[],
+    any,
+    string
+  >(
+    typeof otherUsername === "string"
+      ? otherUsername
+      : typeof otherUsername === "string"
+      ? otherUsername
+      : otherUsername?.[0] ?? "",
+    messagesFetcherBuilder,
     {
       refreshInterval: 2000,
     }
   );
 
   const { data: conversationsData, error: conversationsError } = useSWR(
-    `conversations/`,
-    conversationsFetcher
+    "conversations",
+    () => client.getConversations()
   );
 
   React.useEffect(() => {

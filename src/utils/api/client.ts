@@ -1,6 +1,20 @@
 import ky from "ky";
 import { KyInstance } from "ky/distribution/types/ky";
 
+interface Conversation {
+  other_username: string;
+  body: string;
+  avatar_url: string;
+  created_at: string;
+}
+
+interface Message {
+  message_id: string;
+  sender_username: string;
+  body: string;
+  created_at: string;
+  otherUsername: string;
+}
 export class ClientSideBigBisonApiService {
   fetcher: KyInstance;
 
@@ -11,12 +25,8 @@ export class ClientSideBigBisonApiService {
   }
 
   async getMessages(otherUsername: string) {
-    try {
-      const res = await this.fetcher
-        .get("conversations/" + otherUsername)
-        .json();
-      return res;
-    } catch (err) {}
+    const res = await this.fetcher.get("conversations/" + otherUsername).json();
+    return res as Message[];
   }
 
   async getConversations() {

@@ -59,7 +59,7 @@ export default function OtherUsernameConversationPage() {
   );
 
   React.useEffect(() => {
-    bottomOfListElementRef.current?.scrollIntoView({ behavior: "smooth" });
+    bottomOfListElementRef.current?.scrollIntoView();
   }, [otherUsername, windowSize]);
 
   return (
